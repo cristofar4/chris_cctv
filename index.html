@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Sentra Security Systems | CCTV, Access Control &amp; Alarms</title>
-  <meta name="description" content="Sentra plans, installs and maintains CCTV, access control and alarm systems for homes, estates and businesses in Abuja.">
-  <meta name="theme-color" content="#060708">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z' fill='%23060708' stroke='%2345e3f0' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='15.5' r='3.4' fill='%2345e3f0'/%3E%3C/svg%3E">
+  <title>Sentra | City-scale video intelligence</title>
+  <meta name="description" content="Sentra builds street cameras and an AI video platform for cities: traffic, public spaces and critical infrastructure, seen clearly by day and by night.">
+  <meta name="theme-color" content="#050607">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z' fill='%23050607' stroke='%2345e3f0' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='15.5' r='3.4' fill='%2345e3f0'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+  <link rel="preload" as="image" href="assets/img/city-shibuya.jpg">
   <link rel="stylesheet" href="assets/css/main.css">
   <script>document.documentElement.classList.add('js', 'is-loading');</script>
 </head>
@@ -24,45 +24,28 @@
         <defs><clipPath id="loaderClip"><circle r="44"/></clipPath></defs>
         <circle r="48" class="loader__ring"/>
         <circle r="48" class="loader__ring loader__ring--prog" data-loader-ring pathLength="100"/>
-        <g clip-path="url(#loaderClip)">
-          <circle r="44" class="loader__back"/>
-          <circle r="9" class="loader__glint"/>
-          <g class="loader__blades" data-loader-blades></g>
-        </g>
+        <g clip-path="url(#loaderClip)"><circle r="44" class="loader__back"/><circle r="9" class="loader__glint"/><g class="loader__blades" data-loader-blades></g></g>
       </svg>
       <p class="loader__brand">Sentra</p>
     </div>
-    <div class="loader__meta mono">
-      <span data-loader-line>Initialising cameras</span>
-      <span data-loader-count>000</span>
-    </div>
+    <div class="loader__meta mono"><span data-loader-line>Connecting cameras</span><span data-loader-count>000</span></div>
   </div>
 
   <!-- ===================== SHUTTER ===================== -->
   <div class="shutter" aria-hidden="true">
-    <svg class="shutter__svg" xmlns="http://www.w3.org/2000/svg">
-      <g class="shutter__blades"><path/><path/><path/><path/><path/><path/></g>
-      <path class="shutter__edge"/>
-    </svg>
-    <div class="shutter__hud">
-      <span class="shutter__ch mono">CH 01</span>
-      <span class="shutter__name">Systems</span>
-      <span class="shutter__sub mono">Switching feed</span>
-    </div>
+    <svg class="shutter__svg" xmlns="http://www.w3.org/2000/svg"><g class="shutter__blades"><path/><path/><path/><path/><path/><path/></g><path class="shutter__edge"/></svg>
+    <div class="shutter__hud"><span class="shutter__ch mono">CH 01</span><span class="shutter__name">Platform</span><span class="shutter__sub mono">Switching feed</span></div>
   </div>
 
   <!-- ===================== NAV: RAILCAM ===================== -->
   <header class="nav" data-nav>
     <div class="nav__shell">
-      <a class="brand" href="#top" data-cut data-ch="00" data-name="Live view" aria-label="Sentra Security Systems, back to top">
+      <a class="brand" href="#top" data-cut data-ch="00" data-name="Live view" aria-label="Sentra, back to top">
         <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
           <path class="brand__shield" d="M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z"/>
-          <g class="brand__iris">
-            <circle cx="16" cy="15.5" r="5.2"/>
-            <path d="M16 10.3v3.1M20.5 13l-2.7 1.5M20.5 18l-2.7-1.5M16 20.7v-3.1M11.5 18l2.7-1.5M11.5 13l2.7 1.5"/>
-          </g>
+          <g class="brand__iris"><circle cx="16" cy="15.5" r="5.2"/><path d="M16 10.3v3.1M20.5 13l-2.7 1.5M20.5 18l-2.7-1.5M16 20.7v-3.1M11.5 18l2.7-1.5M11.5 13l2.7 1.5"/></g>
         </svg>
-        <span class="brand__type"><span class="brand__name">Sentra</span><span class="brand__sub">Security Systems</span></span>
+        <span class="brand__type"><span class="brand__name">Sentra</span><span class="brand__sub">City video intelligence</span></span>
       </a>
 
       <span class="nav__divider" aria-hidden="true"></span>
@@ -72,10 +55,10 @@
         <div class="railcam__beam" aria-hidden="true"><span></span></div>
         <div class="railcam__pool" aria-hidden="true"></div>
         <ul class="railcam__list" data-railcam-list>
-          <li><a class="railcam__link" href="#systems" data-cut data-ch="01" data-name="Systems" data-feed-img="assets/img/cctv-wall.jpg" data-feed-note="CCTV, access control, alarms and care.">Systems</a></li>
-          <li><a class="railcam__link" href="#work" data-cut data-ch="02" data-name="Properties" data-feed-img="assets/img/work-residence.jpg" data-feed-note="Homes, estates and businesses.">Properties</a></li>
-          <li><a class="railcam__link" href="#process" data-cut data-ch="03" data-name="Process" data-feed-img="assets/img/survey-plans.jpg" data-feed-note="Survey, design, install, care.">Process</a></li>
-          <li><a class="railcam__link" href="#contact" data-cut data-ch="04" data-name="Contact" data-feed-img="assets/img/dome-lens.jpg" data-feed-note="Book a site survey in Abuja.">Contact</a></li>
+          <li><a class="railcam__link" href="#platform" data-cut data-ch="01" data-name="Platform" data-feed-img="assets/img/city-crossing.jpg" data-feed-note="Every camera, alert and map in one view.">Platform</a></li>
+          <li><a class="railcam__link" href="#cameras" data-cut data-ch="02" data-name="Cameras" data-feed-img="assets/img/ptz-pole.jpg" data-feed-note="PTZ, panoramic, ANPR and thermal.">Cameras</a></li>
+          <li><a class="railcam__link" href="#solutions" data-cut data-ch="03" data-name="Solutions" data-feed-img="assets/img/city-trails.jpg" data-feed-note="Roads, public spaces, night districts, rail.">Solutions</a></li>
+          <li><a class="railcam__link" href="#contact" data-cut data-ch="04" data-name="Contact" data-feed-img="assets/img/earth-night.jpg" data-feed-note="Book a briefing for your city.">Contact</a></li>
         </ul>
         <div class="railcam__lit" aria-hidden="true" data-railcam-lit></div>
         <div class="railcam__lock" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -110,10 +93,7 @@
       <span class="nav__divider" aria-hidden="true"></span>
 
       <div class="nav__actions">
-        <a class="btn btn--ivory btn--sm nav__cta" href="#contact" data-magnetic>
-          <span>Book a survey</span>
-          <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-        </a>
+        <a class="btn btn--ivory btn--sm nav__cta" href="#contact" data-magnetic><span>Book a briefing</span><svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
         <button class="iris" type="button" aria-expanded="false" aria-controls="menu" data-iris>
           <svg class="iris__svg" viewBox="-24 -24 48 48" aria-hidden="true">
             <defs><clipPath id="irisClip"><circle r="19"/></clipPath></defs>
@@ -126,28 +106,19 @@
       </div>
 
       <div class="dvr" data-dvr aria-hidden="true">
-        <div class="dvr__track">
-          <span class="dvr__fill"></span>
-          <span class="dvr__marks" data-dvr-marks></span>
-          <span class="dvr__head"><span class="dvr__time mono" data-dvr-time>00:00:00</span></span>
-        </div>
+        <div class="dvr__track"><span class="dvr__fill"></span><span class="dvr__marks" data-dvr-marks></span><span class="dvr__head"><span class="dvr__time mono" data-dvr-time>00:00:00</span></span></div>
       </div>
     </div>
 
     <div class="feed" aria-hidden="true" data-feed>
       <div class="feed__screen">
-        <img class="feed__img" alt="" src="assets/img/cctv-wall.jpg" decoding="async">
+        <img class="feed__img" alt="" src="assets/img/city-crossing.jpg" decoding="async">
         <canvas class="feed__static" width="96" height="60"></canvas>
         <span class="feed__scan"></span>
-        <span class="feed__ch mono">CH-01</span>
-        <span class="feed__rec mono">REC</span>
-        <span class="feed__tc mono" data-feed-tc>00:00:00:00</span>
+        <span class="feed__ch mono">CH-01</span><span class="feed__rec mono">REC</span><span class="feed__tc mono" data-feed-tc>00:00:00:00</span>
         <span class="feed__corners"><i></i><i></i><i></i><i></i></span>
       </div>
-      <div class="feed__meta">
-        <span class="feed__title" data-feed-title>Systems</span>
-        <span class="feed__note" data-feed-note>CCTV, access control, alarms and care.</span>
-      </div>
+      <div class="feed__meta"><span class="feed__title" data-feed-title>Platform</span><span class="feed__note" data-feed-note>Every camera, alert and map in one view.</span></div>
     </div>
   </header>
 
@@ -156,283 +127,248 @@
     <nav class="menu__inner" aria-label="Mobile">
       <p class="menu__status mono" aria-hidden="true"><span class="rec-dot"></span> Multi-view · 4 channels</p>
       <ol class="menu__list">
-        <li><a href="#systems" data-cut data-ch="01" data-name="Systems"><span class="menu__ch mono">CH-01</span><span class="menu__label">Systems</span></a></li>
-        <li><a href="#work" data-cut data-ch="02" data-name="Properties"><span class="menu__ch mono">CH-02</span><span class="menu__label">Properties</span></a></li>
-        <li><a href="#process" data-cut data-ch="03" data-name="Process"><span class="menu__ch mono">CH-03</span><span class="menu__label">Process</span></a></li>
+        <li><a href="#platform" data-cut data-ch="01" data-name="Platform"><span class="menu__ch mono">CH-01</span><span class="menu__label">Platform</span></a></li>
+        <li><a href="#cameras" data-cut data-ch="02" data-name="Cameras"><span class="menu__ch mono">CH-02</span><span class="menu__label">Cameras</span></a></li>
+        <li><a href="#solutions" data-cut data-ch="03" data-name="Solutions"><span class="menu__ch mono">CH-03</span><span class="menu__label">Solutions</span></a></li>
         <li><a href="#contact" data-cut data-ch="04" data-name="Contact"><span class="menu__ch mono">CH-04</span><span class="menu__label">Contact</span></a></li>
       </ol>
-      <a class="btn btn--ivory menu__cta" href="#contact" data-cut data-ch="04" data-name="Site survey">
-        <span>Book a site survey</span>
-        <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-      </a>
+      <a class="btn btn--ivory menu__cta" href="#contact" data-cut data-ch="04" data-name="Briefing"><span>Book a briefing</span><svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
       <p class="menu__clock mono" aria-hidden="true" data-clock>--:--:--</p>
     </nav>
   </div>
 
   <main id="main">
-    <!-- ===================== HERO: LIVE 3D FEED ===================== -->
+    <!-- ===================== HERO: ANALYSIS LENS ===================== -->
     <section class="hero" id="top" data-hero aria-labelledby="hero-title">
-      <div class="hero__stage">
-        <canvas class="hero__canvas" data-scene aria-hidden="true"></canvas>
-        <img class="hero__fallback" src="assets/img/hero-home.jpg" alt="" aria-hidden="true">
-        <svg class="hero__overlay" data-overlay aria-hidden="true"></svg>
-        <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__stage" data-lens-stage>
+        <img class="hero__photo" src="assets/img/city-shibuya.jpg" alt="Shibuya Crossing in Tokyo at night: taxis, a bus and crowds under neon signs" data-lens-photo fetchpriority="high" decoding="async">
+        <div class="hero__shade" aria-hidden="true"></div>
+        <canvas class="hero__lens" data-lens-canvas aria-hidden="true"></canvas>
       </div>
 
       <div class="hero__hud" aria-hidden="true">
-        <div class="hud-tl mono"><span class="rec-dot"></span><span>REC</span><i></i><span>CAM 04 · FRONT ENTRANCE</span><i></i><span class="hud-track" data-hud-track>AUTO-TRACK</span></div>
-        <div class="hud-tr mono"><span data-clock-full>--</span><span data-hud-ptz>PAN 000.0° · TILT 00.0° · 1.0×</span><span data-hud-mode>NIGHT COLOUR</span></div>
         <span class="hud-c hud-c--tl"></span><span class="hud-c hud-c--tr"></span><span class="hud-c hud-c--bl"></span><span class="hud-c hud-c--br"></span>
+        <div class="hud-tr mono">
+          <span><span class="rec-dot"></span>CAM 0112 · Shibuya Crossing, Tokyo</span>
+          <span>35.6595° N · 139.7005° E</span>
+          <span data-tokyo-time>--:--:-- JST</span>
+        </div>
       </div>
 
       <div class="hero__content">
-        <p class="hero__eyebrow mono"><span class="pulse"></span>Simulated demo · AI camera tracking</p>
-        <h1 class="hero__title" id="hero-title">
-          <span class="line"><span>Clarity at</span></span>
-          <span class="line"><span><em>every</em> entrance.</span></span>
-        </h1>
-        <p class="hero__lede">CCTV, access control and alarm systems for homes, estates and businesses in Abuja. Planned around your property, installed with care, and looked after once they are in.</p>
+        <p class="hero__eyebrow mono"><span class="pulse"></span>City-scale video intelligence</p>
+        <h1 class="hero__title" id="hero-title"><span class="line"><span>The city,</span></span><span class="line"><span><em>in focus.</em></span></span></h1>
+        <p class="hero__lede">Street cameras and an AI video platform built for cities. Traffic, public spaces and critical infrastructure, seen clearly by day and by night.</p>
         <div class="hero__ctas">
-          <a class="btn btn--ivory btn--lg" href="#contact" data-magnetic>
-            <span>Book a site survey</span>
-            <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-          </a>
-          <a class="btn btn--ghost btn--lg" href="#systems">Explore systems</a>
+          <a class="btn btn--ivory btn--lg" href="#contact" data-magnetic><span>Book a city briefing</span><svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+          <a class="btn btn--ghost btn--lg" href="#platform">Explore the platform</a>
         </div>
-      </div>
-
-      <aside class="console" aria-label="Live event log, demonstration">
-        <header class="console__head">
-          <span class="mono"><span class="rec-dot"></span>Live events</span>
-          <span class="console__status mono" data-console-status>All clear</span>
-        </header>
-        <div class="console__map">
-          <svg class="minimap" data-minimap viewBox="0 0 280 200" aria-hidden="true"></svg>
-        </div>
-        <ol class="console__log" data-log></ol>
-        <footer class="console__foot mono"><span>4 cams</span><span>2 doors</span><span>Armed · home</span></footer>
-      </aside>
-
-      <div class="notify" data-notify role="status" aria-live="polite">
-        <span class="notify__icon" aria-hidden="true">
-          <svg viewBox="0 0 32 32"><path d="M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z"/><circle cx="16" cy="15.5" r="3.4"/></svg>
-        </span>
-        <span class="notify__body">
-          <span class="notify__app mono">Sentra · now</span>
-          <span class="notify__title">Someone is at your front door</span>
-          <span class="notify__text" data-notify-text>Courier detected. A package was left on the porch.</span>
-        </span>
       </div>
 
       <div class="hero__bar">
-        <div class="modes" role="group" aria-label="Camera sensor mode" data-modes>
+        <div class="modes" role="group" aria-label="Lens sensor mode" data-modes>
           <span class="modes__pill" aria-hidden="true"></span>
-          <button class="modes__btn" type="button" aria-pressed="true" data-mode="0"><span class="modes__dot"></span>Night colour</button>
-          <button class="modes__btn" type="button" aria-pressed="false" data-mode="1"><span class="modes__dot"></span>Infrared</button>
-          <button class="modes__btn" type="button" aria-pressed="false" data-mode="2"><span class="modes__dot"></span>Thermal</button>
+          <button class="modes__btn" type="button" aria-pressed="true" data-mode="0"><span class="modes__dot"></span>AI vision</button>
+          <button class="modes__btn" type="button" aria-pressed="false" data-mode="1"><span class="modes__dot"></span>Thermal</button>
+          <button class="modes__btn" type="button" aria-pressed="false" data-mode="2"><span class="modes__dot"></span>Night IR</button>
         </div>
-        <div class="hero__tools">
-          <button class="pause mono" type="button" aria-pressed="false" data-pause><span class="pause__icon" aria-hidden="true"></span><span data-pause-label>Pause feed</span></button>
-          <a class="scroll-cue mono" href="#philosophy"><span>Scroll</span><i></i></a>
+        <div class="hero__readout mono" aria-live="polite">
+          <span><b data-lens-veh>0</b> vehicles</span><span><b data-lens-ppl>0</b> people</span><span><b data-lens-plates>0</b> plates</span>
+          <small>Still-frame analysis · demo</small>
         </div>
       </div>
     </section>
 
-    <!-- ===================== PHILOSOPHY: VIEWFINDER ===================== -->
-    <section class="ethos" id="philosophy" aria-labelledby="ethos-title" data-ethos>
-      <div class="container">
-        <header class="ethos__head">
-          <p class="kicker mono">(01) <i></i> Philosophy</p>
-          <h2 class="h2" id="ethos-title" data-focus>Three rules behind <em>every system.</em></h2>
-        </header>
+    <!-- ===================== CAPABILITY TICKER ===================== -->
+    <div class="ticker" aria-label="Capabilities">
+      <div class="marquee" data-marquee data-speed="0.6">
+        <div class="marquee__track">
+          <span>Plate recognition</span><i></i><span>Wrong-way alerts</span><i></i><span>Crowd density</span><i></i><span>Stopped vehicles</span><i></i><span>Natural-language search</span><i></i><span>Thermal detection</span><i></i><span>PTZ auto-tracking</span><i></i><span>Edge AI</span><i></i>
+        </div>
+      </div>
+    </div>
 
-        <div class="ethos__grid">
-          <div class="ethos__stage">
-            <div class="viewfinder" data-viewfinder aria-hidden="true">
-              <div class="viewfinder__screen">
-                <img class="viewfinder__img is-active" src="assets/img/work-residence.jpg" alt="" loading="lazy">
-                <img class="viewfinder__img" src="assets/img/cctv-wall.jpg" alt="" loading="lazy">
-                <img class="viewfinder__img" src="assets/img/access-control.jpg" alt="" loading="lazy">
-                <span class="viewfinder__scan"></span>
-              </div>
-              <span class="vf-c vf-c--tl"></span><span class="vf-c vf-c--tr"></span><span class="vf-c vf-c--bl"></span><span class="vf-c vf-c--br"></span>
-              <span class="vf-reticle" data-vf-reticle><i></i><i></i><i></i><i></i></span>
-              <div class="vf-top mono"><span><span class="rec-dot"></span>Preset <b data-vf-preset>01</b></span><span data-vf-name>Perimeter</span></div>
-              <div class="vf-bottom mono"><span>AF <b data-vf-af>Lock</b></span><span data-vf-dist>Focus 06.0 m</span></div>
-              <div class="vf-scale" aria-hidden="true"><span class="vf-scale__mark" data-vf-mark></span></div>
+    <!-- ===================== PLATFORM: COMMAND ===================== -->
+    <section class="platform" id="platform" aria-labelledby="platform-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="kicker mono">(01) <i></i> Platform</p>
+            <h2 class="h2" id="platform-title" data-focus tabindex="-1">One platform. <em>Every street.</em></h2>
+          </div>
+          <p class="section-head__text">Sentra Command brings every camera, alert and map into one view, so operators see what matters first. Try it: pick an alert, switch layouts, or search the cameras.</p>
+        </div>
+
+        <div class="command" data-command>
+          <header class="command__bar">
+            <span class="command__brand mono"><span class="rec-dot"></span>Sentra Command</span>
+            <label class="command__search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+              <span class="sr-only">Search all cameras</span>
+              <input type="search" placeholder="Search all cameras: try “red coat”, “bus” or “stopped”" data-cmd-search autocomplete="off">
+            </label>
+            <div class="command__layouts" role="group" aria-label="Video wall layout">
+              <button type="button" data-layout="1" aria-pressed="false" title="Single view"><i></i></button>
+              <button type="button" data-layout="4" aria-pressed="true" title="Four views"><i></i><i></i><i></i><i></i></button>
+              <button type="button" data-layout="9" aria-pressed="false" title="Nine views"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></button>
             </div>
+          </header>
+
+          <div class="command__body">
+            <div class="wall" data-wall data-layout="4" aria-live="polite"></div>
+
+            <aside class="command__side">
+              <div class="cmdmap" aria-hidden="true">
+                <svg viewBox="0 0 300 180" data-cmd-map></svg>
+              </div>
+              <div class="alerts">
+                <p class="alerts__head mono"><span>Alerts</span><span data-cmd-count>0</span></p>
+                <ol class="alerts__list" data-cmd-alerts></ol>
+              </div>
+            </aside>
           </div>
 
-          <ol class="ethos__rules">
-            <li class="rule is-active" data-rule data-preset="Perimeter" data-dist="6.0">
-              <span class="rule__num mono">Rule 01</span>
-              <h3 class="rule__title">Prevent, <em>don’t just record.</em></h3>
-              <p class="rule__text">A camera that only records tells you what went wrong afterwards. We plan detection zones, lighting and alerts together, so the system notices trouble while it is happening.</p>
-            </li>
-            <li class="rule" data-rule data-preset="Coverage" data-dist="14.5">
-              <span class="rule__num mono">Rule 02</span>
-              <h3 class="rule__title">Every angle <em>on purpose.</em></h3>
-              <p class="rule__text">Each camera, sensor and door reader is placed after we have walked your property. No blind spots left by accident, and no cameras fitted just for show.</p>
-            </li>
-            <li class="rule" data-rule data-preset="Remote" data-dist="0.4">
-              <span class="rule__num mono">Rule 03</span>
-              <h3 class="rule__title">Yours, <em>wherever you are.</em></h3>
-              <p class="rule__text">Live view, alerts and door control on your phone, and the same team on hand to keep everything working long after the installation.</p>
-            </li>
-          </ol>
+          <div class="command__detail" data-cmd-detail>
+            <div class="command__detail-main">
+              <span class="command__prio mono" data-cmd-prio>High</span>
+              <div><p class="command__ev" data-cmd-title>Event</p><p class="command__meta mono" data-cmd-meta>CAM · place · time</p></div>
+            </div>
+            <div class="command__actions">
+              <button class="chipbtn" type="button" data-cmd-action="ack">Acknowledge</button>
+              <button class="chipbtn" type="button" data-cmd-action="clip">Share clip</button>
+              <button class="chipbtn chipbtn--solid" type="button" data-cmd-action="dispatch">Dispatch</button>
+            </div>
+          </div>
+          <p class="command__toast mono" data-cmd-toast role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="pillars">
+          <div class="pillar" data-reveal><span class="pillar__num mono">01</span><h3>Alerts, ranked</h3><p>Wrong-way drivers before congestion, congestion before routine. Operators see the most urgent event first.</p></div>
+          <div class="pillar" data-reveal><span class="pillar__num mono">02</span><h3>Search in plain words</h3><p>Describe what you are looking for, from “red coat” to “stopped vehicle”, and every matching camera comes forward.</p></div>
+          <div class="pillar" data-reveal><span class="pillar__num mono">03</span><h3>Evidence in one click</h3><p>Every alert carries its clip, location and timeline, ready to share with police, traffic control or the courts.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== SPECS ===================== -->
-    <section class="specs" aria-label="At a glance">
-      <div class="container specs__grid">
-        <div class="spec" data-reveal><span class="spec__num"><span data-count="4">4</span></span><span class="spec__label">Core services: CCTV, access control, alarms and maintenance</span></div>
-        <div class="spec" data-reveal><span class="spec__num"><span data-count="3">3</span></span><span class="spec__label">Property types: homes, estates and businesses</span></div>
-        <div class="spec" data-reveal><span class="spec__num"><span data-count="24">24</span>/7</span><span class="spec__label">Recording, with live view on your phone</span></div>
-        <div class="spec" data-reveal><span class="spec__num"><span data-count="1">1</span></span><span class="spec__label">Team, from the first survey to ongoing support</span></div>
-      </div>
-    </section>
-
-    <!-- ===================== SYSTEMS (horizontal) ===================== -->
-    <section class="systems" id="systems" data-hscroll aria-labelledby="systems-title">
+    <!-- ===================== CAMERAS (pinned horizontal) ===================== -->
+    <section class="systems" id="cameras" data-hscroll aria-labelledby="cameras-title">
       <div class="systems__sticky">
         <header class="systems__head">
           <div>
-            <p class="kicker mono">(02) <i></i> Systems</p>
-            <h2 class="h2" id="systems-title" data-focus tabindex="-1">The right pieces. <em>A complete plan.</em></h2>
+            <p class="kicker mono">(02) <i></i> Cameras</p>
+            <h2 class="h2" id="cameras-title" data-focus tabindex="-1">Hardware for the <em>hardest street.</em></h2>
           </div>
-          <div class="systems__progress mono" aria-hidden="true">
-            <span data-hs-current>01</span><span class="systems__bar"><span data-hs-bar></span></span><span>04</span>
-          </div>
+          <div class="systems__progress mono" aria-hidden="true"><span data-hs-current>01</span><span class="systems__bar"><span data-hs-bar></span></span><span>04</span></div>
         </header>
-
         <div class="systems__viewport">
           <div class="systems__track" data-hs-track>
-            <!-- 01 CCTV -->
+
+            <!-- PTZ -->
             <article class="sys-card">
               <div class="sys-card__content">
                 <span class="sys-card__num" aria-hidden="true">01</span>
-                <h3 class="sys-card__title">CCTV &amp; AI video</h3>
-                <p class="sys-card__text">Cameras placed by line of sight, not guesswork. Sharp detail by day, colour at night, and smart detection that tells a person or a car from a passing shadow.</p>
-                <ul class="sys-card__list">
-                  <li>Up to 4K, with colour night vision</li><li>Person and vehicle detection</li><li>Recording you control</li><li>Live view on your phone</li>
-                </ul>
-                <a class="link-arrow" href="#contact">Plan my cameras <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+                <p class="sys-card__type mono">PTZ dome</p>
+                <h3 class="sys-card__title">Vanta PTZ</h3>
+                <p class="sys-card__text">One camera that covers a whole junction: pans the full circle, zooms in on a plate a block away, and follows what moves.</p>
+                <dl class="specs-list">
+                  <div><dt>Optical zoom</dt><dd>40×</dd></div><div><dt>Pan</dt><dd>360° endless</dd></div><div><dt>Resolution</dt><dd>4K</dd></div><div><dt>Tracking</dt><dd>Auto</dd></div>
+                </dl>
+                <p class="sys-card__try mono">Drag to pan · scroll or use the slider to zoom</p>
               </div>
               <div class="sys-card__visual">
-                <div class="nvr" aria-hidden="true">
-                  <div class="nvr__tile"><img src="assets/img/hero-home.jpg" alt="" loading="lazy"><span class="nvr__lbl mono">CAM 01 · GARDEN</span><span class="nvr__box nvr__box--a"><b class="mono">PERSON 0.96</b></span></div>
-                  <div class="nvr__tile is-alert"><img src="assets/img/work-residence.jpg" alt="" loading="lazy"><span class="nvr__lbl mono">CAM 02 · DRIVEWAY</span><span class="nvr__box nvr__box--b"><b class="mono">VEHICLE 0.98</b></span></div>
-                  <div class="nvr__tile"><img src="assets/img/hero-estate.jpg" alt="" loading="lazy"><span class="nvr__lbl mono">CAM 03 · POOL</span></div>
-                  <div class="nvr__tile"><img src="assets/img/hero-business.jpg" alt="" loading="lazy"><span class="nvr__lbl mono">CAM 04 · TOWER</span><span class="nvr__box nvr__box--c"><b class="mono">PERSON 0.91</b></span></div>
-                  <div class="nvr__bar mono"><span><span class="rec-dot"></span>Example view · 4 / 4</span><span data-clock-full>--</span></div>
+                <div class="ptz" data-ptz data-cursor="Drag" data-lenis-prevent>
+                  <img class="ptz__img" src="assets/img/city-interchange.jpg" alt="Aerial view of a city motorway interchange" draggable="false" loading="lazy">
+                  <span class="ptz__cross" aria-hidden="true"></span>
+                  <div class="ptz__hud mono" aria-hidden="true"><span><span class="rec-dot"></span>PTZ · CAM 0731</span><span data-ptz-read>PAN 000.0° · TILT −45.0° · 1.0×</span></div>
+                  <div class="ptz__zoom">
+                    <label class="sr-only" for="ptz-zoom">Zoom</label>
+                    <input id="ptz-zoom" type="range" min="1" max="40" step="0.1" value="1" data-ptz-zoom>
+                  </div>
+                  <div class="ptz__presets" role="group" aria-label="PTZ presets">
+                    <button type="button" data-ptz-preset="0">Preset 1</button><button type="button" data-ptz-preset="1">Preset 2</button><button type="button" data-ptz-preset="2">Preset 3</button>
+                  </div>
                 </div>
               </div>
             </article>
 
-            <!-- 02 ACCESS -->
+            <!-- PANORAMIC -->
             <article class="sys-card">
               <div class="sys-card__content">
                 <span class="sys-card__num" aria-hidden="true">02</span>
-                <h3 class="sys-card__title">Access control</h3>
-                <p class="sys-card__text">Doors, gates and barriers that know who is allowed in, and when. Fingerprint, card, PIN or phone, with every entry on record.</p>
-                <ul class="sys-card__list">
-                  <li>Fingerprint, card, PIN or phone</li><li>Time-based permissions</li><li>Video intercom</li><li>Full entry log</li>
-                </ul>
-                <a class="link-arrow" href="#contact">Secure my doors <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+                <p class="sys-card__type mono">Multi-sensor panoramic</p>
+                <h3 class="sys-card__title">Aperture 180</h3>
+                <p class="sys-card__text">Four sensors stitched into one seamless 180° view, so a single pole sees an entire plaza or skyline with no gaps between cameras.</p>
+                <dl class="specs-list">
+                  <div><dt>Field of view</dt><dd>180°</dd></div><div><dt>Sensors</dt><dd>4 × 4K</dd></div><div><dt>Stitching</dt><dd>In-camera</dd></div><div><dt>Low light</dt><dd>Colour</dd></div>
+                </dl>
+                <p class="sys-card__try mono">Drag the panorama</p>
               </div>
-              <div class="sys-card__visual sys-card__visual--photo">
-                <img class="sys-card__photo" src="assets/img/access-control.jpg" alt="" loading="lazy">
-                <div class="access" data-access aria-hidden="true">
-                  <svg class="access__print" viewBox="0 0 120 120">
-                    <g class="access__arcs">
-                      <path d="M60 18c-20 0-36 15-37 35"/><path d="M60 28c-15 0-27 12-27 27v8"/><path d="M60 38c-9 0-17 8-17 17v14c0 8-2 15-6 21"/>
-                      <path d="M60 48c-4 0-7 3-7 7v16c0 11-3 20-9 28"/><path d="M60 58v18c0 12-3 22-8 30"/><path d="M67 55c0-4-3-7-7-7"/>
-                      <path d="M70 70V55c0-6-4-10-10-10"/><path d="M78 76V55c0-10-8-17-18-17"/><path d="M86 70V55c0-14-12-27-26-27"/><path d="M95 60v-5c0-19-16-37-35-37"/>
-                      <path d="M70 80c0 10-2 19-6 26"/><path d="M78 88c-1 7-3 13-6 18"/>
-                    </g>
-                    <rect class="access__scan" x="14" y="0" width="92" height="3" rx="1.5"/>
-                  </svg>
-                  <p class="access__state mono" data-access-state>Place finger</p>
-                  <p class="access__who" data-access-who>Front door</p>
-                  <div class="access__log mono"><span>08:14 Resident 02 ✓</span><span>07:52 Cleaner · card ✓</span><span>02:31 Unknown · denied ✕</span></div>
+              <div class="sys-card__visual">
+                <div class="pano" data-pano data-cursor="Drag">
+                  <div class="pano__strip" data-pano-strip>
+                    <img src="assets/img/city-lights.jpg" alt="City skyline at night seen as one wide panorama" draggable="false" loading="lazy">
+                    <span class="pano__seam" style="left:25%"><b class="mono">S1 · S2</b></span>
+                    <span class="pano__seam" style="left:50%"><b class="mono">S2 · S3</b></span>
+                    <span class="pano__seam" style="left:75%"><b class="mono">S3 · S4</b></span>
+                  </div>
+                  <div class="pano__hud mono" aria-hidden="true"><span><span class="rec-dot"></span>PANO · CAM 0204</span><span data-pano-read>Bearing 000°</span></div>
+                  <div class="pano__mini" aria-hidden="true"><span data-pano-window></span></div>
                 </div>
               </div>
             </article>
 
-            <!-- 03 ALARMS -->
+            <!-- ANPR -->
             <article class="sys-card">
               <div class="sys-card__content">
                 <span class="sys-card__num" aria-hidden="true">03</span>
-                <h3 class="sys-card__title">Alarm systems</h3>
-                <p class="sys-card__text">Detection that can tell a cat from a break-in. Door, window and motion sensors, checked against your cameras, with alerts straight to your phone.</p>
-                <ul class="sys-card__list">
-                  <li>Door, window &amp; motion sensors</li><li>Pet-tolerant detection</li><li>Sirens &amp; phone alerts</li><li>Panic buttons</li>
-                </ul>
-                <a class="link-arrow" href="#contact">Arm my property <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+                <p class="sys-card__type mono">Plate recognition</p>
+                <h3 class="sys-card__title">Lumen ANPR</h3>
+                <p class="sys-card__text">Reads number plates at speed and in the dark, then checks them against your watchlists the moment the car passes.</p>
+                <dl class="specs-list">
+                  <div><dt>Lanes</dt><dd>Up to 4</dd></div><div><dt>Illumination</dt><dd>850 nm IR</dd></div><div><dt>Matching</dt><dd>Live lists</dd></div><div><dt>Processing</dt><dd>On camera</dd></div>
+                </dl>
+                <button class="link-arrow" type="button" data-anpr-run>Read the plate again <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></button>
               </div>
               <div class="sys-card__visual">
-                <div class="plan" data-plan aria-hidden="true">
-                  <svg class="plan__svg" viewBox="0 0 400 300">
-                    <g class="plan__walls">
-                      <rect x="20" y="20" width="360" height="260" rx="2"/>
-                      <path d="M20 150h120M140 20v90M140 150v130M240 20v110M240 170v110M240 170h140M140 150h40M220 150h20"/>
-                    </g>
-                    <g class="plan__rooms">
-                      <rect data-room="0" x="22" y="22" width="116" height="126"/>
-                      <rect data-room="1" x="142" y="22" width="96" height="126"/>
-                      <rect data-room="2" x="242" y="22" width="136" height="146"/>
-                      <rect data-room="3" x="22" y="152" width="116" height="126"/>
-                      <rect data-room="4" x="242" y="172" width="136" height="106"/>
-                    </g>
-                    <g class="plan__labels mono">
-                      <text x="34" y="44">BEDROOM</text><text x="154" y="44">HALL</text><text x="254" y="44">LIVING</text><text x="34" y="174">KITCHEN</text><text x="254" y="194">GARAGE</text>
-                    </g>
-                    <g class="plan__cones">
-                      <path d="M372 28 L300 70 L330 120Z"/><path d="M28 272 L90 220 L60 190Z"/><path d="M372 272 L320 200 L290 240Z"/>
-                    </g>
-                    <g class="plan__sensors">
-                      <circle data-sensor="0" cx="80" cy="85" r="5"/><circle data-sensor="1" cx="190" cy="130" r="5"/><circle data-sensor="2" cx="310" cy="95" r="5"/>
-                      <circle data-sensor="3" cx="80" cy="215" r="5"/><circle data-sensor="4" cx="310" cy="225" r="5"/><circle cx="190" cy="278" r="5"/>
-                    </g>
-                    <circle class="plan__ripple" data-ripple cx="310" cy="95" r="6"/>
-                  </svg>
-                  <div class="plan__status">
-                    <span class="plan__badge mono" data-plan-badge>Armed · away</span>
-                    <span class="plan__msg" data-plan-msg>All sensors healthy</span>
+                <div class="anpr" data-anpr>
+                  <img class="anpr__img" src="assets/img/car-night.jpg" alt="A car with its headlights on, on a dark forest road" loading="lazy">
+                  <span class="anpr__beam" aria-hidden="true"></span>
+                  <span class="anpr__box" aria-hidden="true"><b class="mono">VEHICLE 0.98</b></span>
+                  <div class="anpr__card" aria-live="polite">
+                    <p class="anpr__label mono">Plate read · illustrative</p>
+                    <p class="anpr__plate mono" data-anpr-plate>SNT·4821</p>
+                    <dl class="anpr__rows mono">
+                      <div><dt>Confidence</dt><dd data-anpr-conf>0.98</dd></div>
+                      <div><dt>Vehicle</dt><dd>SUV · silver</dd></div>
+                      <div><dt>Direction</dt><dd>Approaching</dd></div>
+                      <div><dt>Watchlist</dt><dd class="ok">Clear ✓</dd></div>
+                    </dl>
                   </div>
                 </div>
               </div>
             </article>
 
-            <!-- 04 CARE -->
+            <!-- THERMAL -->
             <article class="sys-card">
               <div class="sys-card__content">
                 <span class="sys-card__num" aria-hidden="true">04</span>
-                <h3 class="sys-card__title">Care &amp; maintenance</h3>
-                <p class="sys-card__text">Systems stay sharp because we keep them that way. Servicing, repairs, firmware updates and lens cleaning, so everything keeps recording when it matters.</p>
-                <ul class="sys-card__list">
-                  <li>Scheduled servicing</li><li>Repairs &amp; call-outs</li><li>Firmware &amp; app updates</li><li>Upgrades when you need them</li>
-                </ul>
-                <a class="link-arrow" href="#contact">Look after my system <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+                <p class="sys-card__type mono">Thermal bullet</p>
+                <h3 class="sys-card__title">Ember Thermal</h3>
+                <p class="sys-card__text">Sees heat, not light. People and engines stand out in total darkness, rain or smoke, where an ordinary camera sees nothing.</p>
+                <dl class="specs-list">
+                  <div><dt>Sensor</dt><dd>Thermal + visible</dd></div><div><dt>Palette</dt><dd>Ironbow</dd></div><div><dt>Detection</dt><dd>People, vehicles</dd></div><div><dt>Light needed</dt><dd>None</dd></div>
+                </dl>
+                <p class="sys-card__try mono">Drag to compare visible and thermal (simulated)</p>
               </div>
               <div class="sys-card__visual">
-                <div class="health" aria-hidden="true">
-                  <div class="health__ring">
-                    <svg viewBox="0 0 120 120"><circle class="health__track" cx="60" cy="60" r="50"/><circle class="health__val" cx="60" cy="60" r="50" pathLength="100"/></svg>
-                    <span class="health__pct"><b data-count="5">5</b><small>/5</small></span>
-                    <span class="health__cap mono">Cameras online</span>
-                  </div>
-                  <ul class="health__list mono">
-                    <li><i class="ok"></i>CAM 01 · Garden<span>OK</span></li>
-                    <li><i class="ok"></i>CAM 02 · Driveway<span>OK</span></li>
-                    <li><i class="ok"></i>CAM 03 · Pool<span>OK</span></li>
-                    <li><i class="warn"></i>CAM 04 · Gate<span>Lens clean due</span></li>
-                    <li><i class="ok"></i>Recorder<span>Recording</span></li>
-                  </ul>
-                  <svg class="health__spark" viewBox="0 0 300 70" preserveAspectRatio="none"><path d="M0 50 L20 46 L40 48 L60 30 L80 36 L100 22 L120 28 L140 18 L160 26 L180 14 L200 20 L220 12 L240 18 L260 8 L280 14 L300 10"/></svg>
-                  <div class="health__chips mono"><span>Example health check</span><span>Firmware · up to date</span><span>Next service · booked</span></div>
+                <div class="thermal" data-thermal data-cursor="Drag">
+                  <img class="thermal__img" src="assets/img/city-night-street.jpg" alt="A city street at night" draggable="false" loading="lazy">
+                  <canvas class="thermal__heat" data-thermal-canvas aria-hidden="true"></canvas>
+                  <span class="thermal__line" aria-hidden="true"><span class="thermal__knob"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></span>
+                  <span class="thermal__tag thermal__tag--l mono">Visible</span>
+                  <span class="thermal__tag thermal__tag--r mono">Thermal</span>
+                  <label class="sr-only" for="thermal-range">Compare visible and thermal views</label>
+                  <input class="sr-only" id="thermal-range" type="range" min="0" max="100" value="50" data-thermal-range>
                 </div>
               </div>
             </article>
@@ -441,72 +377,125 @@
       </div>
     </section>
 
-    <!-- ===================== NIGHT VISION COMPARE ===================== -->
-    <section class="night" id="night" aria-labelledby="night-title">
-      <div class="container night__head">
-        <div>
-          <p class="kicker mono">(03) <i></i> Night vision</p>
-          <h2 class="h2" id="night-title" data-focus>See what <em>others miss.</em></h2>
-        </div>
-        <p class="night__text">Basic cameras turn the night into grey noise. The colour night-vision cameras we fit keep colour and detail when the lights go down. Drag to compare (a simulated example).</p>
-      </div>
-      <div class="compare" data-compare data-cursor="Drag">
-        <img class="compare__img" src="assets/img/hero-home.jpg" alt="A house at dusk, clear and in colour" loading="lazy">
-        <div class="compare__before">
-          <img class="compare__img" src="assets/img/hero-home.jpg" alt="" loading="lazy">
-          <canvas class="compare__noise" width="640" height="360"></canvas>
-        </div>
-        <div class="compare__line"><span class="compare__knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
-        <span class="compare__tag compare__tag--l mono">Basic camera · simulated</span>
-        <span class="compare__tag compare__tag--r mono">Colour night vision</span>
-        <label class="sr-only" for="compare-range">Compare a standard camera with Sentra night colour</label>
-        <input class="compare__range sr-only" id="compare-range" type="range" min="0" max="100" value="50">
-      </div>
-    </section>
-
-    <!-- ===================== WORK ===================== -->
-    <section class="work section-ivory" id="work" aria-labelledby="work-title">
+    <!-- ===================== SOLUTIONS: EXPANDING PANELS ===================== -->
+    <section class="solutions" id="solutions" aria-labelledby="solutions-title">
       <div class="container">
-        <div class="work__head">
+        <div class="section-head">
           <div>
-            <p class="kicker mono">(04) <i></i> Who we protect</p>
-            <h2 class="h2" id="work-title" data-focus tabindex="-1">Planned for <em>the place.</em></h2>
+            <p class="kicker mono">(03) <i></i> Solutions</p>
+            <h2 class="h2" id="solutions-title" data-focus tabindex="-1">Built for how cities <em>actually move.</em></h2>
           </div>
-          <p class="work__intro">No two properties are watched the same way. This is where we usually start for each kind of place; your site survey decides the details.</p>
+          <p class="section-head__text">Four environments, four very different problems. Hover or tap to open each one.</p>
         </div>
-
-        <div class="gallery">
-          <a class="shot shot--a" href="#contact" data-cursor="View" data-reveal>
-            <span class="shot__media"><img src="assets/img/work-residence.jpg" alt="A contemporary family home" loading="lazy" data-parallax></span>
-            <span class="shot__hud mono" aria-hidden="true"><span class="rec-dot"></span>Homes</span>
-            <span class="shot__info"><span class="shot__idx mono">01</span><span class="shot__title">Homes</span><span class="shot__meta">Entrances, driveway and garden covered, a video doorbell, and an alarm you control from your phone</span></span>
-          </a>
-          <a class="shot shot--b" href="#contact" data-cursor="View" data-reveal>
-            <span class="shot__media"><img src="assets/img/hero-estate.jpg" alt="A large residence in a gated estate" loading="lazy" data-parallax></span>
-            <span class="shot__hud mono" aria-hidden="true"><span class="rec-dot"></span>Estates</span>
-            <span class="shot__info"><span class="shot__idx mono">02</span><span class="shot__title">Estates</span><span class="shot__meta">Gatehouse access, perimeter cameras and visitor management for residents</span></span>
-          </a>
-          <a class="shot shot--c" href="#contact" data-cursor="View" data-reveal>
-            <span class="shot__media"><img src="assets/img/hero-business.jpg" alt="Office buildings" loading="lazy" data-parallax></span>
-            <span class="shot__hud mono" aria-hidden="true"><span class="rec-dot"></span>Businesses</span>
-            <span class="shot__info"><span class="shot__idx mono">03</span><span class="shot__title">Businesses</span><span class="shot__meta">Staff and visitor access, cameras on entrances, stock and tills, and alarms after hours</span></span>
-          </a>
-          <a class="shot shot--d" href="#contact" data-cursor="View" data-reveal>
-            <span class="shot__media"><img src="assets/img/work-handover.jpg" alt="An engineer wiring a camera power supply" loading="lazy" data-parallax></span>
-            <span class="shot__hud mono" aria-hidden="true"><span class="rec-dot"></span>Installation</span>
-            <span class="shot__info"><span class="shot__idx mono">04</span><span class="shot__title">Installation &amp; handover</span><span class="shot__meta">Tidy cable runs, every camera tested, and the app set up on your phone before we leave</span></span>
-          </a>
+        <div class="panels" data-panels>
+          <article class="panel is-open" tabindex="0" data-panel>
+            <img src="assets/img/city-trails.jpg" alt="Expressway at dusk with light trails from traffic" loading="lazy">
+            <div class="panel__shade"></div>
+            <span class="panel__num mono">01</span>
+            <h3 class="panel__title">Roads &amp; traffic</h3>
+            <div class="panel__body">
+              <p>Spot wrong-way drivers, stopped vehicles and queues as they form, and read every plate that passes.</p>
+              <ul class="panel__chips mono"><li>Wrong-way alerts</li><li>Queue detection</li><li>Plate recognition</li></ul>
+            </div>
+          </article>
+          <article class="panel" tabindex="0" data-panel>
+            <img src="assets/img/city-crowd.jpg" alt="Crowd of people crossing a city street" loading="lazy">
+            <div class="panel__shade"></div>
+            <span class="panel__num mono">02</span>
+            <h3 class="panel__title">Public spaces</h3>
+            <div class="panel__body">
+              <p>Keep squares, crossings and events flowing, with early warning when a crowd becomes too dense.</p>
+              <ul class="panel__chips mono"><li>Crowd density</li><li>Search by description</li><li>Unattended items</li></ul>
+            </div>
+          </article>
+          <article class="panel" tabindex="0" data-panel>
+            <img src="assets/img/city-neon.jpg" alt="Neon-lit city street at night" loading="lazy">
+            <div class="panel__shade"></div>
+            <span class="panel__num mono">03</span>
+            <h3 class="panel__title">Night districts</h3>
+            <div class="panel__body">
+              <p>Colour imaging and thermal sensors keep detail when the lights go down and the streets empty out.</p>
+              <ul class="panel__chips mono"><li>Colour night vision</li><li>Thermal</li><li>After-hours alerts</li></ul>
+            </div>
+          </article>
+          <article class="panel" tabindex="0" data-panel>
+            <img src="assets/img/freight.jpg" alt="Freight train on railway tracks" loading="lazy">
+            <div class="panel__shade"></div>
+            <span class="panel__num mono">04</span>
+            <h3 class="panel__title">Rail &amp; infrastructure</h3>
+            <div class="panel__body">
+              <p>Perimeters, depots and level crossings watched end to end, with intrusion alerts that cut through noise.</p>
+              <ul class="panel__chips mono"><li>Perimeter intrusion</li><li>Level crossings</li><li>Thermal fences</li></ul>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ===================== PROCESS ===================== -->
-    <section class="process" id="process" aria-labelledby="process-title" data-process>
+    <!-- ===================== ENGINEERING: HOTSPOTS ===================== -->
+    <section class="engineering section-ivory" id="engineering" aria-labelledby="eng-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="kicker mono">(04) <i></i> Engineering</p>
+            <h2 class="h2" id="eng-title" data-focus>Engineered to <em>outlast the street.</em></h2>
+          </div>
+          <p class="section-head__text">Heat, rain, dust, vibration and vandalism. Select a point on the camera to see how it is built for each.</p>
+        </div>
+        <div class="anatomy" data-anatomy>
+          <div class="anatomy__figure">
+            <img src="assets/img/ptz-pole.jpg" alt="A PTZ dome camera on a pole bracket" loading="lazy">
+            <button class="hotspot" type="button" style="left:68%;top:83%" data-hotspot="0" aria-label="Optics"><span></span></button>
+            <button class="hotspot" type="button" style="left:68%;top:58%" data-hotspot="1" aria-label="Housing"><span></span></button>
+            <button class="hotspot" type="button" style="left:68%;top:33%" data-hotspot="2" aria-label="Pan and tilt"><span></span></button>
+            <button class="hotspot" type="button" style="left:40%;top:42%" data-hotspot="3" aria-label="Power and network"><span></span></button>
+            <button class="hotspot" type="button" style="left:27%;top:82%" data-hotspot="4" aria-label="Mounting"><span></span></button>
+          </div>
+          <div class="anatomy__info" aria-live="polite">
+            <p class="anatomy__idx mono" data-hs-idx>01 / 05</p>
+            <h3 class="anatomy__title" data-hs-title>Optics</h3>
+            <p class="anatomy__text" data-hs-text></p>
+            <div class="anatomy__nav">
+              <button class="roundbtn" type="button" data-hs-prev aria-label="Previous point"><svg viewBox="0 0 20 12"><path d="M20 6H2M7 1 2 6l5 5"/></svg></button>
+              <button class="roundbtn" type="button" data-hs-next aria-label="Next point"><svg viewBox="0 0 20 12"><path d="M0 6h18M13 1l5 5-5 5"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="ratings">
+          <div class="rating" data-reveal><span class="rating__v">IP67</span><span class="rating__l">Dust-tight and waterproof</span></div>
+          <div class="rating" data-reveal><span class="rating__v">IK10</span><span class="rating__l">Vandal-resistant housing</span></div>
+          <div class="rating" data-reveal><span class="rating__v">−40°<small>/ +70°C</small></span><span class="rating__l">Operating temperature</span></div>
+          <div class="rating" data-reveal><span class="rating__v">6 kV</span><span class="rating__l">Surge protection</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ARCHITECTURE: PIPELINE ===================== -->
+    <section class="arch" id="architecture" aria-labelledby="arch-title" data-arch>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="kicker mono">(05) <i></i> Architecture</p>
+            <h2 class="h2" id="arch-title" data-focus>From lens to <em>command centre.</em></h2>
+          </div>
+          <p class="section-head__text">Analysis happens on the camera, so only what matters crosses the network. Hover a stage to follow the data.</p>
+        </div>
+        <ol class="pipe">
+          <li class="pipe__node" data-pipe><figure><img src="assets/img/cam-bullet.jpg" alt="" loading="lazy"></figure><span class="pipe__rail" aria-hidden="true"><i></i><b></b></span><span class="pipe__num mono">01</span><h3>Capture</h3><p>4K, colour-at-night and thermal sensors see the street as it is.</p></li>
+          <li class="pipe__node" data-pipe><figure><img src="assets/img/chip.jpg" alt="" loading="lazy"></figure><span class="pipe__rail" aria-hidden="true"><i></i><b></b></span><span class="pipe__num mono">02</span><h3>Analyse at the edge</h3><p>On-camera AI turns pixels into events: people, vehicles, plates and behaviour.</p></li>
+          <li class="pipe__node" data-pipe><figure><img src="assets/img/datacenter.jpg" alt="" loading="lazy"></figure><span class="pipe__rail" aria-hidden="true"><i></i><b></b></span><span class="pipe__num mono">03</span><h3>Secure platform</h3><p>Encrypted video and metadata, stored where you decide, on-premise or in your cloud.</p></li>
+          <li class="pipe__node" data-pipe><figure><img src="assets/img/city-crossing.jpg" alt="" loading="lazy"></figure><span class="pipe__rail" aria-hidden="true"><i></i><b></b></span><span class="pipe__num mono">04</span><h3>Command &amp; respond</h3><p>Operators, police and traffic teams act on the same picture, on screen or on the move.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== DEPLOYMENT ===================== -->
+    <section class="process" id="deployment" aria-labelledby="process-title" data-process>
       <div class="container process__grid">
         <div class="process__aside">
           <div class="process__sticky">
-            <p class="kicker mono">(05) <i></i> Process</p>
-            <h2 class="h2" id="process-title" data-focus tabindex="-1">From survey <em>to support.</em></h2>
+            <p class="kicker mono">(06) <i></i> Deployment</p>
+            <h2 class="h2" id="process-title" data-focus tabindex="-1">From pilot <em>to citywide.</em></h2>
             <div class="process__counter" aria-hidden="true">
               <span class="process__digits"><span class="process__reel" data-proc-reel><span>01</span><span>02</span><span>03</span><span>04</span></span></span>
               <span class="process__total mono">/ 04</span>
@@ -516,92 +505,49 @@
         </div>
         <ol class="process__steps">
           <li class="pstep" data-step>
-            <figure class="pstep__media"><img src="assets/img/survey-plans.jpg" alt="Survey notes and drawings on a desk" loading="lazy"></figure>
-            <span class="pstep__num mono">01 / Survey</span>
-            <h3 class="pstep__title">We walk your property.</h3>
-            <p>We visit, map every entrance, blind spot and light source, and listen to how the place is actually used.</p>
+            <figure class="pstep__media"><img src="assets/img/city-avenue.jpg" alt="A city avenue lined with towers" loading="lazy"></figure>
+            <span class="pstep__num mono">01 / Assess</span>
+            <h3 class="pstep__title">We start on your streets.</h3>
+            <p>Site walks with your traffic, police and city teams to map junctions, blind spots, lighting, power and network.</p>
           </li>
           <li class="pstep" data-step>
             <figure class="pstep__media pstep__media--plan">
               <svg class="blueprint" viewBox="0 0 600 380" aria-hidden="true">
                 <defs><pattern id="bpgrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="rgba(69,227,240,.09)"/></pattern></defs>
                 <rect width="600" height="380" fill="url(#bpgrid)"/>
-                <g class="blueprint__walls"><rect x="70" y="60" width="460" height="260"/><path d="M70 190h170M240 60v260M400 60v120M400 220v100M400 220h130"/></g>
-                <g class="blueprint__cones"><path d="M76 66 L200 120 L150 180Z"/><path d="M524 66 L420 110 L470 170Z"/><path d="M76 314 L190 250 L130 220Z"/><path d="M524 314 L430 260 L470 230Z"/><path d="M300 324 L250 230 L350 230Z"/></g>
-                <g class="blueprint__cams"><circle cx="76" cy="66" r="7"/><circle cx="524" cy="66" r="7"/><circle cx="76" cy="314" r="7"/><circle cx="524" cy="314" r="7"/><circle cx="300" cy="324" r="7"/></g>
-                <g class="blueprint__labels mono"><text x="90" y="90">C1 · 4K · 103°</text><text x="420" y="90">C2 · 4K · 103°</text><text x="90" y="300">C3 · PTZ</text><text x="430" y="300">C4 · ANPR</text><text x="268" y="215">C5 · DOOR</text></g>
+                <g class="blueprint__walls"><path d="M0 120H600M0 260H600M180 0V380M420 0V380"/><path d="M0 128H600M0 252H600M188 0V380M412 0V380" opacity=".4"/></g>
+                <g class="blueprint__cones"><path d="M184 124 L60 40 L40 110Z"/><path d="M416 124 L540 40 L560 110Z"/><path d="M184 256 L60 340 L40 270Z"/><path d="M416 256 L540 340 L560 270Z"/><path d="M300 190 L230 60 L370 60Z"/><path d="M300 190 L230 320 L370 320Z"/></g>
+                <g class="blueprint__cams"><circle cx="184" cy="124" r="7"/><circle cx="416" cy="124" r="7"/><circle cx="184" cy="256" r="7"/><circle cx="416" cy="256" r="7"/><circle cx="300" cy="190" r="9"/></g>
+                <g class="blueprint__labels mono"><text x="60" y="30">C1 · ANPR</text><text x="470" y="30">C2 · ANPR</text><text x="40" y="365">C3 · 4K</text><text x="480" y="365">C4 · 4K</text><text x="316" y="196">C5 · PTZ</text></g>
               </svg>
             </figure>
-            <span class="pstep__num mono">02 / Plan</span>
-            <h3 class="pstep__title">A clear plan before any work starts.</h3>
-            <p>We recommend the right setup for your space: where each camera, sensor and door reader goes, what it covers and what it costs. You decide before a single cable is run.</p>
+            <span class="pstep__num mono">02 / Design</span>
+            <h3 class="pstep__title">Every view planned and drawn.</h3>
+            <p>A coverage design for each junction and corridor: which camera goes where, what it sees, and how it connects.</p>
           </li>
           <li class="pstep" data-step>
-            <figure class="pstep__media"><img src="assets/img/work-handover.jpg" alt="Engineer installing equipment" loading="lazy"></figure>
-            <span class="pstep__num mono">03 / Install</span>
-            <h3 class="pstep__title">Tidy, tested, handed over in person.</h3>
-            <p>Our experienced team installs with care and precision. Every camera is tested, the app is set up on your phone, and every password is yours.</p>
+            <figure class="pstep__media"><img src="assets/img/work-handover.jpg" alt="An engineer wiring camera equipment" loading="lazy"></figure>
+            <span class="pstep__num mono">03 / Pilot</span>
+            <h3 class="pstep__title">Prove it on a few streets first.</h3>
+            <p>A live pilot on agreed sites, measured against goals you set, before any wider rollout.</p>
           </li>
           <li class="pstep" data-step>
-            <figure class="pstep__media"><img src="assets/img/dome-lens.jpg" alt="Close-up of a dome camera lens" loading="lazy"></figure>
-            <span class="pstep__num mono">04 / Care</span>
-            <h3 class="pstep__title">Looked after, for good.</h3>
-            <p>Ongoing support and maintenance when you need it, from the same team that installed it.</p>
+            <figure class="pstep__media"><img src="assets/img/datacenter.jpg" alt="An engineer in a data centre corridor" loading="lazy"></figure>
+            <span class="pstep__num mono">04 / Scale &amp; operate</span>
+            <h3 class="pstep__title">Citywide, and looked after.</h3>
+            <p>Phased rollout, operator training and ongoing maintenance, with health monitoring across every camera.</p>
           </li>
         </ol>
       </div>
     </section>
 
-    <!-- ===================== APP ===================== -->
-    <section class="app" aria-labelledby="app-title">
-      <div class="container app__grid">
-        <div class="app__copy">
-          <p class="kicker mono">(06) <i></i> On your phone</p>
-          <h2 class="h2" id="app-title" data-focus>Your property, <em>in your pocket.</em></h2>
-          <p class="app__text">At handover we set up live view and alerts on your phone, using the app that comes with your system. Watch any camera, get alerts that matter, talk to whoever is at the door and let them in from anywhere.</p>
-          <ul class="app__features">
-            <li data-reveal><span class="app__ico">◉</span><b>Live view</b><span>Every camera, one tap away.</span></li>
-            <li data-reveal><span class="app__ico">◎</span><b>Smart alerts</b><span>People, vehicles and parcels, not shadows.</span></li>
-            <li data-reveal><span class="app__ico">◈</span><b>Two-way talk</b><span>Answer the door from anywhere.</span></li>
-            <li data-reveal><span class="app__ico">◇</span><b>Shared access</b><span>Family, staff and guests, on your terms.</span></li>
-          </ul>
-        </div>
-        <div class="app__device" data-device>
-          <div class="app__glow" aria-hidden="true"></div>
-          <div class="phone" aria-hidden="true">
-            <div class="phone__notch"></div>
-            <div class="phone__screen">
-              <div class="phone__status mono"><span data-clock-short>21:43</span><span>5G ▮▮▮</span></div>
-              <p class="phone__title">Front entrance</p>
-              <div class="phone__feed">
-                <img src="assets/img/hero-home.jpg" alt="">
-                <span class="phone__live mono"><span class="rec-dot"></span>LIVE</span>
-                <span class="phone__box"><b class="mono">PERSON</b></span>
-              </div>
-              <div class="phone__controls">
-                <span><i>◉</i>Talk</span><span class="is-on"><i>⌁</i>Unlock</span><span><i>◬</i>Siren</span>
-              </div>
-              <p class="phone__sub mono">Today</p>
-              <ul class="phone__alerts" data-phone-alerts></ul>
-            </div>
-          </div>
-          <div class="chip chip--a" aria-hidden="true"><span class="chip__dot ok"></span>Front door unlocked<small>Resident 02 · 18:07</small></div>
-          <div class="chip chip--b" aria-hidden="true"><span class="chip__dot warn"></span>Motion · Garden<small>Verified by camera</small></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== COVERAGE MARQUEE ===================== -->
-    <section class="coverage section-ivory" aria-label="What we do and where">
-      <div class="marquee" data-marquee data-speed="1">
-        <div class="marquee__track">
-          <span>Homes</span><i>✦</i><span class="o">Estates</span><i>✦</i><span>Businesses</span><i>✦</i><span class="o">Abuja</span><i>✦</i>
-        </div>
-      </div>
-      <div class="marquee marquee--rev" data-marquee data-speed="-0.8">
-        <div class="marquee__track">
-          <span class="o">CCTV</span><i>✦</i><span>Access control</span><i>✦</i><span class="o">Alarms</span><i>✦</i><span>Maintenance</span><i>✦</i><span class="o">Site surveys</span><i>✦</i>
-        </div>
+    <!-- ===================== SCALE STATEMENT ===================== -->
+    <section class="scale" aria-label="Statement">
+      <img class="scale__img" src="assets/img/earth-night.jpg" alt="" loading="lazy" data-parallax>
+      <div class="scale__shade"></div>
+      <div class="container scale__inner">
+        <p class="scale__text" data-focus>Built for cities that <em>never switch off.</em></p>
+        <a class="btn btn--ivory btn--lg" href="#contact" data-magnetic><span>Plan a pilot</span><svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
       </div>
     </section>
 
@@ -609,95 +555,73 @@
     <section class="contact" id="contact" aria-labelledby="contact-title">
       <div class="container">
         <div class="contact__head">
-          <p class="kicker mono">(07) <i></i> Site survey</p>
-          <h2 class="h2 h2--xl" id="contact-title" data-focus tabindex="-1">Let’s look at <em>your space.</em></h2>
-          <p class="contact__sub">Serving <span data-city>Abuja</span>. Tell us about the property and your request opens in WhatsApp, ready to send.</p>
+          <p class="kicker mono">(07) <i></i> Contact</p>
+          <h2 class="h2 h2--xl" id="contact-title" data-focus tabindex="-1">Let’s talk about <em>your city.</em></h2>
+          <p class="contact__sub">Tell us about the streets you need to see. Your request opens ready to send, and our city team replies to plan a briefing.</p>
         </div>
-
         <div class="contact__grid">
           <form class="form" data-form novalidate>
             <div class="form__row">
               <label class="field"><input class="field__input" type="text" name="name" autocomplete="name" placeholder=" " required><span class="field__label">Your name</span></label>
-              <label class="field"><input class="field__input" type="text" name="contact" autocomplete="email" placeholder=" " required><span class="field__label">Phone or email</span></label>
+              <label class="field"><input class="field__input" type="text" name="org" autocomplete="organization" placeholder=" " required><span class="field__label">Organisation</span></label>
+            </div>
+            <div class="form__row">
+              <label class="field"><input class="field__input" type="email" name="email" autocomplete="email" placeholder=" " required><span class="field__label">Work email</span></label>
+              <label class="field"><input class="field__input" type="text" name="city" autocomplete="address-level2" placeholder=" "><span class="field__label">City / country</span></label>
             </div>
             <fieldset class="choice">
-              <legend class="choice__legend mono">Property type</legend>
-              <label><input type="radio" name="property" value="Home"><span>Home</span></label>
-              <label><input type="radio" name="property" value="Estate"><span>Estate</span></label>
-              <label><input type="radio" name="property" value="Business"><span>Business</span></label>
-              <label><input type="radio" name="property" value="Other"><span>Other</span></label>
+              <legend class="choice__legend mono">Interested in</legend>
+              <label><input type="checkbox" name="interest" value="Traffic"><span>Traffic</span></label>
+              <label><input type="checkbox" name="interest" value="Public safety"><span>Public safety</span></label>
+              <label><input type="checkbox" name="interest" value="Rail & infrastructure"><span>Rail &amp; infrastructure</span></label>
+              <label><input type="checkbox" name="interest" value="Platform"><span>Platform</span></label>
+              <label><input type="checkbox" name="interest" value="Pilot"><span>A pilot</span></label>
             </fieldset>
-            <fieldset class="choice">
-              <legend class="choice__legend mono">What do you need?</legend>
-              <label><input type="checkbox" name="service" value="CCTV"><span>CCTV</span></label>
-              <label><input type="checkbox" name="service" value="Access control"><span>Access control</span></label>
-              <label><input type="checkbox" name="service" value="Alarms"><span>Alarms</span></label>
-              <label><input type="checkbox" name="service" value="Maintenance"><span>Maintenance</span></label>
-              <label><input type="checkbox" name="service" value="Not sure yet"><span>Not sure yet</span></label>
-            </fieldset>
-            <label class="field"><input class="field__input" type="text" name="area" autocomplete="address-level2" placeholder=" " data-area><span class="field__label">Your area or town</span></label>
-            <label class="field"><textarea class="field__input" name="notes" rows="3" placeholder=" "></textarea><span class="field__label">Anything we should know?</span></label>
+            <label class="field"><textarea class="field__input" name="notes" rows="3" placeholder=" "></textarea><span class="field__label">What do you need to see?</span></label>
             <div class="form__foot">
-              <button class="btn btn--ivory btn--lg" type="submit" data-magnetic>
-                <span data-submit-label>Send request on WhatsApp</span>
-                <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-              </button>
+              <button class="btn btn--ivory btn--lg" type="submit" data-magnetic><span data-submit-label>Send request</span><svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></button>
               <p class="form__msg" role="status" aria-live="polite" data-form-msg></p>
             </div>
           </form>
-
           <aside class="locate">
-            <div class="map" data-map>
-              <svg class="map__svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="400" height="240" class="map__land"/>
-                <g class="map__roads"><path d="M-10 80 410 40"/><path d="M-10 160 410 116"/><path d="M70-10 120 250"/><path d="M190-10 210 250"/><path d="M300-10 280 250"/></g>
-              </svg>
-              <div class="map__leaflet" data-map-canvas role="application" aria-label="Map of the service area"></div>
-              <span class="map__label" data-map-label aria-live="polite"><span data-city>Abuja</span></span>
-              <span class="map__hint mono" aria-hidden="true">Type your area in the form</span>
-            </div>
+            <figure class="locate__img"><img src="assets/img/city-lights.jpg" alt="" loading="lazy"><figcaption class="mono"><span class="rec-dot"></span>Briefings in person or remote</figcaption></figure>
             <ol class="next">
-              <li><span class="mono">01</span><b>We reply on WhatsApp</b><span>to understand what you need.</span></li>
-              <li><span class="mono">02</span><b>We survey the site</b><span>at a time that suits you.</span></li>
-              <li><span class="mono">03</span><b>You get a clear recommendation</b><span>what goes where, why, and what it costs.</span></li>
+              <li><span class="mono">01</span><b>We reply</b><span>to understand your goals and sites.</span></li>
+              <li><span class="mono">02</span><b>A briefing</b><span>with your traffic, police or city teams.</span></li>
+              <li><span class="mono">03</span><b>A pilot proposal</b><span>for the streets that matter most.</span></li>
             </ol>
             <a class="whatsapp" href="https://wa.me/" target="_blank" rel="noopener" data-whatsapp>
               <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.2A12.7 12.7 0 0 0 5.1 22.4L3.4 28.6l6.4-1.7A12.7 12.7 0 1 0 16 3.2Zm0 23.2a10.5 10.5 0 0 1-5.4-1.5l-.4-.2-3.8 1 1-3.7-.2-.4A10.5 10.5 0 1 1 16 26.4Zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.7c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.2-.3-.3-.7-.5Z"/></svg>
-              <span>Prefer to just chat? <u>Message us on WhatsApp</u></span>
+              <span>Prefer to chat? <u>Message us on WhatsApp</u></span>
             </a>
           </aside>
         </div>
-
         <div class="faq" data-faq>
-          <details class="faq__item"><summary>Can you upgrade an existing system?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Yes. We assess what you already have, keep what still performs, and upgrade cameras, recorders or access hardware only where it makes a real difference.</p></div></details>
-          <details class="faq__item"><summary>Do you offer maintenance?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Yes. Scheduled health checks, firmware updates, lens cleaning and quick call-outs keep your system recording when it matters.</p></div></details>
-          <details class="faq__item"><summary>How long does an installation take?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>It depends on the size of the property and the system. You get a timeline with your plan, and larger business and estate sites are done in phases so they keep running while we work.</p></div></details>
-          <details class="faq__item"><summary>Can I watch my cameras on my phone?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Yes. We set up secure remote viewing on your phone and walk you through it at handover.</p></div></details>
+          <details class="faq__item"><summary>Will your cameras work with our existing video system?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Sentra cameras are built on open standards, so they can stream into most existing video management systems, and Sentra Command can bring in many cameras you already own.</p></div></details>
+          <details class="faq__item"><summary>Where does the video analysis happen?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>On the camera. Detection runs at the edge, so the network carries events and the video you choose to keep, not every pixel all the time.</p></div></details>
+          <details class="faq__item"><summary>How is the data protected?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Video and metadata are encrypted in transit and at rest, access is role-based and logged, and you decide where recordings are stored and for how long.</p></div></details>
+          <details class="faq__item"><summary>Can we start with a pilot?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Yes. Most programmes start with a pilot on a handful of agreed streets, measured against the goals you set, before any wider rollout.</p></div></details>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <div class="container footer__top">
       <div class="footer__cta">
-        <p class="footer__lead">Ready when <em>you are.</em></p>
-        <a class="btn btn--ivory btn--lg" href="#contact" data-cut data-ch="04" data-name="Site survey" data-magnetic>
-          <span>Book a site survey</span>
-          <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-        </a>
+        <p class="footer__lead">See the whole city. <em>Miss nothing.</em></p>
+        <a class="btn btn--ivory btn--lg" href="#contact" data-cut data-ch="04" data-name="Briefing" data-magnetic><span>Book a city briefing</span><svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
       </div>
       <nav class="footer__cols" aria-label="Footer">
-        <div><p class="mono">Systems</p><a href="#systems" data-cut data-ch="01" data-name="Systems">CCTV &amp; AI video</a><a href="#systems" data-cut data-ch="01" data-name="Systems">Access control</a><a href="#systems" data-cut data-ch="01" data-name="Systems">Alarm systems</a><a href="#systems" data-cut data-ch="01" data-name="Systems">Care plans</a></div>
-        <div><p class="mono">Company</p><a href="#philosophy">Philosophy</a><a href="#work" data-cut data-ch="02" data-name="Properties">Who we protect</a><a href="#process" data-cut data-ch="03" data-name="Process">Process</a><a href="#night">Night vision</a><a href="#contact" data-cut data-ch="04" data-name="Contact">Contact</a></div>
-        <div><p class="mono">Talk to us</p><a href="https://wa.me/" target="_blank" rel="noopener" data-whatsapp>WhatsApp</a><a href="#contact" data-cut data-ch="04" data-name="Site survey">Book a site survey</a><span><span data-city>Abuja</span>, <span data-country>Nigeria</span></span></div>
+        <div><p class="mono">Platform</p><a href="#platform" data-cut data-ch="01" data-name="Platform">Sentra Command</a><a href="#platform" data-cut data-ch="01" data-name="Platform">Search</a><a href="#architecture">Architecture</a></div>
+        <div><p class="mono">Cameras</p><a href="#cameras" data-cut data-ch="02" data-name="Cameras">Vanta PTZ</a><a href="#cameras" data-cut data-ch="02" data-name="Cameras">Aperture 180</a><a href="#cameras" data-cut data-ch="02" data-name="Cameras">Lumen ANPR</a><a href="#cameras" data-cut data-ch="02" data-name="Cameras">Ember Thermal</a></div>
+        <div><p class="mono">Company</p><a href="#solutions" data-cut data-ch="03" data-name="Solutions">Solutions</a><a href="#engineering">Engineering</a><a href="#deployment">Deployment</a><a href="#contact" data-cut data-ch="04" data-name="Contact">Contact</a></div>
       </nav>
     </div>
     <div class="footer__mark" aria-hidden="true"><span>SENTRA</span></div>
     <div class="container footer__bottom">
-      <span>© <span data-year>2026</span> Sentra Security Systems.</span>
-      <span class="mono"><span class="rec-dot"></span> All systems normal</span>
+      <span>© <span data-year>2026</span> Sentra.</span>
+      <span class="mono"><span class="rec-dot"></span> All cameras online</span>
       <a href="#top" data-cut data-ch="00" data-name="Live view">Back to top ↑</a>
     </div>
   </footer>
@@ -706,13 +630,12 @@
   <div class="grain" aria-hidden="true"></div>
 
   <script src="assets/js/config.js"></script>
-  <script src="assets/vendor/three.min.js" defer></script>
-  <script src="assets/vendor/leaflet/leaflet.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
   <script src="assets/js/shutter.js" defer></script>
-  <script src="assets/js/scene.js" defer></script>
+  <script src="assets/js/lens.js" defer></script>
   <script src="assets/js/railcam.js" defer></script>
-  <script src="assets/js/hero-ui.js" defer></script>
+  <script src="assets/js/command.js" defer></script>
+  <script src="assets/js/products.js" defer></script>
   <script src="assets/js/site.js" defer></script>
 </body>
 </html>

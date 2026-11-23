@@ -1,9 +1,9 @@
 /* ==========================================================================
    Sentra: page engine
-   Preloader, smooth scrolling, reveals, the philosophy viewfinder,
-   counters, the pinned horizontal systems showcase and its live demos,
-   the night-vision compare slider, gallery parallax, the process reel,
-   the app mock, marquees, cursor, magnetic buttons, the survey form, FAQ.
+   Preloader, smooth scrolling, reveals and counters, the pinned camera
+   showcase, solution panels, engineering hotspots, the architecture
+   pipeline, the deployment reel, marquee, cursor, magnetic buttons,
+   the contact hand-off and the FAQ.
    ========================================================================== */
 (function () {
   'use strict';
@@ -13,8 +13,8 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   var CFG = window.SENTRA_CONFIG || {};
-  var WHATSAPP_NUMBER = String(CFG.whatsapp || '').replace(/\D/g, '');
-  if (!WHATSAPP_NUMBER && window.console) console.info('Sentra: set your WhatsApp number in assets/js/config.js');
+  var WHATSAPP = String(CFG.whatsapp || '').replace(/\D/g, '');
+  var EMAIL = String(CFG.email || '').trim();
 
   function $(s, c) { return (c || document).querySelector(s); }
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
@@ -22,31 +22,22 @@
   function pad(n) { return n < 10 ? '0' + n : String(n); }
 
   /* ======================================================================
-     Smooth scroll (Lenis) + jump API used by the nav camera cuts
+     Smooth scroll + jump API (used by the railcam camera cuts)
      ====================================================================== */
   var lenis = null;
   if (window.Lenis && !reduce) {
     try {
-      lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
-      var lenisRaf = function (t) { lenis.raf(t); requestAnimationFrame(lenisRaf); };
-      requestAnimationFrame(lenisRaf);
+      lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true });
+      var lr = function (t) { lenis.raf(t); requestAnimationFrame(lr); };
+      requestAnimationFrame(lr);
     } catch (e) { lenis = null; }
   }
   function yOf(t) { return typeof t === 'number' ? t : t.getBoundingClientRect().top + window.scrollY; }
   window.SentraScroll = {
     lenis: lenis,
-    jump: function (t) {
-      var y = yOf(t);
-      if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
-      else window.scrollTo({ top: y, behavior: 'instant' });
-    },
-    to: function (t) {
-      var y = yOf(t);
-      if (lenis) lenis.scrollTo(y, { duration: 1.6, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
-      else window.scrollTo({ top: y, behavior: reduce ? 'instant' : 'smooth' });
-    }
+    jump: function (t) { var y = yOf(t); if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo({ top: y, behavior: 'instant' }); },
+    to: function (t) { var y = yOf(t); if (lenis) lenis.scrollTo(y, { duration: 1.6, easing: function (x) { return 1 - Math.pow(1 - x, 4); } }); else window.scrollTo({ top: y, behavior: reduce ? 'instant' : 'smooth' }); }
   };
-  // plain in-page links glide; [data-cut] links are handled by the railcam
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#"]:not([data-cut])');
     if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
@@ -59,171 +50,88 @@
   });
 
   /* ======================================================================
-     Preloader: an iris that opens on the live feed
+     Preloader: an iris that opens onto the street
      ====================================================================== */
-  var loader = $('[data-loader]');
   (function preload() {
-    var finish = function () {
-      root.classList.remove('is-loading');
-      root.classList.add('is-ready');
-      if (lenis) lenis.start();
-    };
-    if (!loader) { finish(); return; }
+    var loader = $('[data-loader]');
+    var finish = function () { root.classList.remove('is-loading'); root.classList.add('is-ready'); if (lenis) lenis.start(); };
+    if (!loader || !FX) { if (loader) loader.classList.add('is-done'); finish(); return; }
     if (lenis) lenis.stop();
-    var count = $('[data-loader-count]', loader);
-    var line = $('[data-loader-line]', loader);
-    var ring = $('[data-loader-ring]', loader);
-    var bladesG = $('[data-loader-blades]', loader);
+    var count = $('[data-loader-count]', loader), line = $('[data-loader-line]', loader), ring = $('[data-loader-ring]', loader), bladesG = $('[data-loader-blades]', loader);
     var paths = [];
     for (var i = 0; i < 6; i++) { var p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); bladesG.appendChild(p); paths.push(p); }
-    var lines = ['Initialising cameras', 'Calibrating sensors', 'Securing the link', 'Live'];
-    var sceneReady = !!(window.SentraScene && window.SentraScene.ready);
-    document.addEventListener('sentra:ready', function () { sceneReady = true; });
-
-    var start = performance.now();
-    var MIN = reduce ? 200 : 1700, MAX = 4500;
-    var shown = 0, done = false;
-    function frame(now) {
+    var lines = ['Connecting cameras', 'Calibrating optics', 'Loading the street', 'Live'];
+    var ready = !!(window.SentraLens && window.SentraLens.ready);
+    document.addEventListener('sentra:ready', function () { ready = true; });
+    var start = performance.now(), MIN = reduce ? 200 : 1600, MAX = 5000, shown = 0, done = false;
+    (function frame(now) {
       var t = now - start;
-      // time-based, so a slow device can never stall the loader
       var lin = Math.min(1, t / MIN);
-      if (!sceneReady && t < MAX) lin = Math.min(lin, 0.92);
+      if (!ready && t < MAX) lin = Math.min(lin, 0.92);
       shown = Math.max(shown, 1 - Math.pow(1 - lin, 3));
       if (lin >= 1) shown = 1;
       var pct = Math.round(shown * 100);
       count.textContent = ('00' + pct).slice(-3);
       line.textContent = lines[Math.min(lines.length - 1, Math.floor(shown * (lines.length - 0.01)))];
       ring.style.strokeDashoffset = String(100 - pct);
-      var breathe = 7 + Math.sin(t / 260) * 2.5 + shown * 5;
-      FX.drawIris(paths, null, 0, 0, breathe, t / 1800, 160);
+      var br = 7 + Math.sin(t / 260) * 2.5 + shown * 5;
+      FX.drawIris(paths, null, 0, 0, br, t / 1800, 160);
       if (shown >= 1 && !done) {
         done = true;
-        FX.tween(reduce ? 1 : 700, function (e) { FX.drawIris(paths, null, 0, 0, breathe + e * 60, t / 1800 + e * 1.2, 160); }, FX.ease.inOutCubic).then(function () {
-          loader.classList.add('is-done');
-          finish();
-        });
+        FX.tween(reduce ? 1 : 700, function (e) { FX.drawIris(paths, null, 0, 0, br + e * 60, t / 1800 + e * 1.2, 160); }, FX.ease.inOutCubic).then(function () { loader.classList.add('is-done'); finish(); });
         return;
       }
       requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
+    })(start);
   })();
 
   /* ======================================================================
-     Clocks + year
+     Clocks
      ====================================================================== */
-  var clocks = $$('[data-clock]'), fullClocks = $$('[data-clock-full]'), shortClocks = $$('[data-clock-short]');
-  function tickClock() {
+  var clocks = $$('[data-clock]'), tokyo = $$('[data-tokyo-time]');
+  var tokyoFmt = null;
+  try { tokyoFmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); } catch (e) { tokyoFmt = null; }
+  function tick() {
     var d = new Date();
-    var t = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
-    var full = pad(d.getDate()) + '-' + pad(d.getMonth() + 1) + '-' + d.getFullYear() + '  ' + t;
-    clocks.forEach(function (c) { c.textContent = 'LIVE ' + t; });
-    fullClocks.forEach(function (c) { c.textContent = full; });
-    shortClocks.forEach(function (c) { c.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()); });
+    clocks.forEach(function (c) { c.textContent = 'LIVE ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()); });
+    if (tokyoFmt) tokyo.forEach(function (c) { c.textContent = tokyoFmt.format(d) + ' JST'; });
   }
-  tickClock();
-  setInterval(tickClock, 1000);
+  tick(); setInterval(tick, 1000);
   $$('[data-year]').forEach(function (y) { y.textContent = String(new Date().getFullYear()); });
-  if (CFG.city) $$('[data-city]').forEach(function (c) { c.textContent = CFG.city; });
-  if (CFG.country) $$('[data-country]').forEach(function (c) { c.textContent = CFG.country; });
 
   /* ======================================================================
-     Reveal + counters
+     Reveals
      ====================================================================== */
-  function countUp(el) {
-    var target = parseFloat(el.getAttribute('data-count'));
-    var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
-    if (reduce) { el.textContent = target.toFixed(dec); return; }
-    var start = performance.now(), dur = 1800;
-    (function step(now) {
-      var t = Math.min(1, (now - start) / dur);
-      var e = 1 - Math.pow(2, -10 * t);
-      el.textContent = (target * (t >= 1 ? 1 : e)).toFixed(dec);
-      if (t < 1) requestAnimationFrame(step);
-    })(start);
-  }
-  var revealTargets = $$('[data-reveal], [data-focus], [data-count], .health');
+  var revealTargets = $$('[data-reveal], [data-focus]');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        var el = en.target;
-        if (el.hasAttribute('data-count')) countUp(el);
-        el.classList.add('is-in');
-        io.unobserve(el);
-      });
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
     }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
     revealTargets.forEach(function (el) { io.observe(el); });
   } else revealTargets.forEach(function (el) { el.classList.add('is-in'); });
 
+  function whenVisible(el, onShow, onHide, th) {
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) { onShow(); return; }
+    new IntersectionObserver(function (en) { if (en[0].isIntersecting) onShow(); else if (onHide) onHide(); }, { threshold: th || 0.15 }).observe(el);
+  }
+
   /* ======================================================================
-     Scroll-driven effects (one rAF-batched handler)
+     Scroll-driven effects, batched in one rAF
      ====================================================================== */
-  var scrollers = [];
-  var queued = false;
+  var scrollers = [], queued = false;
   function onScroll() {
     if (queued) return;
     queued = true;
-    requestAnimationFrame(function () {
-      queued = false;
-      var vh = window.innerHeight;
-      for (var i = 0; i < scrollers.length; i++) scrollers[i](vh);
-    });
+    requestAnimationFrame(function () { queued = false; var vh = window.innerHeight; for (var i = 0; i < scrollers.length; i++) scrollers[i](vh); });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
 
-  /* ---------- philosophy: the viewfinder pulls focus onto each rule ---------- */
-  var ethos = $('[data-ethos]');
-  if (ethos) {
-    var rules = $$('[data-rule]', ethos);
-    var vf = $('[data-viewfinder]', ethos);
-    var vfImgs = $$('.viewfinder__img', vf);
-    var vfPreset = $('[data-vf-preset]', vf), vfName = $('[data-vf-name]', vf);
-    var vfAf = $('[data-vf-af]', vf), vfDist = $('[data-vf-dist]', vf), vfMark = $('[data-vf-mark]', vf);
-    var curRule = 0, afT = 0, distNow = parseFloat(rules[0].getAttribute('data-dist'));
-    var fmtDist = function (d) { var t = d.toFixed(1); return 'Focus ' + (d < 10 ? '0' + t : t) + ' m'; };
-    var markPos = function (d) { return clamp(Math.log(d / 0.3) / Math.log(20 / 0.3), 0, 1); };
-    vfMark.style.setProperty('--f', markPos(distNow).toFixed(3));
-    var hunt = function () {
-      vf.classList.add('is-hunting');
-      vfAf.textContent = 'Search';
-      clearTimeout(afT);
-      afT = setTimeout(function () { vf.classList.remove('is-hunting'); vfAf.textContent = 'Lock'; }, reduce ? 0 : 850);
-    };
-    var setRule = function (i) {
-      if (i === curRule) return;
-      curRule = i;
-      rules.forEach(function (r, j) { r.classList.toggle('is-active', j === i); });
-      vfImgs.forEach(function (im, j) { im.classList.toggle('is-active', j === i); });
-      vfPreset.textContent = pad(i + 1);
-      vfName.textContent = rules[i].getAttribute('data-preset');
-      hunt();
-      var from = distNow, to = parseFloat(rules[i].getAttribute('data-dist'));
-      FX.tween(reduce ? 1 : 900, function (e) {
-        distNow = from + (to - from) * e;
-        vfDist.textContent = fmtDist(distNow);
-        vfMark.style.setProperty('--f', markPos(distNow).toFixed(3));
-      }, FX.ease.outCubic);
-    };
-    var huntedOnce = false;
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (en, obs) { if (en[0].isIntersecting && !huntedOnce) { huntedOnce = true; hunt(); obs.disconnect(); } }, { threshold: 0.4 }).observe(vf);
-    }
-    scrollers.push(function (vh) {
-      var best = 0;
-      rules.forEach(function (r, i) { if (r.getBoundingClientRect().top < vh * 0.5) best = i; });
-      setRule(best);
-    });
-  }
-
-  /* ---------- pinned horizontal systems ---------- */
+  /* ---------- pinned horizontal camera showcase ---------- */
   var hs = $('[data-hscroll]');
   if (hs) {
-    var track = $('[data-hs-track]', hs);
-    var cards = $$('.sys-card', hs);
-    var current = $('[data-hs-current]', hs);
-    var bar = $('[data-hs-bar]', hs);
+    var track = $('[data-hs-track]', hs), cards = $$('.sys-card', hs), current = $('[data-hs-current]', hs), bar = $('[data-hs-bar]', hs);
     var maxX = 0, mobile = false;
     var sizeHs = function () {
       mobile = window.innerWidth <= 760;
@@ -233,40 +141,34 @@
     };
     sizeHs();
     window.addEventListener('resize', sizeHs);
-    // keyboard users: bring the focused card into view by scrolling the page, not the clipped track
+    window.addEventListener('load', sizeHs);
     track.addEventListener('focusin', function (e) {
       if (mobile) return;
-      var card = e.target.closest('.sys-card');
-      var idx = cards.indexOf(card);
+      var idx = cards.indexOf(e.target.closest('.sys-card'));
       if (idx < 0) return;
-      var sticky = track.closest('.systems__sticky');
-      sticky.scrollLeft = 0; track.parentElement.scrollLeft = 0;
-      var top = hs.getBoundingClientRect().top + window.scrollY;
-      var total = hs.offsetHeight - window.innerHeight;
+      track.closest('.systems__sticky').scrollLeft = 0;
+      var top = hs.getBoundingClientRect().top + window.scrollY, total = hs.offsetHeight - window.innerHeight;
       window.SentraScroll.jump(top + total * (idx / Math.max(1, cards.length - 1)));
     });
-    window.addEventListener('load', sizeHs);
     scrollers.push(function (vh) {
       if (mobile) return;
       var r = hs.getBoundingClientRect();
       if (r.bottom < -50 || r.top > vh + 50) return;
-      var total = hs.offsetHeight - vh;
-      var p = total > 0 ? clamp(-r.top / total, 0, 1) : 0;
+      var total = hs.offsetHeight - vh, p = total > 0 ? clamp(-r.top / total, 0, 1) : 0;
       track.style.transform = 'translate3d(' + (-p * maxX).toFixed(1) + 'px,0,0)';
-      var n = cards.length;
-      var idx = Math.min(n - 1, Math.round(p * (n - 1)));
+      var n = cards.length, idx = Math.min(n - 1, Math.round(p * (n - 1)));
       current.textContent = pad(idx + 1);
       bar.style.transform = 'scaleX(' + ((p * (n - 1) + 1) / n).toFixed(3) + ')';
       var vw = window.innerWidth;
       cards.forEach(function (c) {
-        var cr = c.getBoundingClientRect();
-        var d = Math.abs(cr.left + cr.width / 2 - vw / 2) / vw;
-        c.style.transform = 'scale(' + (1 - Math.min(d, 1) * 0.07).toFixed(4) + ')';
+        var cr = c.getBoundingClientRect(), d = Math.abs(cr.left + cr.width / 2 - vw / 2) / vw;
+        c.style.transform = 'scale(' + (1 - Math.min(d, 1) * 0.06).toFixed(4) + ')';
+        c.classList.toggle('is-current', d < 0.25);
       });
     });
   }
 
-  /* ---------- gallery parallax ---------- */
+  /* ---------- parallax images ---------- */
   var para = $$('[data-parallax]');
   if (para.length && !reduce) {
     scrollers.push(function (vh) {
@@ -274,18 +176,15 @@
         var r = img.parentElement.getBoundingClientRect();
         if (r.bottom < 0 || r.top > vh) return;
         var p = (r.top + r.height / 2 - vh / 2) / vh;
-        img.style.setProperty('--py', (-p * 70).toFixed(1) + 'px');
+        img.style.setProperty('--py', (-p * 90).toFixed(1) + 'px');
       });
     });
   }
 
-  /* ---------- process reel ---------- */
+  /* ---------- deployment reel ---------- */
   var proc = $('[data-process]');
   if (proc) {
-    var steps = $$('[data-step]', proc);
-    var reel = $('[data-proc-reel]', proc);
-    var meter = $('[data-proc-meter]', proc);
-    var active = -1;
+    var steps = $$('[data-step]', proc), reel = $('[data-proc-reel]', proc), meter = $('[data-proc-meter]', proc), active = -1;
     scrollers.push(function (vh) {
       var best = 0;
       steps.forEach(function (s, i) { if (s.getBoundingClientRect().top < vh * 0.55) best = i; });
@@ -298,194 +197,82 @@
     });
   }
 
-  /* ---------- footer wordmark rises in ---------- */
+  /* ---------- footer wordmark ---------- */
   var mark = $('.footer__mark span');
   if (mark && !reduce) {
     scrollers.push(function (vh) {
       var r = mark.parentElement.getBoundingClientRect();
       if (r.top > vh) return;
-      var p = clamp((vh - r.top) / r.height, 0, 1);
-      mark.style.setProperty('--mark-y', ((1 - p) * 40).toFixed(1) + '%');
+      mark.style.setProperty('--mark-y', ((1 - clamp((vh - r.top) / r.height, 0, 1)) * 40).toFixed(1) + '%');
     });
   }
   onScroll();
 
   /* ======================================================================
-     Visibility-gated loops
+     Solutions: expanding panels
      ====================================================================== */
-  function whenVisible(el, onShow, onHide) {
-    if (!el) return;
-    if (!('IntersectionObserver' in window)) { onShow(); return; }
-    new IntersectionObserver(function (en) { if (en[0].isIntersecting) onShow(); else if (onHide) onHide(); }, { threshold: 0.15 }).observe(el);
-  }
+  var panels = $$('[data-panel]');
+  function openPanel(p) { panels.forEach(function (x) { x.classList.toggle('is-open', x === p); x.setAttribute('aria-expanded', String(x === p)); }); }
+  panels.forEach(function (p) {
+    p.setAttribute('aria-expanded', String(p.classList.contains('is-open')));
+    if (finePointer) p.addEventListener('pointerenter', function () { openPanel(p); });
+    p.addEventListener('click', function () { openPanel(p); });
+    p.addEventListener('focus', function () { openPanel(p); });
+    p.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(p); } });
+  });
 
-  /* ---------- access-control demo ---------- */
-  var access = $('[data-access]');
-  if (access) {
-    var aState = $('[data-access-state]', access), aWho = $('[data-access-who]', access);
-    var seq = [
-      ['', 'Place finger', 'Front door', 1300],
-      ['is-scanning', 'Scanning', 'Hold still', 1400],
-      ['is-granted', 'Access granted', 'Resident 02 · Front door', 2200],
-      ['', 'Present card', 'Staff entrance', 1200],
-      ['is-scanning', 'Reading', 'Card · 4F2A', 1100],
-      ['is-granted', 'Access granted', 'Cleaner · until 18:00', 2000],
-      ['', 'Place finger', 'Server room', 1200],
-      ['is-scanning', 'Scanning', 'Hold still', 1300],
-      ['is-denied', 'Not recognised', 'Owner alerted · clip saved', 2400]
+  /* ======================================================================
+     Engineering hotspots
+     ====================================================================== */
+  var anatomy = $('[data-anatomy]');
+  if (anatomy) {
+    var HOT = [
+      ['Optics', 'A 40× optical zoom behind a hardened dome, with a large low-light sensor that keeps colour after dark.'],
+      ['Housing', 'Die-cast aluminium sealed to IP67 against dust and water and rated IK10 against impact, with a heater and fan for desert heat and freezing nights.'],
+      ['Pan & tilt', 'Brushless motors pan the full circle without stopping and return to saved presets with tenth-of-a-degree accuracy.'],
+      ['Power & network', 'Runs on PoE++ or 24 V AC, with 6 kV surge protection and an optional fibre uplink for long runs to the cabinet.'],
+      ['Mounting', 'Pole, wall and corner mounts with internal cable routing, so nothing is left exposed to weather or tampering.']
     ];
-    var ai = 0, aT = 0, aOn = false;
-    var stepAccess = function () {
-      if (!aOn) return;
-      var s = seq[ai++ % seq.length];
-      access.className = 'access ' + s[0];
-      aState.textContent = s[1];
-      aWho.textContent = s[2];
-      aT = setTimeout(stepAccess, s[3]);
+    var spots = $$('[data-hotspot]', anatomy), hIdx = $('[data-hs-idx]', anatomy), hTitle = $('[data-hs-title]', anatomy), hText = $('[data-hs-text]', anatomy);
+    var cur = -1, autoT = 0, manual = false;
+    var show = function (i) {
+      i = (i + HOT.length) % HOT.length;
+      if (i === cur) return;
+      cur = i;
+      spots.forEach(function (s, j) { s.classList.toggle('is-active', j === i); s.setAttribute('aria-pressed', String(j === i)); });
+      anatomy.classList.remove('is-swap'); void anatomy.offsetWidth; anatomy.classList.add('is-swap');
+      hIdx.textContent = pad(i + 1) + ' / ' + pad(HOT.length);
+      hTitle.textContent = HOT[i][0];
+      hText.textContent = HOT[i][1];
     };
-    whenVisible(access, function () { if (!aOn) { aOn = true; stepAccess(); } }, function () { aOn = false; clearTimeout(aT); });
+    var take = function () { manual = true; clearTimeout(autoT); };
+    spots.forEach(function (s, i) { s.addEventListener('click', function () { take(); show(i); }); });
+    $('[data-hs-prev]', anatomy).addEventListener('click', function () { take(); show(cur - 1); });
+    $('[data-hs-next]', anatomy).addEventListener('click', function () { take(); show(cur + 1); });
+    show(0);
+    var cycle = function () { if (manual || reduce) return; show(cur + 1); autoT = setTimeout(cycle, 3400); };
+    whenVisible(anatomy, function () { clearTimeout(autoT); autoT = setTimeout(cycle, 3000); }, function () { clearTimeout(autoT); }, 0.4);
   }
 
-  /* ---------- alarm floor-plan demo ---------- */
-  var plan = $('[data-plan]');
-  if (plan) {
-    var rooms = $$('[data-room]', plan), sensors = $$('[data-sensor]', plan);
-    var ripple = $('[data-ripple]', plan), badge = $('[data-plan-badge]', plan), msg = $('[data-plan-msg]', plan);
-    var NAMES = ['Bedroom', 'Hall', 'Living room', 'Kitchen', 'Garage'];
-    var order = [2, 4, 1, 3, 0], pi = 0, pT = 0, pOn = false;
-    var resetPlan = function () {
-      rooms.forEach(function (r) { r.classList.remove('is-hot', 'is-safe'); });
-      sensors.forEach(function (s) { s.classList.remove('is-hot'); });
-      ripple.classList.remove('is-on');
-      badge.className = 'plan__badge mono';
-      badge.textContent = 'Armed · away';
-      msg.textContent = 'All sensors healthy';
-    };
-    var runPlan = function () {
-      if (!pOn) return;
-      var k = order[pi % order.length];
-      var pet = pi % 2 === 0;
-      pi++;
-      var sn = sensors[k];
-      sn.classList.add('is-hot');
-      rooms[k].classList.add('is-hot');
-      ripple.setAttribute('cx', sn.getAttribute('cx'));
-      ripple.setAttribute('cy', sn.getAttribute('cy'));
-      ripple.classList.add('is-on');
-      badge.className = 'plan__badge mono is-hot';
-      badge.textContent = 'Motion detected';
-      msg.textContent = 'Motion · ' + NAMES[k] + ' · checking camera';
-      pT = setTimeout(function () {
-        ripple.classList.remove('is-on');
-        if (pet) {
-          rooms[k].classList.remove('is-hot'); rooms[k].classList.add('is-safe');
-          badge.className = 'plan__badge mono is-safe';
-          badge.textContent = 'Verified · pet';
-          msg.textContent = 'Camera check: it’s the cat. Alarm held.';
-        } else {
-          badge.textContent = 'Owner alerted';
-          msg.textContent = 'Person verified · siren ready · clip sent';
-        }
-        pT = setTimeout(function () { resetPlan(); pT = setTimeout(runPlan, 1400); }, 2600);
-      }, 1800);
-    };
-    whenVisible(plan, function () { if (!pOn) { pOn = true; resetPlan(); pT = setTimeout(runPlan, 700); } }, function () { pOn = false; clearTimeout(pT); });
-  }
-
-  /* ---------- phone alerts ---------- */
-  var phoneList = $('[data-phone-alerts]');
-  if (phoneList) {
-    var ALERTS = [
-      ['warn', '◎', 'Person at front door', 'Courier · package left', '21:43'],
-      ['ok', '✓', 'Front door unlocked', 'Resident 02', '21:44'],
-      ['', '▣', 'Vehicle arrived', 'Known plate · driveway', '21:47'],
-      ['ok', '✓', 'Alarm armed', 'Night mode · all sensors', '22:30'],
-      ['warn', '◎', 'Motion · garden', 'Verified: cat. Alarm held.', '01:12']
-    ];
-    var ph = 0, phT = 0, phOn = false;
-    var pushAlert = function () {
-      if (!phOn) return;
-      var a = ALERTS[ph++ % ALERTS.length];
-      var li = document.createElement('li');
-      var ic = document.createElement('span'); ic.className = 'ic ' + a[0]; ic.textContent = a[1];
-      var body = document.createElement('span');
-      var b = document.createElement('b'); b.textContent = a[2];
-      var sm = document.createElement('small'); sm.textContent = a[3];
-      body.appendChild(b); body.appendChild(sm);
-      var tm = document.createElement('time'); tm.textContent = a[4];
-      li.appendChild(ic); li.appendChild(body); li.appendChild(tm);
-      phoneList.insertBefore(li, phoneList.firstChild);
-      while (phoneList.children.length > 3) phoneList.removeChild(phoneList.lastChild);
-      phT = setTimeout(pushAlert, 2600);
-    };
-    for (var pre = 0; pre < 2; pre++) { phOn = true; pushAlert(); clearTimeout(phT); }
-    phOn = false;
-    whenVisible(phoneList, function () { if (!phOn) { phOn = true; phT = setTimeout(pushAlert, 1200); } }, function () { phOn = false; clearTimeout(phT); });
-  }
-  var device = $('[data-device]');
-  if (device && finePointer && !reduce) {
-    device.addEventListener('pointermove', function (e) {
-      var r = device.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-      device.style.setProperty('--ry', (x * 18).toFixed(2) + 'deg');
-      device.style.setProperty('--rx', (-y * 12).toFixed(2) + 'deg');
+  /* ======================================================================
+     Architecture pipeline
+     ====================================================================== */
+  var arch = $('[data-arch]');
+  if (arch) {
+    var nodes = $$('[data-pipe]', arch), ai = 0, aT = 0, hovering = false;
+    var setStage = function (i) { nodes.forEach(function (n, j) { n.classList.toggle('is-active', j === i); n.classList.toggle('is-past', j < i); }); arch.style.setProperty('--stage', i); };
+    nodes.forEach(function (n, i) {
+      n.addEventListener('pointerenter', function () { hovering = true; setStage(i); });
+      n.addEventListener('pointerleave', function () { hovering = false; });
     });
-    device.addEventListener('pointerleave', function () { device.style.setProperty('--ry', '0deg'); device.style.setProperty('--rx', '0deg'); });
+    var run = function () { if (!hovering) { setStage(ai % nodes.length); ai++; } aT = setTimeout(run, 2200); };
+    setStage(0);
+    whenVisible(arch, function () { clearTimeout(aT); if (!reduce) run(); }, function () { clearTimeout(aT); }, 0.3);
   }
 
-  /* ---------- night-vision compare ---------- */
-  var cmp = $('[data-compare]');
-  if (cmp) {
-    var range = $('.compare__range', cmp);
-    var noiseC = $('.compare__noise', cmp);
-    var touched = false, dragging = false;
-    var setPos = function (p) {
-      p = clamp(p, 0.02, 0.98);
-      cmp.style.setProperty('--pos', (p * 100).toFixed(2) + '%');
-      range.value = String(Math.round(p * 100));
-    };
-    var fromEvent = function (e) { var r = cmp.getBoundingClientRect(); setPos((e.clientX - r.left) / r.width); };
-    cmp.addEventListener('pointerdown', function (e) {
-      touched = dragging = true;
-      cmp.classList.add('is-drag');
-      cmp.setPointerCapture(e.pointerId);
-      fromEvent(e);
-    });
-    cmp.addEventListener('pointermove', function (e) { if (dragging) fromEvent(e); });
-    var endDrag = function () { dragging = false; cmp.classList.remove('is-drag'); };
-    cmp.addEventListener('pointerup', endDrag);
-    cmp.addEventListener('pointercancel', endDrag);
-    range.addEventListener('input', function () { touched = true; setPos(range.value / 100); });
-
-    var nOn = false, nCtx = noiseC.getContext('2d'), nImg = nCtx.createImageData(noiseC.width, noiseC.height), nLast = 0;
-    var noiseLoop = function (now) {
-      if (!nOn) return;
-      if (now - nLast > 70) {
-        nLast = now;
-        var d = nImg.data;
-        for (var i = 0; i < d.length; i += 4) { var v = (Math.random() * 200) | 0; d[i] = v; d[i + 1] = v; d[i + 2] = v; d[i + 3] = 255; }
-        nCtx.putImageData(nImg, 0, 0);
-      }
-      requestAnimationFrame(noiseLoop);
-    };
-    var swept = false;
-    whenVisible(cmp, function () {
-      if (!nOn && !reduce) { nOn = true; requestAnimationFrame(noiseLoop); }
-      if (!swept && !reduce) {
-        swept = true;
-        // a slow demo sweep, until the visitor takes over
-        var keys = [0.5, 0.18, 0.82, 0.5], k = 0;
-        var next = function () {
-          if (touched || k >= keys.length - 1) return;
-          var a = keys[k], b = keys[k + 1]; k++;
-          FX.tween(1100, function (e) { if (!touched) setPos(a + (b - a) * e); }, FX.ease.inOutCubic).then(next);
-        };
-        setTimeout(next, 500);
-      }
-    }, function () { nOn = false; });
-  }
-
-  /* ---------- marquees, nudged by scroll velocity ---------- */
+  /* ======================================================================
+     Marquee, nudged by scroll speed
+     ====================================================================== */
   var marquees = $$('[data-marquee]').map(function (m) {
     var t = $('.marquee__track', m);
     m.appendChild(t.cloneNode(true)).setAttribute('aria-hidden', 'true');
@@ -495,48 +282,46 @@
     var lastY = window.scrollY, vel = 0, mLast = performance.now(), mOn = false;
     var mLoop = function (now) {
       var dt = Math.min(0.05, (now - mLast) / 1000); mLast = now;
-      var y = window.scrollY;
-      vel += ((y - lastY) / Math.max(dt, 0.001) - vel) * 0.1;
-      lastY = y;
+      var y = window.scrollY; vel += ((y - lastY) / Math.max(dt, 0.001) - vel) * 0.1; lastY = y;
       var any = false;
       marquees.forEach(function (m) {
         if (!m.on) return;
         any = true;
         if (!m.w) m.w = m.track.offsetWidth;
-        var boost = 1 + Math.min(Math.abs(vel) / 400, 5);
-        m.x -= 60 * m.speed * boost * dt;
+        m.x -= 60 * m.speed * (1 + Math.min(Math.abs(vel) / 400, 5)) * dt;
         if (m.x <= -m.w) m.x += m.w;
-        if (m.x > 0) m.x -= m.w;
         m.el.style.transform = 'translate3d(' + m.x.toFixed(1) + 'px,0,0)';
       });
       if (any) requestAnimationFrame(mLoop); else mOn = false;
     };
-    marquees.forEach(function (m) {
-      whenVisible(m.el, function () { m.on = true; if (!mOn) { mOn = true; mLast = performance.now(); requestAnimationFrame(mLoop); } }, function () { m.on = false; });
-    });
+    marquees.forEach(function (m) { whenVisible(m.el, function () { m.on = true; if (!mOn) { mOn = true; mLast = performance.now(); requestAnimationFrame(mLoop); } }, function () { m.on = false; }); });
     window.addEventListener('resize', function () { marquees.forEach(function (m) { m.w = 0; }); });
   }
 
-  /* ---------- cursor follower + magnetic buttons ---------- */
+  /* ======================================================================
+     Cursor follower + magnetic buttons
+     ====================================================================== */
   var cursor = $('[data-cursor-el]');
   if (cursor && finePointer && !reduce) {
-    var label = $('[data-cursor-label]', cursor);
-    var cx = -100, cy = -100, tx = -100, ty = -100, cOn = false;
-    window.addEventListener('pointermove', function (e) {
-      if (e.pointerType !== 'mouse') return;
-      tx = e.clientX; ty = e.clientY;
-      if (!cOn) { cOn = true; cx = tx; cy = ty; cursor.classList.add('is-on'); requestAnimationFrame(cLoop); }
-      var host = e.target.closest && e.target.closest('[data-cursor]');
-      if (host) { label.textContent = host.getAttribute('data-cursor'); cursor.classList.add('is-label'); }
-      else cursor.classList.remove('is-label');
-    }, { passive: true });
-    document.documentElement.addEventListener('pointerleave', function () { cursor.classList.remove('is-on'); cOn = false; });
+    var label = $('[data-cursor-label]', cursor), cx = -100, cy = -100, tx = -100, ty = -100, cOn = false;
     var cLoop = function () {
       if (!cOn) return;
       cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
       cursor.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
       requestAnimationFrame(cLoop);
     };
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      tx = e.clientX; ty = e.clientY;
+      if (!cOn) { cOn = true; cx = tx; cy = ty; cursor.classList.add('is-on'); requestAnimationFrame(cLoop); }
+      // over the hero the lens itself is the cursor
+      cursor.classList.toggle('is-hidden', !!(e.target.closest && e.target.closest('[data-lens-stage], .hero__bar')));
+      var host = e.target.closest && e.target.closest('[data-cursor]');
+      var overUi = e.target.closest && e.target.closest('a, button, input, textarea, label');
+      if (host && !overUi) { label.textContent = host.getAttribute('data-cursor'); cursor.classList.add('is-label'); }
+      else cursor.classList.remove('is-label');
+    }, { passive: true });
+    root.addEventListener('pointerleave', function () { cursor.classList.remove('is-on'); cOn = false; });
   }
   if (finePointer && !reduce) {
     $$('[data-magnetic]').forEach(function (b) {
@@ -550,121 +335,36 @@
   }
 
   /* ======================================================================
-     Real map (Leaflet + OpenStreetMap), centred on the service area
-     ====================================================================== */
-  var mapWrap = $('[data-map]');
-  var mapCanvas = $('[data-map-canvas]');
-  var mapLabel = $('[data-map-label]');
-  var map = null, pin = null;
-  var CENTER = CFG.mapCenter || [9.0765, 7.4986];
-  if (mapCanvas && window.L) {
-    try {
-      map = window.L.map(mapCanvas, { center: CENTER, zoom: CFG.mapZoom || 12, scrollWheelZoom: false, zoomControl: false, attributionControl: true });
-      window.L.control.zoom({ position: 'topright' }).addTo(map);
-      window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
-      }).addTo(map);
-      var pinIcon = window.L.divIcon({
-        className: 'mpin', iconSize: [0, 0],
-        html: '<span class="mpin__radar"></span><span class="mpin__ring"></span><span class="mpin__ring mpin__ring--2"></span><span class="mpin__dot"></span>'
-      });
-      pin = window.L.marker(CENTER, { icon: pinIcon, keyboard: false, interactive: false }).addTo(map);
-      whenVisible(mapCanvas, function () { map.invalidateSize(); });
-      window.addEventListener('resize', function () { map.invalidateSize(); });
-    } catch (err) { map = null; }
-  }
-
-  // Look the visitor's area up when they finish typing it (on change / Enter), never per keystroke,
-  // as OpenStreetMap's Nominatim usage policy asks.
-  var geoCtrl = null, lastQuery = '';
-  function findArea(q) {
-    if (!map || !window.fetch) return;
-    q = q.trim();
-    if (q.length < 3 || q === lastQuery) return;
-    lastQuery = q;
-    if (geoCtrl && geoCtrl.abort) geoCtrl.abort();
-    geoCtrl = window.AbortController ? new AbortController() : null;
-    var lat = CENTER[0], lon = CENTER[1];
-    var url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=en' +
-      (CFG.countryCode ? '&countrycodes=' + encodeURIComponent(CFG.countryCode) : '') +
-      '&viewbox=' + [lon - 0.6, lat + 0.6, lon + 0.6, lat - 0.6].map(function (n) { return n.toFixed(4); }).join(',') + '&bounded=0' +
-      '&q=' + encodeURIComponent(q);
-    mapLabel.textContent = 'Searching ' + q + '…';
-    fetch(url, { signal: geoCtrl ? geoCtrl.signal : undefined, headers: { Accept: 'application/json' } })
-      .then(function (r) { return r.json(); })
-      .then(function (res) {
-        if (!res || !res.length) { mapLabel.textContent = q + ' · not found'; return; }
-        var hit = res[0], ll = [parseFloat(hit.lat), parseFloat(hit.lon)];
-        pin.setLatLng(ll);
-        map.flyTo(ll, 14, { duration: reduce ? 0 : 1.6 });
-        mapLabel.textContent = 'Your property · ' + String(hit.display_name || q).split(',').slice(0, 2).join(',');
-        mapWrap.classList.add('is-searched');
-        mapLabel.classList.add('is-bump');
-        setTimeout(function () { mapLabel.classList.remove('is-bump'); }, 200);
-      })
-      .catch(function () { /* offline or aborted: keep the current view */ });
-  }
-
-  /* ======================================================================
-     Survey form: validates, then hands the request to WhatsApp
+     Contact: validates, then opens email (or WhatsApp) with the request
      ====================================================================== */
   var form = $('[data-form]');
   var waLinks = $$('[data-whatsapp]');
-  function waUrl(text) { return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text); }
-  function requestText(final) {
-    var data = new FormData(form);
-    var lines = [final ? 'Hello Sentra, I would like to book a site survey.' : 'Hello Sentra, I would like to ask about a security system.'];
-    if (data.get('name')) lines.push('Name: ' + data.get('name'));
-    if (data.get('contact')) lines.push('Phone / email: ' + data.get('contact'));
-    if (data.get('property')) lines.push('Property: ' + data.get('property'));
-    var svc = data.getAll('service');
-    if (svc.length) lines.push('Interested in: ' + svc.join(', '));
-    if (data.get('area')) lines.push('Area: ' + data.get('area'));
-    if (data.get('notes')) lines.push('Notes: ' + data.get('notes'));
-    return lines.join('\n');
-  }
+  function waUrl(text) { return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text); }
+  waLinks.forEach(function (a) { a.href = waUrl('Hello Sentra, I would like to talk about cameras for our city.'); });
+  if (!WHATSAPP && !EMAIL && window.console) console.info('Sentra: add an email or WhatsApp number in assets/js/config.js');
   if (form) {
-    var fmsg = $('[data-form-msg]', form);
-    var area = $('[data-area]', form);
-    var updateWhatsApp = function () { var href = waUrl(requestText(false)); waLinks.forEach(function (a) { a.href = href; }); };
-    if (area) {
-      area.addEventListener('change', function () { findArea(area.value); });
-      area.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); findArea(area.value); } });
-    }
-    form.addEventListener('input', function (e) {
-      updateWhatsApp();
-      if (e.target.classList.contains('is-invalid') && e.target.value.trim()) e.target.classList.remove('is-invalid');
-    });
-    form.addEventListener('change', updateWhatsApp);
-    updateWhatsApp();
-
+    var msg = $('[data-form-msg]', form);
+    var label = $('[data-submit-label]', form);
+    label.textContent = EMAIL ? 'Send by email' : 'Send on WhatsApp';
+    form.addEventListener('input', function (e) { if (e.target.classList.contains('is-invalid') && e.target.value.trim()) e.target.classList.remove('is-invalid'); });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var bad = [];
-      [form.elements.name, form.elements.contact].forEach(function (f) {
-        var ok = f.value.trim().length > 1;
-        f.classList.toggle('is-invalid', !ok);
-        f.setAttribute('aria-invalid', String(!ok));
-        if (!ok) bad.push(f);
-      });
-      if (bad.length) {
-        fmsg.className = 'form__msg is-err';
-        fmsg.textContent = 'Please add your name and a phone number or email.';
-        bad[0].focus();
-        return;
-      }
-      var url = waUrl(requestText(true));
-      var win = window.open(url, '_blank');
-      if (win) { try { win.opener = null; } catch (err) { /* ignore */ } }
-      else window.location.href = url;
-      fmsg.className = 'form__msg is-ok';
-      fmsg.textContent = '';
-      fmsg.appendChild(document.createTextNode('WhatsApp opened with your request. Press send there and we will reply. Nothing opened? '));
-      var again = document.createElement('a');
-      again.href = url; again.target = '_blank'; again.rel = 'noopener'; again.textContent = 'Open WhatsApp';
-      again.style.textDecoration = 'underline';
-      fmsg.appendChild(again);
+      var checks = [[form.elements.name, function (v) { return v.length > 1; }], [form.elements.org, function (v) { return v.length > 1; }], [form.elements.email, function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }]];
+      checks.forEach(function (c) { var ok = c[1](c[0].value.trim()); c[0].classList.toggle('is-invalid', !ok); c[0].setAttribute('aria-invalid', String(!ok)); if (!ok) bad.push(c[0]); });
+      if (bad.length) { msg.className = 'form__msg is-err'; msg.textContent = 'Please add your name, organisation and a valid work email.'; bad[0].focus(); return; }
+      var d = new FormData(form);
+      var lines = ['Hello Sentra, I would like to talk about cameras for our city.', '', 'Name: ' + d.get('name'), 'Organisation: ' + d.get('org'), 'Email: ' + d.get('email')];
+      if (d.get('city')) lines.push('City / country: ' + d.get('city'));
+      var interests = d.getAll('interest');
+      if (interests.length) lines.push('Interested in: ' + interests.join(', '));
+      if (d.get('notes')) lines.push('', d.get('notes'));
+      var text = lines.join('\n');
+      var url = EMAIL ? 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('City briefing request · ' + d.get('org')) + '&body=' + encodeURIComponent(text) : waUrl(text);
+      if (EMAIL) window.location.href = url;
+      else { var w = window.open(url, '_blank'); if (w) { try { w.opener = null; } catch (err) { /* ignore */ } } else window.location.href = url; }
+      msg.className = 'form__msg is-ok';
+      msg.textContent = (EMAIL ? 'Your email is ready to send.' : 'WhatsApp opened with your request.') + ' Press send and our city team will reply.';
     });
   }
 

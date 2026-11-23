@@ -1,16 +1,14 @@
 /* ==========================================================================
-   Business details: the only file you need to edit.
+   Contact details: the only file you need to edit.
    ========================================================================== */
 window.SENTRA_CONFIG = {
-  // WhatsApp number that receives messages and site-survey requests.
-  // International format, digits only, no "+" or spaces. Example: '2348012345678'
-  // Leave empty and WhatsApp asks the visitor which chat to send the message to.
-  whatsapp: '',
+  // Where briefing requests from the contact form go. When set, the form
+  // opens the visitor's email app with the request written out.
+  // Example: 'cities@yourcompany.com'
+  email: '',
 
-  // Where you work. Used in the copy and to centre the map.
-  city: 'Abuja',
-  country: 'Nigeria',
-  countryCode: 'ng',            // limits map searches to this country
-  mapCenter: [9.0765, 7.4986],  // latitude, longitude
-  mapZoom: 12
+  // Optional WhatsApp number (international format, digits only, no "+").
+  // Used by the WhatsApp link, and by the form when no email is set.
+  // Example: '2348012345678'
+  whatsapp: ''
 };
