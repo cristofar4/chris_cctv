@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sentra Security Systems | CCTV, Access Control &amp; Alarms</title>
+  <meta name="description" content="Sentra Security Systems plans and installs CCTV, access control and alarm systems for homes, businesses and estates, then looks after them.">
+  <meta name="theme-color" content="#0a1016">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z' fill='%230a1016' stroke='%232bdcea' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='15.5' r='3.4' fill='%232bdcea'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/hero-home.jpg">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============================================================
+       SHUTTER: full-screen camera iris used for "channel cuts"
+       ============================================================ -->
+  <div class="shutter" aria-hidden="true">
+    <svg class="shutter__svg" xmlns="http://www.w3.org/2000/svg">
+      <g class="shutter__blades">
+        <path/><path/><path/><path/><path/><path/>
+      </g>
+      <path class="shutter__edge"/>
+    </svg>
+    <div class="shutter__hud">
+      <span class="shutter__ch mono">CH 01</span>
+      <span class="shutter__name">Solutions</span>
+      <span class="shutter__sub mono">Switching feed</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAV: the Railcam. A ceiling-rail PTZ camera rides along the
+       top edge, swings with momentum, watches the pointer, and
+       lights up the link it is looking at.
+       ============================================================ -->
+  <header class="nav" data-nav>
+    <div class="nav__shell">
+      <a class="brand" href="#top" data-cut data-ch="00" data-name="Home" aria-label="Sentra Security Systems, back to top">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path class="brand__shield" d="M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z"/>
+          <g class="brand__iris">
+            <circle cx="16" cy="15.5" r="5.2"/>
+            <path d="M16 10.3v3.1M20.5 13l-2.7 1.5M20.5 18l-2.7-1.5M16 20.7v-3.1M11.5 18l2.7-1.5M11.5 13l2.7 1.5"/>
+          </g>
+        </svg>
+        <span class="brand__type">
+          <span class="brand__name">Sentra</span>
+          <span class="brand__sub">Security Systems</span>
+        </span>
+      </a>
+
+      <span class="nav__divider" aria-hidden="true"></span>
+
+      <nav class="railcam" aria-label="Primary" data-railcam>
+        <div class="railcam__rail" aria-hidden="true"><span class="railcam__cap"></span><span class="railcam__cap"></span></div>
+        <div class="railcam__beam" aria-hidden="true"><span></span></div>
+        <div class="railcam__pool" aria-hidden="true"></div>
+
+        <ul class="railcam__list" data-railcam-list>
+          <li><a class="railcam__link" href="#solutions" data-cut data-ch="01" data-name="Solutions" data-feed-img="assets/img/cctv-wall.jpg" data-feed-note="CCTV, access control, alarms and ongoing care.">Solutions</a></li>
+          <li><a class="railcam__link" href="#work" data-cut data-ch="02" data-name="Our work" data-feed-img="assets/img/work-residence.jpg" data-feed-note="Residential, business and estate installations.">Our work</a></li>
+          <li><a class="railcam__link" href="#approach" data-cut data-ch="03" data-name="Our approach" data-feed-img="assets/img/survey-plans.jpg" data-feed-note="Survey, plan, install, care. In that order.">Our approach</a></li>
+          <li><a class="railcam__link" href="#survey" data-cut data-ch="04" data-name="Contact" data-feed-img="assets/img/dome-lens.jpg" data-feed-note="Book a free site survey or message the team.">Contact</a></li>
+        </ul>
+        <!-- lit copy of the list, revealed only inside the camera's beam -->
+        <div class="railcam__lit" aria-hidden="true" data-railcam-lit></div>
+
+        <div class="railcam__lock" aria-hidden="true">
+          <i></i><i></i><i></i><i></i>
+        </div>
+
+        <div class="railcam__rig" aria-hidden="true">
+          <svg class="railcam__cam" viewBox="0 0 44 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="camCap" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#55626e"/>
+                <stop offset=".55" stop-color="#26313b"/>
+                <stop offset="1" stop-color="#151d24"/>
+              </linearGradient>
+              <radialGradient id="camGlass" cx=".5" cy=".15" r=".95">
+                <stop offset="0" stop-color="#2a3a47" stop-opacity=".95"/>
+                <stop offset=".6" stop-color="#0b1218" stop-opacity=".96"/>
+                <stop offset="1" stop-color="#05080b"/>
+              </radialGradient>
+              <radialGradient id="camLens" cx=".38" cy=".35" r=".8">
+                <stop offset="0" stop-color="#9ff7ff"/>
+                <stop offset=".35" stop-color="#2bdcea"/>
+                <stop offset="1" stop-color="#063a44"/>
+              </radialGradient>
+            </defs>
+            <!-- carriage that rides the rail -->
+            <rect x="12" y="0" width="20" height="5" rx="2" fill="#2b3640"/>
+            <rect x="12.5" y="0.4" width="19" height="1.2" rx=".6" fill="#6b7884" opacity=".7"/>
+            <circle cx="16" cy="2.6" r="1.4" fill="#93a4b1"/>
+            <circle cx="28" cy="2.6" r="1.4" fill="#93a4b1"/>
+            <!-- swinging head -->
+            <g class="railcam__swing">
+              <rect x="20.6" y="4.4" width="2.8" height="5.4" fill="#34414c"/>
+              <rect x="8" y="9" width="28" height="6.4" rx="3.2" fill="url(#camCap)"/>
+              <rect x="10" y="9.6" width="24" height="1" rx=".5" fill="#8b99a5" opacity=".5"/>
+              <circle class="railcam__led" cx="31.4" cy="12.2" r="1.15" fill="#ff4757"/>
+              <path d="M10 14.6a12 12 0 0 0 24 0Z" fill="url(#camGlass)"/>
+              <g class="railcam__lens">
+                <circle cx="22" cy="20" r="4.6" fill="#03070a" stroke="#2c3a46" stroke-width=".8"/>
+                <circle cx="22" cy="20" r="2.8" fill="url(#camLens)"/>
+                <circle cx="22" cy="20" r="1.1" fill="#021417"/>
+                <circle cx="20.9" cy="18.8" r=".75" fill="#fff" opacity=".9"/>
+              </g>
+              <path d="M13.2 17.2a9.6 9.6 0 0 0 4 6" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width=".9" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+      </nav>
+
+      <span class="nav__divider" aria-hidden="true"></span>
+
+      <div class="nav__actions">
+        <button class="ir-toggle" type="button" aria-pressed="false" data-ir-toggle>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><path class="ir-toggle__rays" d="M12 1.5v1.6M4.6 4.6l1.1 1.1M19.4 4.6l-1.1 1.1"/></svg>
+          <span class="ir-toggle__label mono">IR</span>
+          <span class="sr-only">Night vision view</span>
+        </button>
+        <a class="btn btn--cream nav__cta" href="#survey">
+          <span>Plan a site survey</span>
+          <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+        </a>
+        <button class="iris" type="button" aria-expanded="false" aria-controls="menu" data-iris>
+          <svg class="iris__svg" viewBox="-24 -24 48 48" aria-hidden="true">
+            <defs><clipPath id="irisClip"><circle r="19"/></clipPath></defs>
+            <circle class="iris__ring" r="21.5"/>
+            <g clip-path="url(#irisClip)">
+              <circle r="19" class="iris__back"/>
+              <g class="iris__blades" data-iris-blades></g>
+            </g>
+            <g class="iris__x"><path d="M-5-5 5 5M5-5-5 5"/></g>
+          </svg>
+          <span class="sr-only" data-iris-label>Open menu</span>
+        </button>
+      </div>
+
+      <!-- DVR scrub bar: scroll position as recorded footage -->
+      <div class="dvr" data-dvr aria-hidden="true">
+        <div class="dvr__track">
+          <span class="dvr__fill"></span>
+          <span class="dvr__marks" data-dvr-marks></span>
+          <span class="dvr__head"><span class="dvr__time mono" data-dvr-time>00:00:00</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- live preview monitor that drops from the camera -->
+    <div class="feed" aria-hidden="true" data-feed>
+      <div class="feed__screen">
+        <img class="feed__img" alt="" src="assets/img/cctv-wall.jpg" decoding="async">
+        <canvas class="feed__static" width="96" height="60"></canvas>
+        <span class="feed__scan"></span>
+        <span class="feed__ch mono">CH-01</span>
+        <span class="feed__rec mono">REC</span>
+        <span class="feed__tc mono" data-feed-tc>00:00:00:00</span>
+        <span class="feed__corners"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="feed__meta">
+        <span class="feed__title" data-feed-title>Solutions</span>
+        <span class="feed__note" data-feed-note>CCTV, access control, alarms and ongoing care.</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu (opened through the shutter) -->
+  <div class="menu" id="menu" hidden data-menu>
+    <div class="menu__grid" aria-hidden="true"></div>
+    <nav class="menu__inner" aria-label="Mobile">
+      <p class="menu__status mono" aria-hidden="true"><span class="rec-dot"></span> Multi-view · 4 channels</p>
+      <ol class="menu__list">
+        <li><a href="#solutions" data-cut data-ch="01" data-name="Solutions"><span class="menu__ch mono">CH-01</span><span class="menu__label">Solutions</span></a></li>
+        <li><a href="#work" data-cut data-ch="02" data-name="Our work"><span class="menu__ch mono">CH-02</span><span class="menu__label">Our work</span></a></li>
+        <li><a href="#approach" data-cut data-ch="03" data-name="Our approach"><span class="menu__ch mono">CH-03</span><span class="menu__label">Our approach</span></a></li>
+        <li><a href="#survey" data-cut data-ch="04" data-name="Contact"><span class="menu__ch mono">CH-04</span><span class="menu__label">Contact</span></a></li>
+      </ol>
+      <a class="btn btn--cream menu__cta" href="#survey" data-cut data-ch="04" data-name="Site survey">
+        <span>Plan a site survey</span>
+        <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+      </a>
+      <p class="menu__clock mono" aria-hidden="true" data-clock>--:--:--</p>
+    </nav>
+  </div>
+
+  <main id="main">
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero is-booting" id="top" aria-labelledby="hero-title" data-hero>
+      <div class="hero__wrap">
+        <p class="hero__cut mono" aria-hidden="true"><span class="hero__bracket"></span><span class="rec-dot"></span> CAM 01 · LIVE</p>
+
+        <div class="hero__frame" data-hero-frame>
+          <div class="hero__screen" data-hero-screen>
+            <div class="hero__scenes" data-hero-scenes>
+              <img class="hero__scene is-active" src="assets/img/hero-home.jpg" alt="Modern family home at dusk, its glass entrance lit from inside" data-scene="home" fetchpriority="high" decoding="async">
+              <img class="hero__scene" src="assets/img/hero-business.jpg" alt="Glass office towers seen from street level" data-scene="business" loading="lazy" decoding="async">
+              <img class="hero__scene" src="assets/img/hero-estate.jpg" alt="White estate villa with a long reflecting pool" data-scene="estate" loading="lazy" decoding="async">
+            </div>
+            <div class="hero__shade"></div>
+            <span class="hero__scan" aria-hidden="true"></span>
+            <canvas class="hero__static" width="160" height="90" aria-hidden="true"></canvas>
+
+            <div class="hero__hud" aria-hidden="true">
+              <span class="hud-corner hud-corner--tl"></span><span class="hud-corner hud-corner--tr"></span>
+              <span class="hud-corner hud-corner--bl"></span><span class="hud-corner hud-corner--br"></span>
+              <span class="hero__cross"></span>
+              <div class="hero__hud-top mono">
+                <span class="hero__rec"><span class="rec-dot"></span>REC</span>
+                <span data-hud-cam>CAM 01 · HOME</span>
+                <span data-clock-full>--</span>
+              </div>
+              <div class="hero__hud-side mono">
+                <span>AF <b data-hud-af>SEARCH</b></span>
+                <span>4K · H.265</span>
+                <span data-hud-ir>DAY</span>
+              </div>
+              <div class="hero__tracker" data-tracker>
+                <span class="hero__tracker-tag mono" data-tracker-tag>MOTION · 0.97</span>
+                <i></i><i></i><i></i><i></i>
+              </div>
+            </div>
+          </div>
+
+          <svg class="hero__outline" aria-hidden="true" data-hero-outline>
+            <path class="hero__outline-base"/>
+            <path class="hero__outline-patrol"/>
+          </svg>
+
+          <div class="hero__content">
+            <h1 class="hero__title" id="hero-title">
+              <span class="line"><span>Clarity at every</span></span>
+              <span class="line"><span>entrance.</span></span>
+            </h1>
+            <p class="hero__lede" data-hero-lede>CCTV, access control and alarm installation, planned around your property.</p>
+            <div class="hero__ctas">
+              <a class="btn btn--cream" href="#solutions">
+                <span>Explore your options</span>
+                <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+              </a>
+              <a class="link-underline link-underline--light" href="#work">See our installations</a>
+            </div>
+          </div>
+
+          <a class="hero__thumb" href="#solutions" aria-label="See the equipment we install">
+            <span class="hero__thumb-img">
+              <img src="assets/img/dome-lens.jpg" alt="" decoding="async">
+              <span class="hero__thumb-tag mono"><span class="rec-dot"></span>CAM 02</span>
+            </span>
+            <span class="hero__thumb-copy">Considered equipment.<br>Careful installation.</span>
+          </a>
+        </div>
+
+        <div class="hero__tabs" role="tablist" aria-label="Choose a property type" data-hero-tabs>
+          <button class="hero__tab" role="tab" type="button" aria-selected="true" data-scene="home" id="tab-home">Home<span class="hero__tab-bar"><span></span></span></button>
+          <button class="hero__tab" role="tab" type="button" aria-selected="false" tabindex="-1" data-scene="business" id="tab-business">Business<span class="hero__tab-bar"><span></span></span></button>
+          <button class="hero__tab" role="tab" type="button" aria-selected="false" tabindex="-1" data-scene="estate" id="tab-estate">Estate<span class="hero__tab-bar"><span></span></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SOLUTIONS
+         ============================================================ -->
+    <section class="solutions section-light" id="solutions" aria-labelledby="solutions-title">
+      <div class="container">
+        <h2 class="section-title" id="solutions-title" data-focus tabindex="-1">The right pieces. A complete plan.</h2>
+
+        <div class="bento">
+          <a class="card card--cctv" href="#survey" data-tilt data-reveal>
+            <span class="card__media"><img src="assets/img/cctv-wall.jpg" alt="Rows of wall-mounted CCTV cameras" loading="lazy" decoding="async"></span>
+            <span class="card__body">
+              <span class="card__title"><span class="num">01 /</span> CCTV installation</span>
+              <span class="card__text">Reliable, discreet CCTV, professionally installed for your property.</span>
+              <svg class="i-arrow card__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+            </span>
+            <span class="card__fx" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </a>
+
+          <a class="card card--access" href="#survey" data-tilt data-reveal>
+            <span class="card__media"><img src="assets/img/access-control.jpg" alt="Smart door lock opened from a phone" loading="lazy" decoding="async"></span>
+            <span class="card__body">
+              <span class="card__title"><span class="num">02 /</span> Access control</span>
+              <span class="card__text">Secure, convenient access for your home or business.</span>
+              <svg class="i-arrow card__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+            </span>
+            <span class="card__fx" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </a>
+
+          <a class="card card--plain card--alarm" href="#survey" data-tilt data-reveal>
+            <svg class="card__icon card__icon--bell" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5c-4.8 0-8 3.6-8 8.3v5.4L5.5 22.5h21L24 18.2v-5.4c0-4.7-3.2-8.3-8-8.3Z"/><path d="M12.8 25.5a3.3 3.3 0 0 0 6.4 0"/></svg>
+            <span class="card__body">
+              <span class="card__title"><span class="num">03 /</span> Alarm systems</span>
+              <span class="card__text">Effective detection and response, tailored to your needs.</span>
+              <svg class="i-arrow card__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+            </span>
+            <span class="card__fx" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </a>
+
+          <a class="card card--plain card--care" href="#survey" data-tilt data-reveal>
+            <svg class="card__icon card__icon--gear" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="4.2"/><path d="M16 3.5l2 3.3 3.8-.9.9 3.8 3.3 2-1.7 3.3 1.7 3.3-3.3 2-.9 3.8-3.8-.9-2 3.3-2-3.3-3.8.9-.9-3.8-3.3-2 1.7-3.3L5.8 12l3.3-2 .9-3.8 3.8.9Z"/></svg>
+            <span class="card__body">
+              <span class="card__title"><span class="num">04 /</span> Maintenance</span>
+              <span class="card__text">Ongoing care to keep everything working at its best.</span>
+              <svg class="i-arrow card__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+            </span>
+            <span class="card__fx" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WORK
+         ============================================================ -->
+    <section class="work section-light" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="work-title" data-focus tabindex="-1">Planned for the place.</h2>
+          <a class="link-arrow" href="#survey">Explore our work <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+        </div>
+
+        <div class="work__grid">
+          <figure class="feedcard" data-reveal="shutter">
+            <div class="feedcard__screen">
+              <img src="assets/img/work-residence.jpg" alt="Contemporary home with timber cladding after installation" loading="lazy" decoding="async">
+              <span class="feedcard__overlay" aria-hidden="true">
+                <span class="feedcard__rec mono"><span class="rec-dot"></span>CAM 03 · FRONT</span>
+                <span class="feedcard__tc mono" data-clock-full>--</span>
+                <span class="feedcard__box"></span>
+              </span>
+            </div>
+            <figcaption><span class="num">01 /</span> Residential installation</figcaption>
+          </figure>
+
+          <figure class="feedcard" data-reveal="shutter">
+            <div class="feedcard__screen">
+              <img src="assets/img/work-handover.jpg" alt="Sentra technician wiring a camera power supply on site" loading="lazy" decoding="async">
+              <span class="feedcard__overlay" aria-hidden="true">
+                <span class="feedcard__rec mono"><span class="rec-dot"></span>CAM 07 · SITE</span>
+                <span class="feedcard__tc mono" data-clock-full>--</span>
+                <span class="feedcard__box feedcard__box--b"></span>
+              </span>
+            </div>
+            <figcaption><span class="num">02 /</span> Installation &amp; handover</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         APPROACH
+         ============================================================ -->
+    <section class="approach" id="approach" aria-labelledby="approach-title" data-approach>
+      <div class="container approach__inner">
+        <h2 class="approach__title" id="approach-title" data-focus tabindex="-1">Clear from survey<br>to support.</h2>
+        <ol class="steps">
+          <li class="step"><span class="step__num mono">01 /</span><span class="step__name">Survey</span><p>We visit your property to understand your needs.</p></li>
+          <li class="step"><span class="step__num mono">02 /</span><span class="step__name">Plan</span><p>We recommend the right setup for your space.</p></li>
+          <li class="step"><span class="step__num mono">03 /</span><span class="step__name">Install</span><p>Our experienced team installs with care and precision.</p></li>
+          <li class="step"><span class="step__num mono">04 /</span><span class="step__name">Care</span><p>Ongoing support and maintenance when you need it.</p></li>
+        </ol>
+        <div class="approach__wire" aria-hidden="true"><span class="approach__pulse"></span></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SURVEY / CONTACT
+         ============================================================ -->
+    <section class="survey section-light" id="survey" aria-labelledby="survey-title">
+      <div class="container">
+        <h2 class="section-title" id="survey-title" data-focus tabindex="-1">Let’s look at your space.</h2>
+
+        <div class="survey__grid">
+          <form class="form" data-form novalidate>
+            <div class="form__row">
+              <label class="field">
+                <span class="field__label">Your name</span>
+                <input class="field__input" type="text" name="name" autocomplete="name" required>
+              </label>
+              <label class="field">
+                <span class="field__label">Phone or email</span>
+                <input class="field__input" type="text" name="contact" autocomplete="email" required>
+              </label>
+            </div>
+            <div class="form__row">
+              <label class="field">
+                <span class="field__label">Property type</span>
+                <span class="field__select">
+                  <select class="field__input" name="property">
+                    <option value="">Select property type</option>
+                    <option>Home</option>
+                    <option>Business</option>
+                    <option>Estate</option>
+                    <option>Other</option>
+                  </select>
+                </span>
+              </label>
+              <label class="field">
+                <span class="field__label">Service needed</span>
+                <span class="field__select">
+                  <select class="field__input" name="service">
+                    <option value="">Select service</option>
+                    <option>CCTV installation</option>
+                    <option>Access control</option>
+                    <option>Alarm systems</option>
+                    <option>Maintenance</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </span>
+              </label>
+            </div>
+            <label class="field">
+              <span class="field__label">Your area or town</span>
+              <input class="field__input" type="text" name="area" autocomplete="address-level2" data-area>
+            </label>
+            <label class="field">
+              <span class="field__label">Your requirements</span>
+              <textarea class="field__input" name="notes" rows="3"></textarea>
+            </label>
+            <div class="form__foot">
+              <button class="btn btn--dark" type="submit">
+                <span>Request a site survey</span>
+                <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+              </button>
+              <p class="form__msg" role="status" aria-live="polite" data-form-msg></p>
+            </div>
+          </form>
+
+          <aside class="locate">
+            <div class="map" aria-hidden="true">
+              <svg class="map__svg" viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice">
+                <rect width="400" height="170" class="map__land"/>
+                <path class="map__park" d="M300 108h56l14 30-10 32h-60Z"/>
+                <path class="map__park" d="M18 18h44l6 28-50 6Z"/>
+                <path class="map__water" d="M0 150c40-14 80-6 120-20s70-30 120-26 100 30 160 18v48H0Z"/>
+                <g class="map__roads">
+                  <path d="M-10 60 410 30"/><path d="M-10 118 410 84"/><path d="M70-10 120 180"/>
+                  <path d="M190-10 210 180"/><path d="M300-10 280 180"/><path d="M-10 20 160 180"/>
+                </g>
+                <g class="map__roads map__roads--minor">
+                  <path d="M0 90 400 58"/><path d="M130-10 160 180"/><path d="M250-10 245 180"/><path d="M340-10 360 180"/>
+                  <path d="M0 35 400 6"/><path d="M40 0 70 180"/>
+                </g>
+              </svg>
+              <span class="map__radar"></span>
+              <span class="map__pin"><span class="map__ring"></span><span class="map__ring map__ring--2"></span></span>
+              <span class="map__label" data-map-label>Your property</span>
+            </div>
+            <p class="locate__text">Our team confirms service availability and the next step.</p>
+            <a class="whatsapp" href="https://wa.me/" target="_blank" rel="noopener" data-whatsapp>
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.2A12.7 12.7 0 0 0 5.1 22.4L3.4 28.6l6.4-1.7A12.7 12.7 0 1 0 16 3.2Zm0 23.2a10.5 10.5 0 0 1-5.4-1.5l-.4-.2-3.8 1 1-3.7-.2-.4A10.5 10.5 0 1 1 16 26.4Zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.7c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.2-.3-.3-.7-.5Z"/></svg>
+              <span>Speak on WhatsApp</span>
+            </a>
+          </aside>
+        </div>
+
+        <div class="faq" data-faq>
+          <details class="faq__item">
+            <summary>Can you upgrade an existing system?<span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>Yes. We assess what you already have, keep what still performs, and upgrade cameras, recorders or access hardware only where it makes a real difference.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Do you offer maintenance?<span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>Yes. Scheduled health checks, firmware updates, lens cleaning and quick call-outs keep your system recording when it matters.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>How long does an installation take?<span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>Most homes are finished in a day. Larger business and estate projects are planned in phases after the survey, so your site keeps running while we work.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Can I watch my cameras on my phone?<span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>Yes. We set up secure remote viewing on your phone and walk you through it at handover.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <a class="brand brand--small" href="#top" data-cut data-ch="00" data-name="Home" aria-label="Sentra Security Systems, back to top">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path class="brand__shield" d="M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z"/>
+          <g class="brand__iris"><circle cx="16" cy="15.5" r="5.2"/></g>
+        </svg>
+        <span class="brand__type"><span class="brand__name">Sentra</span><span class="brand__sub">Security Systems</span></span>
+      </a>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="#solutions" data-cut data-ch="01" data-name="Solutions">Solutions</a>
+        <a href="#work" data-cut data-ch="02" data-name="Our work">Our work</a>
+        <a href="#approach" data-cut data-ch="03" data-name="Our approach">Our approach</a>
+        <a href="#survey" data-cut data-ch="04" data-name="Contact">Contact</a>
+      </nav>
+      <p class="footer__copy">© <span data-year>2026</span> Sentra Security Systems.</p>
+    </div>
+  </footer>
+
+  <div class="ir-overlay" aria-hidden="true"></div>
+  <div class="toast mono" role="status" aria-live="polite" data-toast></div>
+
+  <script src="assets/js/shutter.js" defer></script>
+  <script src="assets/js/railcam.js" defer></script>
+  <script src="assets/js/hero.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>
