@@ -152,6 +152,30 @@
     var conf = anpr.querySelector('[data-anpr-conf]');
     var runBtn = document.querySelector('[data-anpr-run]');
     var FINAL = 'SNT·4821', GL = 'ABCDEFGHJKLMNPRSTUVWXYZ0123456789';
+    var aimg = anpr.querySelector('.anpr__img');
+    var boxes = Array.prototype.slice.call(anpr.querySelectorAll('[data-anpr-box]'));
+    // keep the boxes on the car whatever shape the frame is (mirrors object-fit: cover)
+    var placeBoxes = function () {
+      var W = aimg.clientWidth, H = aimg.clientHeight, iw = aimg.naturalWidth, ih = aimg.naturalHeight;
+      if (!W || !iw) return;
+      var op = (getComputedStyle(aimg).objectPosition || '50% 50%').split(' ');
+      var px = parseFloat(op[0]) / 100, py = parseFloat(op[1]) / 100;
+      var s = Math.max(W / iw, H / ih), dw = iw * s, dh = ih * s, ox = (W - dw) * px + aimg.offsetLeft, oy = (H - dh) * py + aimg.offsetTop;
+      boxes.forEach(function (b, i) {
+        var r = b.getAttribute('data-anpr-box').split(',').map(Number);
+        b.style.left = (ox + r[0] / 100 * dw).toFixed(1) + 'px';
+        b.style.top = (oy + r[1] / 100 * dh).toFixed(1) + 'px';
+        b.style.width = (r[2] / 100 * dw).toFixed(1) + 'px';
+        b.style.height = (r[3] / 100 * dh).toFixed(1) + 'px';
+        if (i === 0) {
+          anpr.style.setProperty('--by0', (oy + r[1] / 100 * dh).toFixed(1) + 'px');
+          anpr.style.setProperty('--by1', (oy + (r[1] + r[3]) / 100 * dh).toFixed(1) + 'px');
+        }
+      });
+    };
+    if (aimg.complete) placeBoxes(); else aimg.addEventListener('load', placeBoxes);
+    window.addEventListener('resize', placeBoxes);
+    if (window.ResizeObserver) new ResizeObserver(placeBoxes).observe(aimg);
     var running = false;
     var run = function () {
       if (running) return;

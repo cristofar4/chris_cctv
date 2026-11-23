@@ -168,10 +168,43 @@
   var mode = 0, modeFade = 1, ringRot = 0;
   var hinted = false;
 
+  /* ---------- keep the lens's own tour clear of the headline block ---------- */
+  var block = null, blockAt = 0;
+  function textBlock() {
+    var now = performance.now();
+    if (block && now - blockAt < 1000) return block;
+    blockAt = now;
+    var sr = stage.getBoundingClientRect(), b = null;
+    Array.prototype.forEach.call(hero.querySelectorAll('.hero__title .line, .hero__lede, .hero__ctas > *'), function (el) {
+      var r = el.getBoundingClientRect();
+      if (!r.width) return;
+      if (el.classList.contains('line')) { var span = el.firstElementChild; if (span) { var rs = span.getBoundingClientRect(); r = { left: rs.left, right: rs.right, top: r.top, bottom: r.bottom }; } }
+      b = b ? { x0: Math.min(b.x0, r.left), y0: Math.min(b.y0, r.top), x1: Math.max(b.x1, r.right), y1: Math.max(b.y1, r.bottom) } : { x0: r.left, y0: r.top, x1: r.right, y1: r.bottom };
+    });
+    block = b ? { x0: b.x0 - sr.left, y0: b.y0 - sr.top, x1: b.x1 - sr.left, y1: b.y1 - sr.top } : null;
+    return block;
+  }
+  function hitsBlock(x, y, r) {
+    var b = textBlock();
+    if (!b) return false;
+    var nx = Math.max(b.x0, Math.min(x, b.x1)), ny = Math.max(b.y0, Math.min(y, b.y1));
+    return Math.hypot(x - nx, y - ny) < r;
+  }
+  function rectHitsBlock(x0, y0, x1, y1) {
+    var b = textBlock();
+    return !!b && x0 < b.x1 && x1 > b.x0 && y0 < b.y1 && y1 > b.y0;
+  }
+  function clearStop(from) {
+    for (var k = 0; k < TOUR.length; k++) {
+      var i = (from + k) % TOUR.length, p = TOUR[i];
+      if (!hitsBlock(u2x(p[0]), v2y(p[1]), R * 0.95)) return i;
+    }
+    return from;
+  }
   function tourTarget(dt) {
     tour.t += dt;
     var seg = 2.8; // move + hold
-    if (tour.t > seg) { tour.t = 0; tour.i = (tour.i + 1) % TOUR.length; }
+    if (tour.t > seg) { tour.t = 0; tour.i = clearStop((tour.i + 1) % TOUR.length); }
     var p = TOUR[tour.i];
     lens.tx = u2x(p[0]); lens.ty = v2y(p[1]);
   }
@@ -327,6 +360,9 @@
       var hintTxt = touch ? 'TAP THE STREET TO SCAN' : 'MOVE TO SCAN THE STREET';
       var hw = c.measureText(hintTxt).width + 30, hy = lens.y - R - 34;
       var hx = Math.max(10, Math.min(W - hw - 10, lens.x - hw / 2));
+      // never sit on the headline: drop below the lens, or skip if there is no room
+      if (rectHitsBlock(hx, hy - 13, hx + hw, hy + 13)) hy = lens.y + R + 34;
+      if (hy + 13 > H - 96 && rectHitsBlock(hx, lens.y - R - 47, hx + hw, lens.y - R - 21)) hy = -999;
       c.globalAlpha = 0.82 + 0.18 * Math.sin(t / 380);
       c.fillStyle = 'rgba(236,232,225,0.95)';
       roundRect(c, hx, hy - 13, hw, 26, 13); c.fill();
@@ -367,12 +403,13 @@
   function start() { if (!running && visible && !document.hidden && api.ready) { last = performance.now(); requestAnimationFrame(frame); } }
   if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; start(); }, { threshold: 0.01 }).observe(hero);
   document.addEventListener('visibilitychange', start);
-  window.addEventListener('resize', function () { layout(); });
+  window.addEventListener('resize', function () { layout(); block = null; });
 
   function init() {
     try { buildSensors(); } catch (e) { console.error(e); }
     layout();
-    var p0 = TOUR[0];
+    tour.i = clearStop(0);
+    var p0 = TOUR[tour.i];
     lens.x = lens.tx = u2x(p0[0]); lens.y = lens.ty = v2y(p0[1]);
     if (reduce) { lens.x = lens.tx = u2x(0.86); lens.y = lens.ty = v2y(0.82); }
     api.ready = true;
