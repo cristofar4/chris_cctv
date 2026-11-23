@@ -369,6 +369,14 @@
 
   function pad(n) { return n < 10 ? '0' + n : String(n); }
 
+  // instant jump that cooperates with the smooth-scroll engine when present
+  function jumpTo(t) {
+    var S = window.SentraScroll;
+    if (S && S.jump) { S.jump(t); return; }
+    var y = typeof t === 'number' ? t : t.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: y, behavior: 'instant' });
+  }
+
   /* ======================================================================
      Scroll spy + DVR scrub bar
      ====================================================================== */
@@ -454,7 +462,7 @@
       var r = dvrTrack.getBoundingClientRect();
       var p = clamp((clientX - r.left) / r.width, 0, 1);
       var max = document.documentElement.scrollHeight - window.innerHeight;
-      window.scrollTo({ top: p * max, behavior: 'instant' });
+      jumpTo(p * max);
     };
     dvr.addEventListener('pointerdown', function (e) {
       scrubbing = true;
@@ -488,8 +496,7 @@
     hideFeed();
     FX.cut({ ch: a.getAttribute('data-ch'), name: a.getAttribute('data-name') || a.textContent.trim() }, function () {
       if (menuWasOpen) setMenu(false, true);
-      if (hash === '#top') window.scrollTo({ top: 0, behavior: 'instant' });
-      else target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      jumpTo(hash === '#top' ? 0 : target);
       if (history.replaceState) history.replaceState(null, '', hash);
       var focusEl = hash === '#top' ? null : (target.querySelector('[data-focus]') || target);
       if (focusEl) {
@@ -541,6 +548,8 @@
       iris.setAttribute('aria-expanded', String(open));
       if (irisLabel) irisLabel.textContent = open ? 'Close menu' : 'Open menu';
       document.documentElement.style.overflow = open ? 'hidden' : '';
+      var L = window.SentraScroll && window.SentraScroll.lenis;
+      if (L) { if (open) L.stop(); else L.start(); }
       animateIris(open ? 22 : 6.5, open ? 1.2 : 0, open ? 600 : 450);
       if (open) {
         lastFocus = document.activeElement;

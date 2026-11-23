@@ -4,44 +4,56 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Sentra Security Systems | CCTV, Access Control &amp; Alarms</title>
-  <meta name="description" content="Sentra Security Systems plans and installs CCTV, access control and alarm systems for homes, businesses and estates, then looks after them.">
-  <meta name="theme-color" content="#0a1016">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z' fill='%230a1016' stroke='%232bdcea' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='15.5' r='3.4' fill='%232bdcea'/%3E%3C/svg%3E">
+  <meta name="description" content="Sentra designs, installs and looks after CCTV, access control and alarm systems for homes, estates and businesses. AI detection, colour night vision and live view from anywhere.">
+  <meta name="theme-color" content="#060708">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z' fill='%23060708' stroke='%2345e3f0' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='15.5' r='3.4' fill='%2345e3f0'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/img/hero-home.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>document.documentElement.classList.add('js', 'is-loading');</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- ============================================================
-       SHUTTER: full-screen camera iris used for "channel cuts"
-       ============================================================ -->
+  <!-- ===================== PRELOADER ===================== -->
+  <div class="loader" data-loader aria-hidden="true">
+    <div class="loader__center">
+      <svg class="loader__iris" viewBox="-50 -50 100 100">
+        <defs><clipPath id="loaderClip"><circle r="44"/></clipPath></defs>
+        <circle r="48" class="loader__ring"/>
+        <circle r="48" class="loader__ring loader__ring--prog" data-loader-ring pathLength="100"/>
+        <g clip-path="url(#loaderClip)">
+          <circle r="44" class="loader__back"/>
+          <circle r="9" class="loader__glint"/>
+          <g class="loader__blades" data-loader-blades></g>
+        </g>
+      </svg>
+      <p class="loader__brand">Sentra</p>
+    </div>
+    <div class="loader__meta mono">
+      <span data-loader-line>Initialising cameras</span>
+      <span data-loader-count>000</span>
+    </div>
+  </div>
+
+  <!-- ===================== SHUTTER ===================== -->
   <div class="shutter" aria-hidden="true">
     <svg class="shutter__svg" xmlns="http://www.w3.org/2000/svg">
-      <g class="shutter__blades">
-        <path/><path/><path/><path/><path/><path/>
-      </g>
+      <g class="shutter__blades"><path/><path/><path/><path/><path/><path/></g>
       <path class="shutter__edge"/>
     </svg>
     <div class="shutter__hud">
       <span class="shutter__ch mono">CH 01</span>
-      <span class="shutter__name">Solutions</span>
+      <span class="shutter__name">Systems</span>
       <span class="shutter__sub mono">Switching feed</span>
     </div>
   </div>
 
-  <!-- ============================================================
-       NAV: the Railcam. A ceiling-rail PTZ camera rides along the
-       top edge, swings with momentum, watches the pointer, and
-       lights up the link it is looking at.
-       ============================================================ -->
+  <!-- ===================== NAV: RAILCAM ===================== -->
   <header class="nav" data-nav>
     <div class="nav__shell">
-      <a class="brand" href="#top" data-cut data-ch="00" data-name="Home" aria-label="Sentra Security Systems, back to top">
+      <a class="brand" href="#top" data-cut data-ch="00" data-name="Live view" aria-label="Sentra Security Systems, back to top">
         <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
           <path class="brand__shield" d="M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z"/>
           <g class="brand__iris">
@@ -49,10 +61,7 @@
             <path d="M16 10.3v3.1M20.5 13l-2.7 1.5M20.5 18l-2.7-1.5M16 20.7v-3.1M11.5 18l2.7-1.5M11.5 13l2.7 1.5"/>
           </g>
         </svg>
-        <span class="brand__type">
-          <span class="brand__name">Sentra</span>
-          <span class="brand__sub">Security Systems</span>
-        </span>
+        <span class="brand__type"><span class="brand__name">Sentra</span><span class="brand__sub">Security Systems</span></span>
       </a>
 
       <span class="nav__divider" aria-hidden="true"></span>
@@ -61,50 +70,29 @@
         <div class="railcam__rail" aria-hidden="true"><span class="railcam__cap"></span><span class="railcam__cap"></span></div>
         <div class="railcam__beam" aria-hidden="true"><span></span></div>
         <div class="railcam__pool" aria-hidden="true"></div>
-
         <ul class="railcam__list" data-railcam-list>
-          <li><a class="railcam__link" href="#solutions" data-cut data-ch="01" data-name="Solutions" data-feed-img="assets/img/cctv-wall.jpg" data-feed-note="CCTV, access control, alarms and ongoing care.">Solutions</a></li>
-          <li><a class="railcam__link" href="#work" data-cut data-ch="02" data-name="Our work" data-feed-img="assets/img/work-residence.jpg" data-feed-note="Residential, business and estate installations.">Our work</a></li>
-          <li><a class="railcam__link" href="#approach" data-cut data-ch="03" data-name="Our approach" data-feed-img="assets/img/survey-plans.jpg" data-feed-note="Survey, plan, install, care. In that order.">Our approach</a></li>
-          <li><a class="railcam__link" href="#survey" data-cut data-ch="04" data-name="Contact" data-feed-img="assets/img/dome-lens.jpg" data-feed-note="Book a free site survey or message the team.">Contact</a></li>
+          <li><a class="railcam__link" href="#systems" data-cut data-ch="01" data-name="Systems" data-feed-img="assets/img/cctv-wall.jpg" data-feed-note="CCTV, access control, alarms and care.">Systems</a></li>
+          <li><a class="railcam__link" href="#work" data-cut data-ch="02" data-name="Our work" data-feed-img="assets/img/work-residence.jpg" data-feed-note="Residences, estates and commercial sites.">Work</a></li>
+          <li><a class="railcam__link" href="#process" data-cut data-ch="03" data-name="Process" data-feed-img="assets/img/survey-plans.jpg" data-feed-note="Survey, design, install, care.">Process</a></li>
+          <li><a class="railcam__link" href="#contact" data-cut data-ch="04" data-name="Contact" data-feed-img="assets/img/dome-lens.jpg" data-feed-note="Book a free site survey.">Contact</a></li>
         </ul>
-        <!-- lit copy of the list, revealed only inside the camera's beam -->
         <div class="railcam__lit" aria-hidden="true" data-railcam-lit></div>
-
-        <div class="railcam__lock" aria-hidden="true">
-          <i></i><i></i><i></i><i></i>
-        </div>
-
+        <div class="railcam__lock" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         <div class="railcam__rig" aria-hidden="true">
           <svg class="railcam__cam" viewBox="0 0 44 32" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="camCap" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#55626e"/>
-                <stop offset=".55" stop-color="#26313b"/>
-                <stop offset="1" stop-color="#151d24"/>
-              </linearGradient>
-              <radialGradient id="camGlass" cx=".5" cy=".15" r=".95">
-                <stop offset="0" stop-color="#2a3a47" stop-opacity=".95"/>
-                <stop offset=".6" stop-color="#0b1218" stop-opacity=".96"/>
-                <stop offset="1" stop-color="#05080b"/>
-              </radialGradient>
-              <radialGradient id="camLens" cx=".38" cy=".35" r=".8">
-                <stop offset="0" stop-color="#9ff7ff"/>
-                <stop offset=".35" stop-color="#2bdcea"/>
-                <stop offset="1" stop-color="#063a44"/>
-              </radialGradient>
+              <linearGradient id="camCap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a6670"/><stop offset=".55" stop-color="#28323b"/><stop offset="1" stop-color="#151c22"/></linearGradient>
+              <radialGradient id="camGlass" cx=".5" cy=".15" r=".95"><stop offset="0" stop-color="#2a3a47" stop-opacity=".95"/><stop offset=".6" stop-color="#0b1218" stop-opacity=".96"/><stop offset="1" stop-color="#05080b"/></radialGradient>
+              <radialGradient id="camLens" cx=".38" cy=".35" r=".8"><stop offset="0" stop-color="#b4fbff"/><stop offset=".35" stop-color="#45e3f0"/><stop offset="1" stop-color="#063a44"/></radialGradient>
             </defs>
-            <!-- carriage that rides the rail -->
             <rect x="12" y="0" width="20" height="5" rx="2" fill="#2b3640"/>
             <rect x="12.5" y="0.4" width="19" height="1.2" rx=".6" fill="#6b7884" opacity=".7"/>
-            <circle cx="16" cy="2.6" r="1.4" fill="#93a4b1"/>
-            <circle cx="28" cy="2.6" r="1.4" fill="#93a4b1"/>
-            <!-- swinging head -->
+            <circle cx="16" cy="2.6" r="1.4" fill="#93a4b1"/><circle cx="28" cy="2.6" r="1.4" fill="#93a4b1"/>
             <g class="railcam__swing">
               <rect x="20.6" y="4.4" width="2.8" height="5.4" fill="#34414c"/>
               <rect x="8" y="9" width="28" height="6.4" rx="3.2" fill="url(#camCap)"/>
               <rect x="10" y="9.6" width="24" height="1" rx=".5" fill="#8b99a5" opacity=".5"/>
-              <circle class="railcam__led" cx="31.4" cy="12.2" r="1.15" fill="#ff4757"/>
+              <circle class="railcam__led" cx="31.4" cy="12.2" r="1.15" fill="#ff4d5e"/>
               <path d="M10 14.6a12 12 0 0 0 24 0Z" fill="url(#camGlass)"/>
               <g class="railcam__lens">
                 <circle cx="22" cy="20" r="4.6" fill="#03070a" stroke="#2c3a46" stroke-width=".8"/>
@@ -121,30 +109,21 @@
       <span class="nav__divider" aria-hidden="true"></span>
 
       <div class="nav__actions">
-        <button class="ir-toggle" type="button" aria-pressed="false" data-ir-toggle>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><path class="ir-toggle__rays" d="M12 1.5v1.6M4.6 4.6l1.1 1.1M19.4 4.6l-1.1 1.1"/></svg>
-          <span class="ir-toggle__label mono">IR</span>
-          <span class="sr-only">Night vision view</span>
-        </button>
-        <a class="btn btn--cream nav__cta" href="#survey">
-          <span>Plan a site survey</span>
+        <a class="btn btn--ivory btn--sm nav__cta" href="#contact" data-magnetic>
+          <span>Book a survey</span>
           <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
         </a>
         <button class="iris" type="button" aria-expanded="false" aria-controls="menu" data-iris>
           <svg class="iris__svg" viewBox="-24 -24 48 48" aria-hidden="true">
             <defs><clipPath id="irisClip"><circle r="19"/></clipPath></defs>
             <circle class="iris__ring" r="21.5"/>
-            <g clip-path="url(#irisClip)">
-              <circle r="19" class="iris__back"/>
-              <g class="iris__blades" data-iris-blades></g>
-            </g>
+            <g clip-path="url(#irisClip)"><circle r="19" class="iris__back"/><circle r="4" class="iris__glint"/><g class="iris__blades" data-iris-blades></g></g>
             <g class="iris__x"><path d="M-5-5 5 5M5-5-5 5"/></g>
           </svg>
           <span class="sr-only" data-iris-label>Open menu</span>
         </button>
       </div>
 
-      <!-- DVR scrub bar: scroll position as recorded footage -->
       <div class="dvr" data-dvr aria-hidden="true">
         <div class="dvr__track">
           <span class="dvr__fill"></span>
@@ -154,7 +133,6 @@
       </div>
     </div>
 
-    <!-- live preview monitor that drops from the camera -->
     <div class="feed" aria-hidden="true" data-feed>
       <div class="feed__screen">
         <img class="feed__img" alt="" src="assets/img/cctv-wall.jpg" decoding="async">
@@ -166,25 +144,24 @@
         <span class="feed__corners"><i></i><i></i><i></i><i></i></span>
       </div>
       <div class="feed__meta">
-        <span class="feed__title" data-feed-title>Solutions</span>
-        <span class="feed__note" data-feed-note>CCTV, access control, alarms and ongoing care.</span>
+        <span class="feed__title" data-feed-title>Systems</span>
+        <span class="feed__note" data-feed-note>CCTV, access control, alarms and care.</span>
       </div>
     </div>
   </header>
 
-  <!-- Mobile menu (opened through the shutter) -->
   <div class="menu" id="menu" hidden data-menu>
     <div class="menu__grid" aria-hidden="true"></div>
     <nav class="menu__inner" aria-label="Mobile">
       <p class="menu__status mono" aria-hidden="true"><span class="rec-dot"></span> Multi-view · 4 channels</p>
       <ol class="menu__list">
-        <li><a href="#solutions" data-cut data-ch="01" data-name="Solutions"><span class="menu__ch mono">CH-01</span><span class="menu__label">Solutions</span></a></li>
-        <li><a href="#work" data-cut data-ch="02" data-name="Our work"><span class="menu__ch mono">CH-02</span><span class="menu__label">Our work</span></a></li>
-        <li><a href="#approach" data-cut data-ch="03" data-name="Our approach"><span class="menu__ch mono">CH-03</span><span class="menu__label">Our approach</span></a></li>
-        <li><a href="#survey" data-cut data-ch="04" data-name="Contact"><span class="menu__ch mono">CH-04</span><span class="menu__label">Contact</span></a></li>
+        <li><a href="#systems" data-cut data-ch="01" data-name="Systems"><span class="menu__ch mono">CH-01</span><span class="menu__label">Systems</span></a></li>
+        <li><a href="#work" data-cut data-ch="02" data-name="Our work"><span class="menu__ch mono">CH-02</span><span class="menu__label">Work</span></a></li>
+        <li><a href="#process" data-cut data-ch="03" data-name="Process"><span class="menu__ch mono">CH-03</span><span class="menu__label">Process</span></a></li>
+        <li><a href="#contact" data-cut data-ch="04" data-name="Contact"><span class="menu__ch mono">CH-04</span><span class="menu__label">Contact</span></a></li>
       </ol>
-      <a class="btn btn--cream menu__cta" href="#survey" data-cut data-ch="04" data-name="Site survey">
-        <span>Plan a site survey</span>
+      <a class="btn btn--ivory menu__cta" href="#contact" data-cut data-ch="04" data-name="Site survey">
+        <span>Book a site survey</span>
         <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
       </a>
       <p class="menu__clock mono" aria-hidden="true" data-clock>--:--:--</p>
@@ -192,244 +169,443 @@
   </div>
 
   <main id="main">
-    <!-- ============================================================
-         HERO
-         ============================================================ -->
-    <section class="hero is-booting" id="top" aria-labelledby="hero-title" data-hero>
-      <div class="hero__wrap">
-        <p class="hero__cut mono" aria-hidden="true"><span class="hero__bracket"></span><span class="rec-dot"></span> CAM 01 · LIVE</p>
+    <!-- ===================== HERO: LIVE 3D FEED ===================== -->
+    <section class="hero" id="top" data-hero aria-labelledby="hero-title">
+      <div class="hero__stage">
+        <canvas class="hero__canvas" data-scene aria-hidden="true"></canvas>
+        <img class="hero__fallback" src="assets/img/hero-home.jpg" alt="" aria-hidden="true">
+        <svg class="hero__overlay" data-overlay aria-hidden="true"></svg>
+        <div class="hero__veil" aria-hidden="true"></div>
+      </div>
 
-        <div class="hero__frame" data-hero-frame>
-          <div class="hero__screen" data-hero-screen>
-            <div class="hero__scenes" data-hero-scenes>
-              <img class="hero__scene is-active" src="assets/img/hero-home.jpg" alt="Modern family home at dusk, its glass entrance lit from inside" data-scene="home" fetchpriority="high" decoding="async">
-              <img class="hero__scene" src="assets/img/hero-business.jpg" alt="Glass office towers seen from street level" data-scene="business" loading="lazy" decoding="async">
-              <img class="hero__scene" src="assets/img/hero-estate.jpg" alt="White estate villa with a long reflecting pool" data-scene="estate" loading="lazy" decoding="async">
-            </div>
-            <div class="hero__shade"></div>
-            <span class="hero__scan" aria-hidden="true"></span>
-            <canvas class="hero__static" width="160" height="90" aria-hidden="true"></canvas>
+      <div class="hero__hud" aria-hidden="true">
+        <div class="hud-tl mono"><span class="rec-dot"></span><span>REC</span><i></i><span>CAM 04 · FRONT ENTRANCE</span><i></i><span class="hud-track" data-hud-track>AUTO-TRACK</span></div>
+        <div class="hud-tr mono"><span data-clock-full>--</span><span data-hud-ptz>PAN 000.0° · TILT 00.0° · 1.0×</span><span data-hud-mode>NIGHT COLOUR</span></div>
+        <span class="hud-c hud-c--tl"></span><span class="hud-c hud-c--tr"></span><span class="hud-c hud-c--bl"></span><span class="hud-c hud-c--br"></span>
+      </div>
 
-            <div class="hero__hud" aria-hidden="true">
-              <span class="hud-corner hud-corner--tl"></span><span class="hud-corner hud-corner--tr"></span>
-              <span class="hud-corner hud-corner--bl"></span><span class="hud-corner hud-corner--br"></span>
-              <span class="hero__cross"></span>
-              <div class="hero__hud-top mono">
-                <span class="hero__rec"><span class="rec-dot"></span>REC</span>
-                <span data-hud-cam>CAM 01 · HOME</span>
-                <span data-clock-full>--</span>
-              </div>
-              <div class="hero__hud-side mono">
-                <span>AF <b data-hud-af>SEARCH</b></span>
-                <span>4K · H.265</span>
-                <span data-hud-ir>DAY</span>
-              </div>
-              <div class="hero__tracker" data-tracker>
-                <span class="hero__tracker-tag mono" data-tracker-tag>MOTION · 0.97</span>
-                <i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-          </div>
-
-          <svg class="hero__outline" aria-hidden="true" data-hero-outline>
-            <path class="hero__outline-base"/>
-            <path class="hero__outline-patrol"/>
-          </svg>
-
-          <div class="hero__content">
-            <h1 class="hero__title" id="hero-title">
-              <span class="line"><span>Clarity at every</span></span>
-              <span class="line"><span>entrance.</span></span>
-            </h1>
-            <p class="hero__lede" data-hero-lede>CCTV, access control and alarm installation, planned around your property.</p>
-            <div class="hero__ctas">
-              <a class="btn btn--cream" href="#solutions">
-                <span>Explore your options</span>
-                <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-              </a>
-              <a class="link-underline link-underline--light" href="#work">See our installations</a>
-            </div>
-          </div>
-
-          <a class="hero__thumb" href="#solutions" aria-label="See the equipment we install">
-            <span class="hero__thumb-img">
-              <img src="assets/img/dome-lens.jpg" alt="" decoding="async">
-              <span class="hero__thumb-tag mono"><span class="rec-dot"></span>CAM 02</span>
-            </span>
-            <span class="hero__thumb-copy">Considered equipment.<br>Careful installation.</span>
+      <div class="hero__content">
+        <p class="hero__eyebrow mono"><span class="pulse"></span>Live demo · Sentra AI vision</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="line"><span>Clarity at</span></span>
+          <span class="line"><span><em>every</em> entrance.</span></span>
+        </h1>
+        <p class="hero__lede">CCTV, access control and alarm systems, designed around your property, installed with precision and watched over for as long as you own it.</p>
+        <div class="hero__ctas">
+          <a class="btn btn--ivory btn--lg" href="#contact" data-magnetic>
+            <span>Book a site survey</span>
+            <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
           </a>
+          <a class="btn btn--ghost btn--lg" href="#systems">Explore systems</a>
         </div>
+      </div>
 
-        <div class="hero__tabs" role="tablist" aria-label="Choose a property type" data-hero-tabs>
-          <button class="hero__tab" role="tab" type="button" aria-selected="true" data-scene="home" id="tab-home">Home<span class="hero__tab-bar"><span></span></span></button>
-          <button class="hero__tab" role="tab" type="button" aria-selected="false" tabindex="-1" data-scene="business" id="tab-business">Business<span class="hero__tab-bar"><span></span></span></button>
-          <button class="hero__tab" role="tab" type="button" aria-selected="false" tabindex="-1" data-scene="estate" id="tab-estate">Estate<span class="hero__tab-bar"><span></span></span></button>
+      <aside class="console" aria-label="Live event log, demonstration">
+        <header class="console__head">
+          <span class="mono"><span class="rec-dot"></span>Live events</span>
+          <span class="console__status mono" data-console-status>All clear</span>
+        </header>
+        <div class="console__map">
+          <svg class="minimap" data-minimap viewBox="0 0 280 200" aria-hidden="true"></svg>
+        </div>
+        <ol class="console__log" data-log></ol>
+        <footer class="console__foot mono"><span>4 cams</span><span>2 doors</span><span>Armed · home</span></footer>
+      </aside>
+
+      <div class="notify" data-notify role="status" aria-live="polite">
+        <span class="notify__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z"/><circle cx="16" cy="15.5" r="3.4"/></svg>
+        </span>
+        <span class="notify__body">
+          <span class="notify__app mono">Sentra · now</span>
+          <span class="notify__title">Someone is at your front door</span>
+          <span class="notify__text" data-notify-text>Courier detected. A package was left on the porch.</span>
+        </span>
+      </div>
+
+      <div class="hero__bar">
+        <div class="modes" role="group" aria-label="Camera sensor mode" data-modes>
+          <span class="modes__pill" aria-hidden="true"></span>
+          <button class="modes__btn" type="button" aria-pressed="true" data-mode="0"><span class="modes__dot"></span>Night colour</button>
+          <button class="modes__btn" type="button" aria-pressed="false" data-mode="1"><span class="modes__dot"></span>Infrared</button>
+          <button class="modes__btn" type="button" aria-pressed="false" data-mode="2"><span class="modes__dot"></span>Thermal</button>
+        </div>
+        <div class="hero__tools">
+          <button class="pause mono" type="button" aria-pressed="false" data-pause><span class="pause__icon" aria-hidden="true"></span><span data-pause-label>Pause feed</span></button>
+          <a class="scroll-cue mono" href="#statement"><span>Scroll</span><i></i></a>
         </div>
       </div>
     </section>
 
-    <!-- ============================================================
-         SOLUTIONS
-         ============================================================ -->
-    <section class="solutions section-light" id="solutions" aria-labelledby="solutions-title">
+    <!-- ===================== STATEMENT ===================== -->
+    <section class="statement" id="statement" aria-label="Our approach">
       <div class="container">
-        <h2 class="section-title" id="solutions-title" data-focus tabindex="-1">The right pieces. A complete plan.</h2>
+        <p class="kicker mono">(01) <i></i> Philosophy</p>
+        <p class="statement__text" data-scrub>
+          Most systems record what happened.
+          <span class="pill" aria-hidden="true"><img src="assets/img/dome-lens.jpg" alt="" loading="lazy"></span>
+          Ours are planned to notice it happening: at the gate, at the door and in every blind corner
+          <span class="pill pill--wide" aria-hidden="true"><img src="assets/img/hero-estate.jpg" alt="" loading="lazy"></span>
+          and to tell you, wherever you are.
+        </p>
+      </div>
+    </section>
 
-        <div class="bento">
-          <a class="card card--cctv" href="#survey" data-tilt data-reveal>
-            <span class="card__media"><img src="assets/img/cctv-wall.jpg" alt="Rows of wall-mounted CCTV cameras" loading="lazy" decoding="async"></span>
-            <span class="card__body">
-              <span class="card__title"><span class="num">01 /</span> CCTV installation</span>
-              <span class="card__text">Reliable, discreet CCTV, professionally installed for your property.</span>
-              <svg class="i-arrow card__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-            </span>
-            <span class="card__fx" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          </a>
+    <!-- ===================== SPECS ===================== -->
+    <section class="specs" aria-label="Capabilities">
+      <div class="container specs__grid">
+        <div class="spec" data-reveal><span class="spec__num"><span data-count="4">4</span>K</span><span class="spec__label">Ultra-HD imaging on every channel</span></div>
+        <div class="spec" data-reveal><span class="spec__num"><span data-count="24">24</span>/7</span><span class="spec__label">Live view from anywhere in the world</span></div>
+        <div class="spec" data-reveal><span class="spec__num"><span data-count="360">360</span>°</span><span class="spec__label">Coverage planned, never guessed</span></div>
+        <div class="spec" data-reveal><span class="spec__num">AI</span><span class="spec__label">Person, vehicle and package detection</span></div>
+      </div>
+    </section>
 
-          <a class="card card--access" href="#survey" data-tilt data-reveal>
-            <span class="card__media"><img src="assets/img/access-control.jpg" alt="Smart door lock opened from a phone" loading="lazy" decoding="async"></span>
-            <span class="card__body">
-              <span class="card__title"><span class="num">02 /</span> Access control</span>
-              <span class="card__text">Secure, convenient access for your home or business.</span>
-              <svg class="i-arrow card__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-            </span>
-            <span class="card__fx" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          </a>
+    <!-- ===================== SYSTEMS (horizontal) ===================== -->
+    <section class="systems" id="systems" data-hscroll aria-labelledby="systems-title">
+      <div class="systems__sticky">
+        <header class="systems__head">
+          <div>
+            <p class="kicker mono">(02) <i></i> Systems</p>
+            <h2 class="h2" id="systems-title" data-focus tabindex="-1">The right pieces. <em>A complete plan.</em></h2>
+          </div>
+          <div class="systems__progress mono" aria-hidden="true">
+            <span data-hs-current>01</span><span class="systems__bar"><span data-hs-bar></span></span><span>04</span>
+          </div>
+        </header>
 
-          <a class="card card--plain card--alarm" href="#survey" data-tilt data-reveal>
-            <svg class="card__icon card__icon--bell" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5c-4.8 0-8 3.6-8 8.3v5.4L5.5 22.5h21L24 18.2v-5.4c0-4.7-3.2-8.3-8-8.3Z"/><path d="M12.8 25.5a3.3 3.3 0 0 0 6.4 0"/></svg>
-            <span class="card__body">
-              <span class="card__title"><span class="num">03 /</span> Alarm systems</span>
-              <span class="card__text">Effective detection and response, tailored to your needs.</span>
-              <svg class="i-arrow card__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-            </span>
-            <span class="card__fx" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          </a>
+        <div class="systems__viewport">
+          <div class="systems__track" data-hs-track>
+            <!-- 01 CCTV -->
+            <article class="sys-card">
+              <div class="sys-card__content">
+                <span class="sys-card__num" aria-hidden="true">01</span>
+                <h3 class="sys-card__title">CCTV &amp; AI video</h3>
+                <p class="sys-card__text">Cameras placed by line of sight, not guesswork. Crisp 4K by day, colour by night, and on-device AI that knows a person from a passing shadow.</p>
+                <ul class="sys-card__list">
+                  <li>4K colour night vision</li><li>AI detection zones</li><li>Encrypted local + cloud recording</li><li>Live view on any device</li>
+                </ul>
+                <a class="link-arrow" href="#contact">Plan my cameras <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+              </div>
+              <div class="sys-card__visual">
+                <div class="nvr" aria-hidden="true">
+                  <div class="nvr__tile"><img src="assets/img/hero-home.jpg" alt="" loading="lazy"><span class="nvr__lbl mono">CAM 01 · GARDEN</span><span class="nvr__box nvr__box--a"><b class="mono">PERSON 0.96</b></span></div>
+                  <div class="nvr__tile is-alert"><img src="assets/img/work-residence.jpg" alt="" loading="lazy"><span class="nvr__lbl mono">CAM 02 · DRIVEWAY</span><span class="nvr__box nvr__box--b"><b class="mono">VEHICLE 0.98</b></span></div>
+                  <div class="nvr__tile"><img src="assets/img/hero-estate.jpg" alt="" loading="lazy"><span class="nvr__lbl mono">CAM 03 · POOL</span></div>
+                  <div class="nvr__tile"><img src="assets/img/hero-business.jpg" alt="" loading="lazy"><span class="nvr__lbl mono">CAM 04 · TOWER</span><span class="nvr__box nvr__box--c"><b class="mono">PERSON 0.91</b></span></div>
+                  <div class="nvr__bar mono"><span><span class="rec-dot"></span>REC · 4 / 4</span><span data-clock-full>--</span></div>
+                </div>
+              </div>
+            </article>
 
-          <a class="card card--plain card--care" href="#survey" data-tilt data-reveal>
-            <svg class="card__icon card__icon--gear" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="4.2"/><path d="M16 3.5l2 3.3 3.8-.9.9 3.8 3.3 2-1.7 3.3 1.7 3.3-3.3 2-.9 3.8-3.8-.9-2 3.3-2-3.3-3.8.9-.9-3.8-3.3-2 1.7-3.3L5.8 12l3.3-2 .9-3.8 3.8.9Z"/></svg>
-            <span class="card__body">
-              <span class="card__title"><span class="num">04 /</span> Maintenance</span>
-              <span class="card__text">Ongoing care to keep everything working at its best.</span>
-              <svg class="i-arrow card__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
-            </span>
-            <span class="card__fx" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          </a>
+            <!-- 02 ACCESS -->
+            <article class="sys-card">
+              <div class="sys-card__content">
+                <span class="sys-card__num" aria-hidden="true">02</span>
+                <h3 class="sys-card__title">Access control</h3>
+                <p class="sys-card__text">Doors, gates and barriers that know who is allowed in, and when. Fingerprint, card, PIN or phone, with every entry on record.</p>
+                <ul class="sys-card__list">
+                  <li>Biometric &amp; mobile credentials</li><li>Time-based permissions</li><li>Video intercom</li><li>One-tap lockdown</li>
+                </ul>
+                <a class="link-arrow" href="#contact">Secure my doors <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+              </div>
+              <div class="sys-card__visual sys-card__visual--photo">
+                <img class="sys-card__photo" src="assets/img/access-control.jpg" alt="" loading="lazy">
+                <div class="access" data-access aria-hidden="true">
+                  <svg class="access__print" viewBox="0 0 120 120">
+                    <g class="access__arcs">
+                      <path d="M60 18c-20 0-36 15-37 35"/><path d="M60 28c-15 0-27 12-27 27v8"/><path d="M60 38c-9 0-17 8-17 17v14c0 8-2 15-6 21"/>
+                      <path d="M60 48c-4 0-7 3-7 7v16c0 11-3 20-9 28"/><path d="M60 58v18c0 12-3 22-8 30"/><path d="M67 55c0-4-3-7-7-7"/>
+                      <path d="M70 70V55c0-6-4-10-10-10"/><path d="M78 76V55c0-10-8-17-18-17"/><path d="M86 70V55c0-14-12-27-26-27"/><path d="M95 60v-5c0-19-16-37-35-37"/>
+                      <path d="M70 80c0 10-2 19-6 26"/><path d="M78 88c-1 7-3 13-6 18"/>
+                    </g>
+                    <rect class="access__scan" x="14" y="0" width="92" height="3" rx="1.5"/>
+                  </svg>
+                  <p class="access__state mono" data-access-state>Place finger</p>
+                  <p class="access__who" data-access-who>Front door</p>
+                  <div class="access__log mono"><span>08:14 Resident 02 ✓</span><span>07:52 Cleaner · card ✓</span><span>02:31 Unknown · denied ✕</span></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 03 ALARMS -->
+            <article class="sys-card">
+              <div class="sys-card__content">
+                <span class="sys-card__num" aria-hidden="true">03</span>
+                <h3 class="sys-card__title">Alarm systems</h3>
+                <p class="sys-card__text">Detection that can tell a cat from a break-in. Graded sensors, camera-verified alerts and a response that starts in seconds.</p>
+                <ul class="sys-card__list">
+                  <li>Perimeter &amp; interior sensors</li><li>Pet-tolerant, camera-verified</li><li>Panic &amp; fire integration</li><li>Monitored response</li>
+                </ul>
+                <a class="link-arrow" href="#contact">Arm my property <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+              </div>
+              <div class="sys-card__visual">
+                <div class="plan" data-plan aria-hidden="true">
+                  <svg class="plan__svg" viewBox="0 0 400 300">
+                    <g class="plan__walls">
+                      <rect x="20" y="20" width="360" height="260" rx="2"/>
+                      <path d="M20 150h120M140 20v90M140 150v130M240 20v110M240 170v110M240 170h140M140 150h40M220 150h20"/>
+                    </g>
+                    <g class="plan__rooms">
+                      <rect data-room="0" x="22" y="22" width="116" height="126"/>
+                      <rect data-room="1" x="142" y="22" width="96" height="126"/>
+                      <rect data-room="2" x="242" y="22" width="136" height="146"/>
+                      <rect data-room="3" x="22" y="152" width="116" height="126"/>
+                      <rect data-room="4" x="242" y="172" width="136" height="106"/>
+                    </g>
+                    <g class="plan__labels mono">
+                      <text x="34" y="44">BEDROOM</text><text x="154" y="44">HALL</text><text x="254" y="44">LIVING</text><text x="34" y="174">KITCHEN</text><text x="254" y="194">GARAGE</text>
+                    </g>
+                    <g class="plan__cones">
+                      <path d="M372 28 L300 70 L330 120Z"/><path d="M28 272 L90 220 L60 190Z"/><path d="M372 272 L320 200 L290 240Z"/>
+                    </g>
+                    <g class="plan__sensors">
+                      <circle data-sensor="0" cx="80" cy="85" r="5"/><circle data-sensor="1" cx="190" cy="130" r="5"/><circle data-sensor="2" cx="310" cy="95" r="5"/>
+                      <circle data-sensor="3" cx="80" cy="215" r="5"/><circle data-sensor="4" cx="310" cy="225" r="5"/><circle cx="190" cy="278" r="5"/>
+                    </g>
+                    <circle class="plan__ripple" data-ripple cx="310" cy="95" r="6"/>
+                  </svg>
+                  <div class="plan__status">
+                    <span class="plan__badge mono" data-plan-badge>Armed · away</span>
+                    <span class="plan__msg" data-plan-msg>All sensors healthy</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 04 CARE -->
+            <article class="sys-card">
+              <div class="sys-card__content">
+                <span class="sys-card__num" aria-hidden="true">04</span>
+                <h3 class="sys-card__title">Care &amp; maintenance</h3>
+                <p class="sys-card__text">Systems stay sharp because we keep them that way. Remote health checks, firmware, lens cleaning and quick call-outs, all on one plan.</p>
+                <ul class="sys-card__list">
+                  <li>24/7 remote health monitoring</li><li>Scheduled servicing</li><li>Priority call-outs</li><li>A clear upgrade path</li>
+                </ul>
+                <a class="link-arrow" href="#contact">Look after my system <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+              </div>
+              <div class="sys-card__visual">
+                <div class="health" aria-hidden="true">
+                  <div class="health__ring">
+                    <svg viewBox="0 0 120 120"><circle class="health__track" cx="60" cy="60" r="50"/><circle class="health__val" cx="60" cy="60" r="50" pathLength="100"/></svg>
+                    <span class="health__pct"><b data-count="99.9" data-decimals="1">99.9</b><small>%</small></span>
+                    <span class="health__cap mono">Uptime · 30 days</span>
+                  </div>
+                  <ul class="health__list mono">
+                    <li><i class="ok"></i>CAM 01 · Garden<span>OK</span></li>
+                    <li><i class="ok"></i>CAM 02 · Driveway<span>OK</span></li>
+                    <li><i class="ok"></i>CAM 03 · Pool<span>OK</span></li>
+                    <li><i class="warn"></i>CAM 04 · Gate<span>Lens clean due</span></li>
+                    <li><i class="ok"></i>NVR · 8 TB<span>62% used</span></li>
+                  </ul>
+                  <svg class="health__spark" viewBox="0 0 300 70" preserveAspectRatio="none"><path d="M0 50 L20 46 L40 48 L60 30 L80 36 L100 22 L120 28 L140 18 L160 26 L180 14 L200 20 L220 12 L240 18 L260 8 L280 14 L300 10"/></svg>
+                  <div class="health__chips mono"><span>Firmware · up to date</span><span>Next visit · 14 Dec</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============================================================
-         WORK
-         ============================================================ -->
-    <section class="work section-light" id="work" aria-labelledby="work-title">
+    <!-- ===================== NIGHT VISION COMPARE ===================== -->
+    <section class="night" id="night" aria-labelledby="night-title">
+      <div class="container night__head">
+        <div>
+          <p class="kicker mono">(03) <i></i> Night vision</p>
+          <h2 class="h2" id="night-title" data-focus>See what <em>others miss.</em></h2>
+        </div>
+        <p class="night__text">Most cameras turn the night into grey noise. Ours keep colour, faces and number plates readable when the lights go down. Drag to compare.</p>
+      </div>
+      <div class="compare" data-compare data-cursor="Drag">
+        <img class="compare__img" src="assets/img/hero-home.jpg" alt="The same house at night as seen by a Sentra camera: clear and in colour" loading="lazy">
+        <div class="compare__before">
+          <img class="compare__img" src="assets/img/hero-home.jpg" alt="" loading="lazy">
+          <canvas class="compare__noise" width="640" height="360"></canvas>
+        </div>
+        <div class="compare__line"><span class="compare__knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
+        <span class="compare__tag compare__tag--l mono">Standard camera</span>
+        <span class="compare__tag compare__tag--r mono">Sentra night colour</span>
+        <label class="sr-only" for="compare-range">Compare a standard camera with Sentra night colour</label>
+        <input class="compare__range sr-only" id="compare-range" type="range" min="0" max="100" value="50">
+      </div>
+    </section>
+
+    <!-- ===================== WORK ===================== -->
+    <section class="work section-ivory" id="work" aria-labelledby="work-title">
       <div class="container">
-        <div class="section-head">
-          <h2 class="section-title" id="work-title" data-focus tabindex="-1">Planned for the place.</h2>
-          <a class="link-arrow" href="#survey">Explore our work <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg></a>
+        <div class="work__head">
+          <div>
+            <p class="kicker mono">(04) <i></i> Selected work</p>
+            <h2 class="h2" id="work-title" data-focus tabindex="-1">Planned for <em>the place.</em></h2>
+          </div>
+          <p class="work__intro">No two properties are watched the same way. Every installation starts from how the place is used: who comes and goes, where it is dark, and what matters most.</p>
         </div>
 
-        <div class="work__grid">
-          <figure class="feedcard" data-reveal="shutter">
-            <div class="feedcard__screen">
-              <img src="assets/img/work-residence.jpg" alt="Contemporary home with timber cladding after installation" loading="lazy" decoding="async">
-              <span class="feedcard__overlay" aria-hidden="true">
-                <span class="feedcard__rec mono"><span class="rec-dot"></span>CAM 03 · FRONT</span>
-                <span class="feedcard__tc mono" data-clock-full>--</span>
-                <span class="feedcard__box"></span>
-              </span>
-            </div>
-            <figcaption><span class="num">01 /</span> Residential installation</figcaption>
-          </figure>
-
-          <figure class="feedcard" data-reveal="shutter">
-            <div class="feedcard__screen">
-              <img src="assets/img/work-handover.jpg" alt="Sentra technician wiring a camera power supply on site" loading="lazy" decoding="async">
-              <span class="feedcard__overlay" aria-hidden="true">
-                <span class="feedcard__rec mono"><span class="rec-dot"></span>CAM 07 · SITE</span>
-                <span class="feedcard__tc mono" data-clock-full>--</span>
-                <span class="feedcard__box feedcard__box--b"></span>
-              </span>
-            </div>
-            <figcaption><span class="num">02 /</span> Installation &amp; handover</figcaption>
-          </figure>
+        <div class="gallery">
+          <a class="shot shot--a" href="#contact" data-cursor="View" data-reveal>
+            <span class="shot__media"><img src="assets/img/work-residence.jpg" alt="Contemporary residence with timber cladding" loading="lazy" data-parallax></span>
+            <span class="shot__hud mono" aria-hidden="true"><span class="rec-dot"></span>CAM 03 · FRONT</span>
+            <span class="shot__info"><span class="shot__idx mono">01</span><span class="shot__title">Private residence</span><span class="shot__meta">14 cameras · Biometric entry · Monitored alarm</span></span>
+          </a>
+          <a class="shot shot--b" href="#contact" data-cursor="View" data-reveal>
+            <span class="shot__media"><img src="assets/img/hero-estate.jpg" alt="White estate villa with pool" loading="lazy" data-parallax></span>
+            <span class="shot__hud mono" aria-hidden="true"><span class="rec-dot"></span>CAM 11 · POOL</span>
+            <span class="shot__info"><span class="shot__idx mono">02</span><span class="shot__title">Estate villa</span><span class="shot__meta">Perimeter AI · Gatehouse intercom</span></span>
+          </a>
+          <a class="shot shot--c" href="#contact" data-cursor="View" data-reveal>
+            <span class="shot__media"><img src="assets/img/work-handover.jpg" alt="Sentra engineer wiring a camera power supply" loading="lazy" data-parallax></span>
+            <span class="shot__hud mono" aria-hidden="true"><span class="rec-dot"></span>SITE · DAY 1</span>
+            <span class="shot__info"><span class="shot__idx mono">03</span><span class="shot__title">Installation &amp; handover</span><span class="shot__meta">Every cable dressed, every app explained</span></span>
+          </a>
+          <a class="shot shot--d" href="#contact" data-cursor="View" data-reveal>
+            <span class="shot__media"><img src="assets/img/hero-business.jpg" alt="Glass office towers" loading="lazy" data-parallax></span>
+            <span class="shot__hud mono" aria-hidden="true"><span class="rec-dot"></span>CAM 48 · LOBBY</span>
+            <span class="shot__info"><span class="shot__idx mono">04</span><span class="shot__title">Commercial tower</span><span class="shot__meta">48 cameras · Lobby access · Control room</span></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ============================================================
-         APPROACH
-         ============================================================ -->
-    <section class="approach" id="approach" aria-labelledby="approach-title" data-approach>
-      <div class="container approach__inner">
-        <h2 class="approach__title" id="approach-title" data-focus tabindex="-1">Clear from survey<br>to support.</h2>
-        <ol class="steps">
-          <li class="step"><span class="step__num mono">01 /</span><span class="step__name">Survey</span><p>We visit your property to understand your needs.</p></li>
-          <li class="step"><span class="step__num mono">02 /</span><span class="step__name">Plan</span><p>We recommend the right setup for your space.</p></li>
-          <li class="step"><span class="step__num mono">03 /</span><span class="step__name">Install</span><p>Our experienced team installs with care and precision.</p></li>
-          <li class="step"><span class="step__num mono">04 /</span><span class="step__name">Care</span><p>Ongoing support and maintenance when you need it.</p></li>
+    <!-- ===================== PROCESS ===================== -->
+    <section class="process" id="process" aria-labelledby="process-title" data-process>
+      <div class="container process__grid">
+        <div class="process__aside">
+          <div class="process__sticky">
+            <p class="kicker mono">(05) <i></i> Process</p>
+            <h2 class="h2" id="process-title" data-focus tabindex="-1">From survey <em>to support.</em></h2>
+            <div class="process__counter" aria-hidden="true">
+              <span class="process__digits"><span class="process__reel" data-proc-reel><span>01</span><span>02</span><span>03</span><span>04</span></span></span>
+              <span class="process__total mono">/ 04</span>
+            </div>
+            <div class="process__meter" aria-hidden="true"><span data-proc-meter></span></div>
+          </div>
+        </div>
+        <ol class="process__steps">
+          <li class="pstep" data-step>
+            <figure class="pstep__media"><img src="assets/img/survey-plans.jpg" alt="Survey notes and drawings on a desk" loading="lazy"></figure>
+            <span class="pstep__num mono">01 / Survey</span>
+            <h3 class="pstep__title">We walk it, day and night.</h3>
+            <p>We visit your property, map every entrance, blind spot and light source, and listen to how you actually live or work there.</p>
+          </li>
+          <li class="pstep" data-step>
+            <figure class="pstep__media pstep__media--plan">
+              <svg class="blueprint" viewBox="0 0 600 380" aria-hidden="true">
+                <defs><pattern id="bpgrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="rgba(69,227,240,.09)"/></pattern></defs>
+                <rect width="600" height="380" fill="url(#bpgrid)"/>
+                <g class="blueprint__walls"><rect x="70" y="60" width="460" height="260"/><path d="M70 190h170M240 60v260M400 60v120M400 220v100M400 220h130"/></g>
+                <g class="blueprint__cones"><path d="M76 66 L200 120 L150 180Z"/><path d="M524 66 L420 110 L470 170Z"/><path d="M76 314 L190 250 L130 220Z"/><path d="M524 314 L430 260 L470 230Z"/><path d="M300 324 L250 230 L350 230Z"/></g>
+                <g class="blueprint__cams"><circle cx="76" cy="66" r="7"/><circle cx="524" cy="66" r="7"/><circle cx="76" cy="314" r="7"/><circle cx="524" cy="314" r="7"/><circle cx="300" cy="324" r="7"/></g>
+                <g class="blueprint__labels mono"><text x="90" y="90">C1 · 4K · 103°</text><text x="420" y="90">C2 · 4K · 103°</text><text x="90" y="300">C3 · PTZ</text><text x="430" y="300">C4 · ANPR</text><text x="268" y="215">C5 · DOOR</text></g>
+              </svg>
+            </figure>
+            <span class="pstep__num mono">02 / Design</span>
+            <h3 class="pstep__title">A drawn plan, priced line by line.</h3>
+            <p>You see every camera’s field of view, every sensor and every door before a single cable is run. No mystery boxes, no surprises.</p>
+          </li>
+          <li class="pstep" data-step>
+            <figure class="pstep__media"><img src="assets/img/work-handover.jpg" alt="Engineer installing equipment" loading="lazy"></figure>
+            <span class="pstep__num mono">03 / Install</span>
+            <h3 class="pstep__title">Tidy, tested, handed over in person.</h3>
+            <p>Certified engineers, clean cable runs and minimal disruption. Every channel is tuned, every app explained, every password yours.</p>
+          </li>
+          <li class="pstep" data-step>
+            <figure class="pstep__media"><img src="assets/img/dome-lens.jpg" alt="Close-up of a dome camera lens" loading="lazy"></figure>
+            <span class="pstep__num mono">04 / Care</span>
+            <h3 class="pstep__title">Watched over, for good.</h3>
+            <p>Remote health monitoring, scheduled servicing and a direct line to the team that installed it. Your system stays as sharp as day one.</p>
+          </li>
         </ol>
-        <div class="approach__wire" aria-hidden="true"><span class="approach__pulse"></span></div>
       </div>
     </section>
 
-    <!-- ============================================================
-         SURVEY / CONTACT
-         ============================================================ -->
-    <section class="survey section-light" id="survey" aria-labelledby="survey-title">
-      <div class="container">
-        <h2 class="section-title" id="survey-title" data-focus tabindex="-1">Let’s look at your space.</h2>
+    <!-- ===================== APP ===================== -->
+    <section class="app" aria-labelledby="app-title">
+      <div class="container app__grid">
+        <div class="app__copy">
+          <p class="kicker mono">(06) <i></i> The Sentra app</p>
+          <h2 class="h2" id="app-title" data-focus>Your property, <em>in your pocket.</em></h2>
+          <p class="app__text">Watch any camera live, get alerts that matter (not every passing leaf), talk to whoever is at the door and let them in from anywhere.</p>
+          <ul class="app__features">
+            <li data-reveal><span class="app__ico">◉</span><b>Live view in 4K</b><span>Every camera, one tap away.</span></li>
+            <li data-reveal><span class="app__ico">◎</span><b>Smart alerts</b><span>People, vehicles and parcels, not shadows.</span></li>
+            <li data-reveal><span class="app__ico">◈</span><b>Two-way talk</b><span>Answer the door from anywhere.</span></li>
+            <li data-reveal><span class="app__ico">◇</span><b>Shared access</b><span>Family, staff and guests, on your terms.</span></li>
+          </ul>
+        </div>
+        <div class="app__device" data-device>
+          <div class="app__glow" aria-hidden="true"></div>
+          <div class="phone" aria-hidden="true">
+            <div class="phone__notch"></div>
+            <div class="phone__screen">
+              <div class="phone__status mono"><span data-clock-short>21:43</span><span>5G ▮▮▮</span></div>
+              <p class="phone__title">Front entrance</p>
+              <div class="phone__feed">
+                <img src="assets/img/hero-home.jpg" alt="">
+                <span class="phone__live mono"><span class="rec-dot"></span>LIVE</span>
+                <span class="phone__box"><b class="mono">PERSON</b></span>
+              </div>
+              <div class="phone__controls">
+                <span><i>◉</i>Talk</span><span class="is-on"><i>⌁</i>Unlock</span><span><i>◬</i>Siren</span>
+              </div>
+              <p class="phone__sub mono">Today</p>
+              <ul class="phone__alerts" data-phone-alerts></ul>
+            </div>
+          </div>
+          <div class="chip chip--a" aria-hidden="true"><span class="chip__dot ok"></span>Front door unlocked<small>Resident 02 · 18:07</small></div>
+          <div class="chip chip--b" aria-hidden="true"><span class="chip__dot warn"></span>Motion · Garden<small>Verified by camera</small></div>
+        </div>
+      </div>
+    </section>
 
-        <div class="survey__grid">
+    <!-- ===================== COVERAGE MARQUEE ===================== -->
+    <section class="coverage section-ivory" aria-label="Properties we protect">
+      <div class="marquee" data-marquee data-speed="1">
+        <div class="marquee__track">
+          <span>Homes</span><i>✦</i><span class="o">Estates</span><i>✦</i><span>Offices</span><i>✦</i><span class="o">Retail</span><i>✦</i><span>Warehouses</span><i>✦</i><span class="o">Schools</span><i>✦</i><span>Hotels</span><i>✦</i>
+        </div>
+      </div>
+      <div class="marquee marquee--rev" data-marquee data-speed="-0.8">
+        <div class="marquee__track">
+          <span class="o">Gatehouses</span><i>✦</i><span>Car parks</span><i>✦</i><span class="o">Clinics</span><i>✦</i><span>Banks</span><i>✦</i><span class="o">Factories</span><i>✦</i><span>Places of worship</span><i>✦</i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact__head">
+          <p class="kicker mono">(07) <i></i> Site survey</p>
+          <h2 class="h2 h2--xl" id="contact-title" data-focus tabindex="-1">Let’s look at <em>your space.</em></h2>
+        </div>
+
+        <div class="contact__grid">
           <form class="form" data-form novalidate>
             <div class="form__row">
-              <label class="field">
-                <span class="field__label">Your name</span>
-                <input class="field__input" type="text" name="name" autocomplete="name" required>
-              </label>
-              <label class="field">
-                <span class="field__label">Phone or email</span>
-                <input class="field__input" type="text" name="contact" autocomplete="email" required>
-              </label>
+              <label class="field"><input class="field__input" type="text" name="name" autocomplete="name" placeholder=" " required><span class="field__label">Your name</span></label>
+              <label class="field"><input class="field__input" type="text" name="contact" autocomplete="email" placeholder=" " required><span class="field__label">Phone or email</span></label>
             </div>
-            <div class="form__row">
-              <label class="field">
-                <span class="field__label">Property type</span>
-                <span class="field__select">
-                  <select class="field__input" name="property">
-                    <option value="">Select property type</option>
-                    <option>Home</option>
-                    <option>Business</option>
-                    <option>Estate</option>
-                    <option>Other</option>
-                  </select>
-                </span>
-              </label>
-              <label class="field">
-                <span class="field__label">Service needed</span>
-                <span class="field__select">
-                  <select class="field__input" name="service">
-                    <option value="">Select service</option>
-                    <option>CCTV installation</option>
-                    <option>Access control</option>
-                    <option>Alarm systems</option>
-                    <option>Maintenance</option>
-                    <option>Not sure yet</option>
-                  </select>
-                </span>
-              </label>
-            </div>
-            <label class="field">
-              <span class="field__label">Your area or town</span>
-              <input class="field__input" type="text" name="area" autocomplete="address-level2" data-area>
-            </label>
-            <label class="field">
-              <span class="field__label">Your requirements</span>
-              <textarea class="field__input" name="notes" rows="3"></textarea>
-            </label>
+            <fieldset class="choice">
+              <legend class="choice__legend mono">Property type</legend>
+              <label><input type="radio" name="property" value="Home"><span>Home</span></label>
+              <label><input type="radio" name="property" value="Estate"><span>Estate</span></label>
+              <label><input type="radio" name="property" value="Business"><span>Business</span></label>
+              <label><input type="radio" name="property" value="Other"><span>Other</span></label>
+            </fieldset>
+            <fieldset class="choice">
+              <legend class="choice__legend mono">What do you need?</legend>
+              <label><input type="checkbox" name="service" value="CCTV"><span>CCTV</span></label>
+              <label><input type="checkbox" name="service" value="Access control"><span>Access control</span></label>
+              <label><input type="checkbox" name="service" value="Alarms"><span>Alarms</span></label>
+              <label><input type="checkbox" name="service" value="Maintenance"><span>Maintenance</span></label>
+              <label><input type="checkbox" name="service" value="Not sure yet"><span>Not sure yet</span></label>
+            </fieldset>
+            <label class="field"><input class="field__input" type="text" name="area" autocomplete="address-level2" placeholder=" " data-area><span class="field__label">Your area or town</span></label>
+            <label class="field"><textarea class="field__input" name="notes" rows="3" placeholder=" "></textarea><span class="field__label">Anything we should know?</span></label>
             <div class="form__foot">
-              <button class="btn btn--dark" type="submit">
-                <span>Request a site survey</span>
+              <button class="btn btn--ivory btn--lg" type="submit" data-magnetic>
+                <span data-submit-label>Request my site survey</span>
                 <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
               </button>
               <p class="form__msg" role="status" aria-live="polite" data-form-msg></p>
@@ -438,79 +614,72 @@
 
           <aside class="locate">
             <div class="map" aria-hidden="true">
-              <svg class="map__svg" viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice">
-                <rect width="400" height="170" class="map__land"/>
-                <path class="map__park" d="M300 108h56l14 30-10 32h-60Z"/>
-                <path class="map__park" d="M18 18h44l6 28-50 6Z"/>
-                <path class="map__water" d="M0 150c40-14 80-6 120-20s70-30 120-26 100 30 160 18v48H0Z"/>
-                <g class="map__roads">
-                  <path d="M-10 60 410 30"/><path d="M-10 118 410 84"/><path d="M70-10 120 180"/>
-                  <path d="M190-10 210 180"/><path d="M300-10 280 180"/><path d="M-10 20 160 180"/>
-                </g>
-                <g class="map__roads map__roads--minor">
-                  <path d="M0 90 400 58"/><path d="M130-10 160 180"/><path d="M250-10 245 180"/><path d="M340-10 360 180"/>
-                  <path d="M0 35 400 6"/><path d="M40 0 70 180"/>
-                </g>
+              <svg class="map__svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+                <rect width="400" height="240" class="map__land"/>
+                <path class="map__park" d="M300 140h66l14 40-10 60h-70Z"/><path class="map__park" d="M18 18h54l8 34-60 8Z"/>
+                <path class="map__water" d="M0 210c40-14 80-6 120-20s70-30 120-26 100 30 160 18v58H0Z"/>
+                <g class="map__roads"><path d="M-10 80 410 40"/><path d="M-10 160 410 116"/><path d="M70-10 120 250"/><path d="M190-10 210 250"/><path d="M300-10 280 250"/><path d="M-10 30 190 250"/></g>
+                <g class="map__roads map__roads--minor"><path d="M0 120 400 78"/><path d="M130-10 160 250"/><path d="M250-10 245 250"/><path d="M340-10 360 250"/><path d="M0 45 400 10"/><path d="M40 0 70 250"/></g>
               </svg>
               <span class="map__radar"></span>
               <span class="map__pin"><span class="map__ring"></span><span class="map__ring map__ring--2"></span></span>
               <span class="map__label" data-map-label>Your property</span>
             </div>
-            <p class="locate__text">Our team confirms service availability and the next step.</p>
+            <ol class="next">
+              <li><span class="mono">01</span><b>We call you back</b><span>to understand the brief.</span></li>
+              <li><span class="mono">02</span><b>We survey the site</b><span>day and night, at no cost.</span></li>
+              <li><span class="mono">03</span><b>You get a written plan</b><span>with every camera drawn and priced.</span></li>
+            </ol>
             <a class="whatsapp" href="https://wa.me/" target="_blank" rel="noopener" data-whatsapp>
               <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.2A12.7 12.7 0 0 0 5.1 22.4L3.4 28.6l6.4-1.7A12.7 12.7 0 1 0 16 3.2Zm0 23.2a10.5 10.5 0 0 1-5.4-1.5l-.4-.2-3.8 1 1-3.7-.2-.4A10.5 10.5 0 1 1 16 26.4Zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.7c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.2-.3-.3-.7-.5Z"/></svg>
-              <span>Speak on WhatsApp</span>
+              <span>Prefer to chat? <u>Message us on WhatsApp</u></span>
             </a>
           </aside>
         </div>
 
         <div class="faq" data-faq>
-          <details class="faq__item">
-            <summary>Can you upgrade an existing system?<span class="faq__icon" aria-hidden="true"></span></summary>
-            <div class="faq__body"><p>Yes. We assess what you already have, keep what still performs, and upgrade cameras, recorders or access hardware only where it makes a real difference.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary>Do you offer maintenance?<span class="faq__icon" aria-hidden="true"></span></summary>
-            <div class="faq__body"><p>Yes. Scheduled health checks, firmware updates, lens cleaning and quick call-outs keep your system recording when it matters.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary>How long does an installation take?<span class="faq__icon" aria-hidden="true"></span></summary>
-            <div class="faq__body"><p>Most homes are finished in a day. Larger business and estate projects are planned in phases after the survey, so your site keeps running while we work.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary>Can I watch my cameras on my phone?<span class="faq__icon" aria-hidden="true"></span></summary>
-            <div class="faq__body"><p>Yes. We set up secure remote viewing on your phone and walk you through it at handover.</p></div>
-          </details>
+          <details class="faq__item"><summary>Can you upgrade an existing system?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Yes. We assess what you already have, keep what still performs, and upgrade cameras, recorders or access hardware only where it makes a real difference.</p></div></details>
+          <details class="faq__item"><summary>Do you offer maintenance?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Yes. Scheduled health checks, firmware updates, lens cleaning and quick call-outs keep your system recording when it matters.</p></div></details>
+          <details class="faq__item"><summary>How long does an installation take?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Most homes are finished in a day. Larger business and estate projects are planned in phases after the survey, so your site keeps running while we work.</p></div></details>
+          <details class="faq__item"><summary>Can I watch my cameras on my phone?<span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__body"><p>Yes. We set up secure remote viewing on your phone and walk you through it at handover.</p></div></details>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
-    <div class="footer__inner">
-      <a class="brand brand--small" href="#top" data-cut data-ch="00" data-name="Home" aria-label="Sentra Security Systems, back to top">
-        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
-          <path class="brand__shield" d="M16 2.5 27.5 6.6V15c0 7.6-5 13-11.5 15.5C9.5 28 4.5 22.6 4.5 15V6.6Z"/>
-          <g class="brand__iris"><circle cx="16" cy="15.5" r="5.2"/></g>
-        </svg>
-        <span class="brand__type"><span class="brand__name">Sentra</span><span class="brand__sub">Security Systems</span></span>
-      </a>
-      <nav class="footer__nav" aria-label="Footer">
-        <a href="#solutions" data-cut data-ch="01" data-name="Solutions">Solutions</a>
-        <a href="#work" data-cut data-ch="02" data-name="Our work">Our work</a>
-        <a href="#approach" data-cut data-ch="03" data-name="Our approach">Our approach</a>
-        <a href="#survey" data-cut data-ch="04" data-name="Contact">Contact</a>
+    <div class="container footer__top">
+      <div class="footer__cta">
+        <p class="footer__lead">Ready when <em>you are.</em></p>
+        <a class="btn btn--ivory btn--lg" href="#contact" data-cut data-ch="04" data-name="Site survey" data-magnetic>
+          <span>Book a site survey</span>
+          <svg class="i-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>
+        </a>
+      </div>
+      <nav class="footer__cols" aria-label="Footer">
+        <div><p class="mono">Systems</p><a href="#systems" data-cut data-ch="01" data-name="Systems">CCTV &amp; AI video</a><a href="#systems" data-cut data-ch="01" data-name="Systems">Access control</a><a href="#systems" data-cut data-ch="01" data-name="Systems">Alarm systems</a><a href="#systems" data-cut data-ch="01" data-name="Systems">Care plans</a></div>
+        <div><p class="mono">Company</p><a href="#work" data-cut data-ch="02" data-name="Our work">Selected work</a><a href="#process" data-cut data-ch="03" data-name="Process">Process</a><a href="#night">Night vision</a><a href="#contact" data-cut data-ch="04" data-name="Contact">Contact</a></div>
+        <div><p class="mono">Talk to us</p><a href="https://wa.me/" target="_blank" rel="noopener" data-whatsapp>WhatsApp</a><span>Surveys Mon to Sat</span><span>Support 24/7</span></div>
       </nav>
-      <p class="footer__copy">© <span data-year>2026</span> Sentra Security Systems.</p>
+    </div>
+    <div class="footer__mark" aria-hidden="true"><span>SENTRA</span></div>
+    <div class="container footer__bottom">
+      <span>© <span data-year>2026</span> Sentra Security Systems.</span>
+      <span class="mono"><span class="rec-dot"></span> All systems normal</span>
+      <a href="#top" data-cut data-ch="00" data-name="Live view">Back to top ↑</a>
     </div>
   </footer>
 
-  <div class="ir-overlay" aria-hidden="true"></div>
-  <div class="toast mono" role="status" aria-live="polite" data-toast></div>
+  <div class="cursor" aria-hidden="true" data-cursor-el><span class="cursor__label" data-cursor-label></span></div>
+  <div class="grain" aria-hidden="true"></div>
 
+  <script src="assets/vendor/three.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
   <script src="assets/js/shutter.js" defer></script>
+  <script src="assets/js/scene.js" defer></script>
   <script src="assets/js/railcam.js" defer></script>
-  <script src="assets/js/hero.js" defer></script>
+  <script src="assets/js/hero-ui.js" defer></script>
   <script src="assets/js/site.js" defer></script>
 </body>
 </html>
