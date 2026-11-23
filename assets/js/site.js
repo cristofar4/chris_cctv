@@ -1,6 +1,6 @@
 /* ==========================================================================
    Sentra: page engine
-   Preloader, smooth scrolling, reveals, the scroll-scrubbed statement,
+   Preloader, smooth scrolling, reveals, the philosophy viewfinder,
    counters, the pinned horizontal systems showcase and its live demos,
    the night-vision compare slider, gallery parallax, the process reel,
    the app mock, marquees, cursor, magnetic buttons, the survey form, FAQ.
@@ -12,7 +12,9 @@
   var root = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  var WHATSAPP_NUMBER = ''; // e.g. '2348012345678' (international format, digits only)
+  var CFG = window.SENTRA_CONFIG || {};
+  var WHATSAPP_NUMBER = String(CFG.whatsapp || '').replace(/\D/g, '');
+  if (!WHATSAPP_NUMBER && window.console) console.info('Sentra: set your WhatsApp number in assets/js/config.js');
 
   function $(s, c) { return (c || document).querySelector(s); }
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
@@ -122,6 +124,8 @@
   tickClock();
   setInterval(tickClock, 1000);
   $$('[data-year]').forEach(function (y) { y.textContent = String(new Date().getFullYear()); });
+  if (CFG.city) $$('[data-city]').forEach(function (c) { c.textContent = CFG.city; });
+  if (CFG.country) $$('[data-country]').forEach(function (c) { c.textContent = CFG.country; });
 
   /* ======================================================================
      Reveal + counters
@@ -169,31 +173,47 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
 
-  /* ---------- statement: words light up as you read ---------- */
-  var statement = $('[data-scrub]');
-  if (statement) {
-    var units = [];
-    var nodes = Array.prototype.slice.call(statement.childNodes);
-    nodes.forEach(function (n) {
-      if (n.nodeType === 3) {
-        var frag = document.createDocumentFragment();
-        n.textContent.split(/(\s+)/).forEach(function (part) {
-          if (!part) return;
-          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
-          var s = document.createElement('span');
-          s.className = 'w';
-          s.textContent = part;
-          frag.appendChild(s);
-          units.push(s);
-        });
-        statement.replaceChild(frag, n);
-      } else if (n.nodeType === 1) units.push(n);
-    });
+  /* ---------- philosophy: the viewfinder pulls focus onto each rule ---------- */
+  var ethos = $('[data-ethos]');
+  if (ethos) {
+    var rules = $$('[data-rule]', ethos);
+    var vf = $('[data-viewfinder]', ethos);
+    var vfImgs = $$('.viewfinder__img', vf);
+    var vfPreset = $('[data-vf-preset]', vf), vfName = $('[data-vf-name]', vf);
+    var vfAf = $('[data-vf-af]', vf), vfDist = $('[data-vf-dist]', vf), vfMark = $('[data-vf-mark]', vf);
+    var curRule = 0, afT = 0, distNow = parseFloat(rules[0].getAttribute('data-dist'));
+    var fmtDist = function (d) { var t = d.toFixed(1); return 'Focus ' + (d < 10 ? '0' + t : t) + ' m'; };
+    var markPos = function (d) { return clamp(Math.log(d / 0.3) / Math.log(20 / 0.3), 0, 1); };
+    vfMark.style.setProperty('--f', markPos(distNow).toFixed(3));
+    var hunt = function () {
+      vf.classList.add('is-hunting');
+      vfAf.textContent = 'Search';
+      clearTimeout(afT);
+      afT = setTimeout(function () { vf.classList.remove('is-hunting'); vfAf.textContent = 'Lock'; }, reduce ? 0 : 850);
+    };
+    var setRule = function (i) {
+      if (i === curRule) return;
+      curRule = i;
+      rules.forEach(function (r, j) { r.classList.toggle('is-active', j === i); });
+      vfImgs.forEach(function (im, j) { im.classList.toggle('is-active', j === i); });
+      vfPreset.textContent = pad(i + 1);
+      vfName.textContent = rules[i].getAttribute('data-preset');
+      hunt();
+      var from = distNow, to = parseFloat(rules[i].getAttribute('data-dist'));
+      FX.tween(reduce ? 1 : 900, function (e) {
+        distNow = from + (to - from) * e;
+        vfDist.textContent = fmtDist(distNow);
+        vfMark.style.setProperty('--f', markPos(distNow).toFixed(3));
+      }, FX.ease.outCubic);
+    };
+    var huntedOnce = false;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en, obs) { if (en[0].isIntersecting && !huntedOnce) { huntedOnce = true; hunt(); obs.disconnect(); } }, { threshold: 0.4 }).observe(vf);
+    }
     scrollers.push(function (vh) {
-      var r = statement.getBoundingClientRect();
-      var p = reduce ? 1 : clamp((vh * 0.82 - r.top) / (r.height + vh * 0.2), 0, 1);
-      var lit = Math.round(p * units.length);
-      for (var i = 0; i < units.length; i++) units[i].classList.toggle('is-lit', i < lit);
+      var best = 0;
+      rules.forEach(function (r, i) { if (r.getBoundingClientRect().top < vh * 0.5) best = i; });
+      setRule(best);
     });
   }
 
@@ -380,7 +400,7 @@
       ['ok', '✓', 'Front door unlocked', 'Resident 02', '21:44'],
       ['', '▣', 'Vehicle arrived', 'Known plate · driveway', '21:47'],
       ['ok', '✓', 'Alarm armed', 'Night mode · all sensors', '22:30'],
-      ['warn', '◎', 'Motion · garden', 'Verified: fox. Alarm held.', '01:12']
+      ['warn', '◎', 'Motion · garden', 'Verified: cat. Alarm held.', '01:12']
     ];
     var ph = 0, phT = 0, phOn = false;
     var pushAlert = function () {
@@ -530,34 +550,87 @@
   }
 
   /* ======================================================================
-     Survey form, live map label, WhatsApp hand-off
+     Real map (Leaflet + OpenStreetMap), centred on the service area
+     ====================================================================== */
+  var mapWrap = $('[data-map]');
+  var mapCanvas = $('[data-map-canvas]');
+  var mapLabel = $('[data-map-label]');
+  var map = null, pin = null;
+  var CENTER = CFG.mapCenter || [9.0765, 7.4986];
+  if (mapCanvas && window.L) {
+    try {
+      map = window.L.map(mapCanvas, { center: CENTER, zoom: CFG.mapZoom || 12, scrollWheelZoom: false, zoomControl: false, attributionControl: true });
+      window.L.control.zoom({ position: 'topright' }).addTo(map);
+      window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
+      }).addTo(map);
+      var pinIcon = window.L.divIcon({
+        className: 'mpin', iconSize: [0, 0],
+        html: '<span class="mpin__radar"></span><span class="mpin__ring"></span><span class="mpin__ring mpin__ring--2"></span><span class="mpin__dot"></span>'
+      });
+      pin = window.L.marker(CENTER, { icon: pinIcon, keyboard: false, interactive: false }).addTo(map);
+      whenVisible(mapCanvas, function () { map.invalidateSize(); });
+      window.addEventListener('resize', function () { map.invalidateSize(); });
+    } catch (err) { map = null; }
+  }
+
+  // Look the visitor's area up when they finish typing it (on change / Enter), never per keystroke,
+  // as OpenStreetMap's Nominatim usage policy asks.
+  var geoCtrl = null, lastQuery = '';
+  function findArea(q) {
+    if (!map || !window.fetch) return;
+    q = q.trim();
+    if (q.length < 3 || q === lastQuery) return;
+    lastQuery = q;
+    if (geoCtrl && geoCtrl.abort) geoCtrl.abort();
+    geoCtrl = window.AbortController ? new AbortController() : null;
+    var lat = CENTER[0], lon = CENTER[1];
+    var url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=en' +
+      (CFG.countryCode ? '&countrycodes=' + encodeURIComponent(CFG.countryCode) : '') +
+      '&viewbox=' + [lon - 0.6, lat + 0.6, lon + 0.6, lat - 0.6].map(function (n) { return n.toFixed(4); }).join(',') + '&bounded=0' +
+      '&q=' + encodeURIComponent(q);
+    mapLabel.textContent = 'Searching ' + q + '…';
+    fetch(url, { signal: geoCtrl ? geoCtrl.signal : undefined, headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res || !res.length) { mapLabel.textContent = q + ' · not found'; return; }
+        var hit = res[0], ll = [parseFloat(hit.lat), parseFloat(hit.lon)];
+        pin.setLatLng(ll);
+        map.flyTo(ll, 14, { duration: reduce ? 0 : 1.6 });
+        mapLabel.textContent = 'Your property · ' + String(hit.display_name || q).split(',').slice(0, 2).join(',');
+        mapWrap.classList.add('is-searched');
+        mapLabel.classList.add('is-bump');
+        setTimeout(function () { mapLabel.classList.remove('is-bump'); }, 200);
+      })
+      .catch(function () { /* offline or aborted: keep the current view */ });
+  }
+
+  /* ======================================================================
+     Survey form: validates, then hands the request to WhatsApp
      ====================================================================== */
   var form = $('[data-form]');
-  var mapLabel = $('[data-map-label]');
   var waLinks = $$('[data-whatsapp]');
+  function waUrl(text) { return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text); }
+  function requestText(final) {
+    var data = new FormData(form);
+    var lines = [final ? 'Hello Sentra, I would like to book a site survey.' : 'Hello Sentra, I would like to ask about a security system.'];
+    if (data.get('name')) lines.push('Name: ' + data.get('name'));
+    if (data.get('contact')) lines.push('Phone / email: ' + data.get('contact'));
+    if (data.get('property')) lines.push('Property: ' + data.get('property'));
+    var svc = data.getAll('service');
+    if (svc.length) lines.push('Interested in: ' + svc.join(', '));
+    if (data.get('area')) lines.push('Area: ' + data.get('area'));
+    if (data.get('notes')) lines.push('Notes: ' + data.get('notes'));
+    return lines.join('\n');
+  }
   if (form) {
     var fmsg = $('[data-form-msg]', form);
     var area = $('[data-area]', form);
-    var updateWhatsApp = function () {
-      var data = new FormData(form);
-      var parts = ['Hello Sentra, I would like a site survey.'];
-      if (data.get('property')) parts.push('Property: ' + data.get('property'));
-      var svc = data.getAll('service');
-      if (svc.length) parts.push('Interested in: ' + svc.join(', '));
-      if (data.get('area')) parts.push('Area: ' + data.get('area'));
-      if (data.get('name')) parts.push('Name: ' + data.get('name'));
-      var href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(parts.join('\n'));
-      waLinks.forEach(function (a) { a.href = href; });
-    };
-    if (area && mapLabel) {
-      var bumpT = 0;
-      area.addEventListener('input', function () {
-        var v = area.value.trim();
-        mapLabel.textContent = v ? 'Your property · ' + v : 'Your property';
-        mapLabel.classList.add('is-bump');
-        clearTimeout(bumpT);
-        bumpT = setTimeout(function () { mapLabel.classList.remove('is-bump'); }, 180);
-      });
+    var updateWhatsApp = function () { var href = waUrl(requestText(false)); waLinks.forEach(function (a) { a.href = href; }); };
+    if (area) {
+      area.addEventListener('change', function () { findArea(area.value); });
+      area.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); findArea(area.value); } });
     }
     form.addEventListener('input', function (e) {
       updateWhatsApp();
@@ -581,13 +654,17 @@
         bad[0].focus();
         return;
       }
-      // No backend is wired up yet: see README for connecting a form service.
-      var d = new Date();
-      var ref = 'SEN-' + String(d.getFullYear()).slice(2) + pad(d.getMonth() + 1) + '-' + Math.floor(1000 + Math.random() * 9000);
-      form.classList.add('is-sent');
+      var url = waUrl(requestText(true));
+      var win = window.open(url, '_blank');
+      if (win) { try { win.opener = null; } catch (err) { /* ignore */ } }
+      else window.location.href = url;
       fmsg.className = 'form__msg is-ok';
-      fmsg.textContent = 'Request logged · ref ' + ref + '. We will call you to book your survey.';
-      $('[data-submit-label]', form).textContent = 'Request received';
+      fmsg.textContent = '';
+      fmsg.appendChild(document.createTextNode('WhatsApp opened with your request. Press send there and we will reply. Nothing opened? '));
+      var again = document.createElement('a');
+      again.href = url; again.target = '_blank'; again.rel = 'noopener'; again.textContent = 'Open WhatsApp';
+      again.style.textDecoration = 'underline';
+      fmsg.appendChild(again);
     });
   }
 
