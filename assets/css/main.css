@@ -124,7 +124,7 @@ fieldset { border: 0; padding: 0; min-width: 0; }
 .cursor.is-label { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--ivory); border-color: var(--ivory); mix-blend-mode: normal; }
 .cursor__label { font: 500 10.5px var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--black); opacity: 0; transition: opacity 0.2s; }
 .cursor.is-label .cursor__label { opacity: 1; }
-@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } .dvr__scope, .dvr__drawer { display: none; } }
 
 /* ==========================================================================
    PRELOADER + SHUTTER
@@ -784,8 +784,7 @@ textarea.field__input { height: auto; min-height: 110px; padding-top: 34px; resi
   .iris { display: inline-flex; align-items: center; justify-content: center; }
   .nav[data-state="compact"] .nav__shell { height: 62px; margin: 8px 10px 0; padding: 0 8px 0 16px; }
   .dvr { left: 22px; right: 22px; }
-  .dvr__scope { width: 170px; }
-  .dvr__drawer { display: none; }
+  .dvr__scope, .dvr__drawer { display: none; }
   .feed { display: none; }
   .section-head { grid-template-columns: 1fr; }
   .section-head__text { justify-self: start; }

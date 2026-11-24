@@ -507,7 +507,7 @@
   // the small preview card: chapter thumbnail, name, timecode, progress through the chapter
   var shownChapter = -1, hoverP = -1, lastY = window.scrollY, lastT = performance.now(), speed = 0;
   function showScope(p, m) {
-    if (!scope || !chapters.length) return;
+    if (!scope || !chapters.length || scope.offsetParent === null) return; // hidden on phones and tablets
     var w = dvrTrack.clientWidth, sw = scope.offsetWidth;
     var i = chapterAt(p), ch = chapters[i];
     if (i !== shownChapter) {
