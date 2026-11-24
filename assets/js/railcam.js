@@ -384,25 +384,76 @@
   var dvrMarks = dvr && dvr.querySelector('[data-dvr-marks]');
   var dvrTime = dvr && dvr.querySelector('[data-dvr-time]');
   var dvrTrack = dvr && dvr.querySelector('.dvr__track');
+  var dvrGhost = dvr && dvr.querySelector('[data-dvr-ghost]');
+  var scope = dvr && dvr.querySelector('[data-dvr-scope]');
+  var scopeImg = dvr && dvr.querySelector('[data-dvr-img]');
+  var scopeStatic = dvr && dvr.querySelector('[data-dvr-static]');
+  var scopeCh = dvr && dvr.querySelector('[data-dvr-ch]');
+  var scopeName = dvr && dvr.querySelector('[data-dvr-name]');
+  var scopeMode = dvr && dvr.querySelector('[data-dvr-mode]');
+  var scopeProg = dvr && dvr.querySelector('[data-dvr-chprog]');
   var markEls = [], markPos = [];
   var DURATION = 180; // the page plays as three minutes of footage
   var liveT = 0;
+
+  // every section is a chapter of the footage, with its own thumbnail
+  var CHAPTERS = {
+    top: ['Live view', 'city-shibuya.jpg'], platform: ['Platform', 'city-crossing.jpg'], cameras: ['Cameras', 'ptz-pole.jpg'],
+    solutions: ['Solutions', 'city-trails.jpg'], engineering: ['Engineering', 'cam-bullet.jpg'], architecture: ['Architecture', 'chip.jpg'],
+    deployment: ['Deployment', 'datacenter.jpg'], contact: ['Contact', 'earth-night.jpg']
+  };
+  var chapters = [];
+  Object.keys(CHAPTERS).forEach(function (k) { var im = new Image(); im.src = 'assets/img/' + CHAPTERS[k][1]; });
 
   function buildMarks() {
     if (!dvrMarks) return;
     var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     dvrMarks.textContent = '';
-    markEls = []; markPos = [];
-    var targets = sections.length ? sections : Array.prototype.slice.call(document.querySelectorAll('main > section[id]'));
-    targets.forEach(function (sec) {
-      if (!sec) return;
-      var top = sec.getBoundingClientRect().top + window.scrollY - 96;
+    markEls = []; markPos = []; chapters = [];
+    Array.prototype.forEach.call(document.querySelectorAll('main > section[id]'), function (sec) {
+      var info = CHAPTERS[sec.id];
+      if (!info) return;
+      var top = sec.id === 'top' ? 0 : sec.getBoundingClientRect().top + window.scrollY;
       var p = clamp(top / max, 0, 1);
+      chapters.push({ p: p, name: info[0], img: 'assets/img/' + info[1] });
       var s = document.createElement('span');
       s.style.left = (p * 100).toFixed(2) + '%';
+      s.setAttribute('data-label', info[0]);
       dvrMarks.appendChild(s);
       markEls.push(s); markPos.push(p);
     });
+  }
+  function chapterAt(p) {
+    var i = 0;
+    for (var k = 0; k < chapters.length; k++) if (p >= chapters[k].p - 0.0005) i = k;
+    return i;
+  }
+  function tc(p) {
+    var secs = Math.round(p * DURATION);
+    return '00:' + pad(Math.floor(secs / 60)) + ':' + pad(secs % 60);
+  }
+
+  // the preview card: chapter thumbnail, name, timecode, progress through the chapter
+  var shownChapter = -1, hoverP = -1, lastY = window.scrollY, lastT = performance.now(), speed = 0;
+  function showScope(p, mode) {
+    if (!scope || !chapters.length) return;
+    var w = dvrTrack.clientWidth, sw = scope.offsetWidth;
+    var i = chapterAt(p), ch = chapters[i];
+    if (i !== shownChapter) {
+      shownChapter = i;
+      scopeImg.src = ch.img;
+      scopeName.textContent = ch.name;
+      scopeCh.textContent = 'CH ' + pad(i);
+      if (FX && FX.noise) FX.noise(scopeStatic, { duration: 220, from: 0.9 });
+    }
+    var end = i + 1 < chapters.length ? chapters[i + 1].p : 1;
+    scopeProg.style.transform = 'scaleX(' + clamp((p - ch.p) / Math.max(0.0001, end - ch.p), 0, 1).toFixed(3) + ')';
+    dvrTime.textContent = tc(p);
+    scopeMode.textContent = mode;
+    var x = p * w;
+    var left = clamp(x - sw / 2, -8, w - sw + 8);
+    scope.style.setProperty('--sx', left.toFixed(1) + 'px');
+    scope.style.setProperty('--nx', (x - left).toFixed(1) + 'px');
   }
 
   function onScroll() {
@@ -431,16 +482,20 @@
       dvr.querySelector('.dvr__fill').style.setProperty('--p', p.toFixed(4));
       var w = dvrTrack.clientWidth;
       dvr.querySelector('.dvr__head').style.setProperty('--hx', (p * w).toFixed(1) + 'px');
-      var secs = Math.round(p * DURATION);
-      dvrTime.textContent = 'REC 00:' + pad(Math.floor(secs / 60)) + ':' + pad(secs % 60);
-      // keep the timecode inside the bar at either end
-      var lw = dvrTime.offsetWidth, hx = p * w;
-      var shift = clamp(hx - lw / 2, 0, Math.max(0, w - lw)) - (hx - lw / 2);
-      dvrTime.style.setProperty('--ts', shift.toFixed(1) + 'px');
       for (var k = 0; k < markEls.length; k++) markEls[k].classList.toggle('is-past', p >= markPos[k] - 0.001);
+
+      // playback readout from scroll speed: PLAY, fast-forward or rewind
+      var now = performance.now(), dy = window.scrollY - lastY, dt = Math.max(16, now - lastT);
+      speed += ((dy / dt) * 1000 - speed) * 0.35;
+      lastY = window.scrollY; lastT = now;
+      var a = Math.abs(speed), mode = '▶ PLAY';
+      if (a > 420) mode = (speed > 0 ? '▶▶ ' : '◀◀ ') + (a > 3200 ? '8×' : a > 1500 ? '4×' : '2×');
+      else if (speed < -60) mode = '◀ REW';
+      if (hoverP < 0) showScope(p, mode);
+
       dvr.classList.add('is-live');
       clearTimeout(liveT);
-      liveT = setTimeout(function () { dvr.classList.remove('is-live'); }, 900);
+      liveT = setTimeout(function () { dvr.classList.remove('is-live'); speed = 0; }, 1100);
     }
   }
 
@@ -464,14 +519,25 @@
       var max = document.documentElement.scrollHeight - window.innerHeight;
       jumpTo(p * max);
     };
+    var pAt = function (clientX) { var r = dvrTrack.getBoundingClientRect(); return clamp((clientX - r.left) / r.width, 0, 1); };
     dvr.addEventListener('pointerdown', function (e) {
       scrubbing = true;
+      dvr.classList.add('is-scrubbing');
       dvr.setPointerCapture(e.pointerId);
       scrubTo(e.clientX);
       e.preventDefault();
     });
-    dvr.addEventListener('pointermove', function (e) { if (scrubbing) scrubTo(e.clientX); });
-    var endScrub = function () { scrubbing = false; };
+    // hover previews any point of the footage before you jump to it
+    dvr.addEventListener('pointermove', function (e) {
+      if (scrubbing) { scrubTo(e.clientX); hoverP = -1; return; }
+      if (e.pointerType === 'touch') return;
+      hoverP = pAt(e.clientX);
+      dvr.classList.add('is-hover');
+      dvrGhost.style.transform = 'translateX(' + (hoverP * dvrTrack.clientWidth).toFixed(1) + 'px)';
+      showScope(hoverP, 'PREVIEW');
+    });
+    dvr.addEventListener('pointerleave', function () { hoverP = -1; dvr.classList.remove('is-hover'); });
+    var endScrub = function () { scrubbing = false; dvr.classList.remove('is-scrubbing'); };
     dvr.addEventListener('pointerup', endScrub);
     dvr.addEventListener('pointercancel', endScrub);
   }

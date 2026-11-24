@@ -211,16 +211,36 @@ fieldset { border: 0; padding: 0; min-width: 0; }
 .iris__x { fill: none; stroke: var(--cyan); stroke-width: 2; stroke-linecap: round; opacity: 0; transform: scale(0.4) rotate(-45deg); transition: opacity 0.3s 0.1s, transform 0.5s 0.1s var(--ease-snap); }
 .iris[aria-expanded="true"] .iris__x { opacity: 1; transform: none; }
 .iris:hover .iris__ring { stroke: var(--cyan); }
-.dvr { position: absolute; left: 34px; right: 34px; bottom: -1px; height: 16px; opacity: 0; pointer-events: none; transition: opacity 0.4s; cursor: ew-resize; touch-action: none; }
+.dvr { position: absolute; left: 34px; right: 34px; bottom: -7px; height: 22px; opacity: 0; pointer-events: none; transition: opacity 0.4s; cursor: ew-resize; touch-action: none; }
 .nav[data-state="compact"] .dvr { opacity: 1; pointer-events: auto; }
-.dvr__track { position: absolute; left: 0; right: 0; bottom: 4px; height: 1px; background: rgba(236, 232, 225, 0.12); }
-.dvr__fill { position: absolute; left: 0; top: -0.5px; height: 2px; width: 100%; background: linear-gradient(90deg, rgba(69, 227, 240, 0.3), var(--cyan)); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
-.dvr__marks span { position: absolute; bottom: 0; width: 1px; height: 5px; background: rgba(236, 232, 225, 0.35); }
+.dvr__track { position: absolute; left: 0; right: 0; bottom: 10px; height: 1px; background: rgba(236, 232, 225, 0.12); transition: height 0.3s var(--ease-out), background-color 0.3s; }
+.dvr.is-hover .dvr__track, .dvr.is-scrubbing .dvr__track { height: 3px; margin-bottom: -1px; background: rgba(236, 232, 225, 0.2); }
+.dvr__fill { position: absolute; left: 0; top: 0; height: 100%; min-height: 2px; width: 100%; background: linear-gradient(90deg, rgba(69, 227, 240, 0.3), var(--cyan)); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
+.dvr__marks span { position: absolute; bottom: 0; width: 1px; height: 6px; background: rgba(236, 232, 225, 0.35); transition: height 0.3s var(--ease-out), background-color 0.3s; }
 .dvr__marks span.is-past { background: var(--cyan); }
-.dvr__head { position: absolute; top: 0; left: 0; width: 0; height: 0; transform: translateX(var(--hx, 0px)); }
-.dvr__head::before { content: ""; position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan), 0 0 0 3px rgba(69, 227, 240, 0.18); }
-.dvr__time { position: absolute; left: 0; bottom: 8px; transform: translateX(calc(-50% + var(--ts, 0px))) translateY(4px); font-size: 10px; color: var(--cyan); background: rgba(5, 7, 9, 0.92); padding: 2px 6px; border-radius: 3px; border: 1px solid rgba(69, 227, 240, 0.3); opacity: 0; transition: opacity 0.25s, transform 0.25s; white-space: nowrap; }
-.dvr.is-live .dvr__time, .dvr:hover .dvr__time { opacity: 1; transform: translateX(calc(-50% + var(--ts, 0px))); }
+.dvr.is-hover .dvr__marks span { height: 9px; }
+.dvr__ghost { position: absolute; left: 0; top: -6px; width: 1px; height: 14px; background: rgba(236, 232, 225, 0.85); box-shadow: 0 0 8px rgba(236, 232, 225, 0.6); opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+.dvr.is-hover .dvr__ghost { opacity: 1; }
+.dvr__head { position: absolute; top: 50%; left: 0; width: 0; height: 0; transform: translateX(var(--hx, 0px)); }
+.dvr__head::before { content: ""; position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan), 0 0 0 3px rgba(69, 227, 240, 0.18); transition: transform 0.3s var(--ease-snap); }
+.dvr.is-scrubbing .dvr__head::before { transform: scale(1.5); }
+/* preview card: hangs below the nav bar, never over the links */
+.dvr__scope { position: absolute; left: 0; top: 21px; width: 196px; padding: 5px; border-radius: 14px; background: rgba(6, 8, 10, 0.94); box-shadow: inset 0 0 0 1px rgba(69, 227, 240, 0.24), 0 26px 50px -18px rgba(0, 0, 0, 0.9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transform: translate3d(var(--sx, 0px), -8px, 0) scale(0.94); transform-origin: var(--nx, 50%) 0; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.22s var(--ease-out); }
+.dvr.is-live .dvr__scope, .dvr.is-hover .dvr__scope, .dvr.is-scrubbing .dvr__scope { opacity: 1; transform: translate3d(var(--sx, 0px), 0, 0) scale(1); }
+.dvr__scope::before { content: ""; position: absolute; left: var(--nx, 50%); top: -5px; width: 9px; height: 9px; margin-left: -4.5px; background: rgba(6, 8, 10, 0.94); box-shadow: -1px -1px 0 rgba(69, 227, 240, 0.3); transform: rotate(45deg); }
+.dvr__thumb { position: relative; aspect-ratio: 16 / 9; border-radius: 9px; overflow: hidden; background: #000; }
+.dvr__thumb img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85) contrast(1.06) brightness(0.9); }
+.dvr__static { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; mix-blend-mode: screen; image-rendering: pixelated; }
+.dvr__scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px), radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.6)); }
+.dvr__ch, .dvr__mode { position: absolute; top: 6px; font-size: 8.5px; text-shadow: 0 1px 2px #000; }
+.dvr__ch { left: 7px; color: #fff; }
+.dvr__mode { right: 7px; color: var(--cyan); }
+.dvr__meta { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 7px 4px 5px; }
+.dvr__name { font-size: 13.5px; font-weight: 400; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dvr__time { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: var(--cyan); white-space: nowrap; }
+.dvr__time::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--rec); box-shadow: 0 0 6px var(--rec); animation: blink 1.6s steps(1) infinite; }
+.dvr__chbar { height: 2px; margin: 0 4px 3px; border-radius: 2px; overflow: hidden; background: rgba(236, 232, 225, 0.12); }
+.dvr__chbar span { display: block; height: 100%; background: var(--cyan); transform-origin: 0 50%; transform: scaleX(0); transition: transform 0.2s; }
 .feed { position: absolute; left: 0; top: calc(100% + 10px); width: 280px; pointer-events: none; opacity: 0; transform: translate3d(var(--fx, 0px), -8px, 0) scale(0.97); transform-origin: 50% 0; transition: opacity 0.25s, transform 0.4s var(--ease-out); background: rgba(8, 10, 12, 0.92); border: 1px solid rgba(69, 227, 240, 0.22); border-radius: 14px; padding: 6px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.75); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .feed.is-on { opacity: 1; transform: translate3d(var(--fx, 0px), 0, 0) scale(1); }
 .feed__screen { position: relative; aspect-ratio: 16 / 10; border-radius: 9px; overflow: hidden; background: #000; }
@@ -719,6 +739,7 @@ textarea.field__input { height: auto; min-height: 110px; padding-top: 34px; resi
   .iris { display: inline-flex; align-items: center; justify-content: center; }
   .nav[data-state="compact"] .nav__shell { height: 62px; margin: 8px 10px 0; padding: 0 8px 0 16px; }
   .dvr { left: 22px; right: 22px; }
+  .dvr__scope { width: 170px; }
   .feed { display: none; }
   .section-head { grid-template-columns: 1fr; }
   .section-head__text { justify-self: start; }
