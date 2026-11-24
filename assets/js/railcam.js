@@ -381,26 +381,26 @@
      Scroll spy + DVR scrub bar
      ====================================================================== */
   var dvr = nav.querySelector('[data-dvr]');
-  var dvrMarks = dvr && dvr.querySelector('[data-dvr-marks]');
-  var dvrTime = dvr && dvr.querySelector('[data-dvr-time]');
-  var dvrTrack = dvr && dvr.querySelector('.dvr__track');
-  var dvrGhost = dvr && dvr.querySelector('[data-dvr-ghost]');
-  var scope = dvr && dvr.querySelector('[data-dvr-scope]');
-  var scopeImg = dvr && dvr.querySelector('[data-dvr-img]');
-  var scopeStatic = dvr && dvr.querySelector('[data-dvr-static]');
-  var scopeCh = dvr && dvr.querySelector('[data-dvr-ch]');
-  var scopeName = dvr && dvr.querySelector('[data-dvr-name]');
-  var scopeMode = dvr && dvr.querySelector('[data-dvr-mode]');
-  var scopeProg = dvr && dvr.querySelector('[data-dvr-chprog]');
-  var markEls = [], markPos = [];
+  function q(s) { return dvr && dvr.querySelector(s); }
+  var dvrMarks = q('[data-dvr-marks]'), dvrTime = q('[data-dvr-time]'), dvrTrack = q('.dvr__track'), dvrGhost = q('[data-dvr-ghost]');
+  var scope = q('[data-dvr-scope]'), scopeImg = q('[data-dvr-img]'), scopeStatic = q('[data-dvr-static]'), scopeCh = q('[data-dvr-ch]');
+  var scopeName = q('[data-dvr-name]'), scopeMode = q('[data-dvr-mode]'), scopeProg = q('[data-dvr-chprog]');
+  var drawer = q('[data-dvr-drawer]'), frameWrap = q('[data-dvr-frames]'), lane = q('[data-dvr-lane]');
+  var band = q('[data-dvr-band]'), nowLine = q('[data-dvr-now]'), dTime = q('[data-dvr-dtime]'), dMode = q('[data-dvr-dmode]');
+  var markEls = [], markPos = [], frames = [];
   var DURATION = 180; // the page plays as three minutes of footage
-  var liveT = 0;
+  var liveT = 0, mode = '▶ PLAY', curP = 0;
 
-  // every section is a chapter of the footage, with its own thumbnail
+  // every section is a chapter of the footage, with its own thumbnail and a few recorded events
   var CHAPTERS = {
-    top: ['Live view', 'city-shibuya.jpg'], platform: ['Platform', 'city-crossing.jpg'], cameras: ['Cameras', 'ptz-pole.jpg'],
-    solutions: ['Solutions', 'city-trails.jpg'], engineering: ['Engineering', 'cam-bullet.jpg'], architecture: ['Architecture', 'chip.jpg'],
-    deployment: ['Deployment', 'datacenter.jpg'], contact: ['Contact', 'earth-night.jpg']
+    top: ['Live view', 'city-shibuya.jpg', [[0.25, 'info'], [0.7, 'medium']]],
+    platform: ['Platform', 'city-crossing.jpg', [[0.15, 'critical'], [0.4, 'high'], [0.62, 'medium'], [0.85, 'info']]],
+    cameras: ['Cameras', 'ptz-pole.jpg', [[0.3, 'info'], [0.55, 'high'], [0.8, 'info']]],
+    solutions: ['Solutions', 'city-trails.jpg', [[0.2, 'critical'], [0.6, 'medium']]],
+    engineering: ['Engineering', 'cam-bullet.jpg', [[0.45, 'info']]],
+    architecture: ['Architecture', 'chip.jpg', [[0.3, 'medium'], [0.7, 'info']]],
+    deployment: ['Deployment', 'datacenter.jpg', [[0.25, 'info'], [0.5, 'high'], [0.75, 'info']]],
+    contact: ['Contact', 'earth-night.jpg', [[0.4, 'medium']]]
   };
   var chapters = [];
   Object.keys(CHAPTERS).forEach(function (k) { var im = new Image(); im.src = 'assets/img/' + CHAPTERS[k][1]; });
@@ -415,13 +415,70 @@
       if (!info) return;
       var top = sec.id === 'top' ? 0 : sec.getBoundingClientRect().top + window.scrollY;
       var p = clamp(top / max, 0, 1);
-      chapters.push({ p: p, name: info[0], img: 'assets/img/' + info[1] });
+      chapters.push({ id: sec.id, p: p, name: info[0], img: 'assets/img/' + info[1], events: info[2] });
       var s = document.createElement('span');
       s.style.left = (p * 100).toFixed(2) + '%';
-      s.setAttribute('data-label', info[0]);
       dvrMarks.appendChild(s);
       markEls.push(s); markPos.push(p);
     });
+    buildDrawer();
+  }
+
+  // the playback drawer: an event lane and a filmstrip of chapters
+  function buildDrawer() {
+    if (!drawer) return;
+    Array.prototype.slice.call(lane.querySelectorAll('.dvr__ev')).forEach(function (e) { e.remove(); });
+    frameWrap.textContent = '';
+    frames = [];
+    chapters.forEach(function (ch, i) {
+      var end = i + 1 < chapters.length ? chapters[i + 1].p : 1;
+      ch.end = end;
+      ch.events.forEach(function (ev) {
+        var e = document.createElement('i');
+        e.className = 'dvr__ev ev--' + ev[1];
+        e.style.left = ((ch.p + (end - ch.p) * ev[0]) * 100).toFixed(2) + '%';
+        lane.appendChild(e);
+      });
+      var a = document.createElement('a');
+      a.className = 'dvr__frame';
+      a.href = '#' + ch.id;
+      a.tabIndex = -1;
+      a.setAttribute('data-cut', '');
+      a.setAttribute('data-ch', pad(i));
+      a.setAttribute('data-name', ch.name);
+      a.innerHTML = '<span class="dvr__fimg"><img alt="" decoding="async"></span><span class="dvr__fch mono"></span><span class="dvr__ftc mono"></span><span class="dvr__fname"></span><span class="dvr__fprog"><span></span></span>';
+      a.querySelector('img').src = ch.img;
+      a.querySelector('.dvr__fch').textContent = 'CH ' + pad(i);
+      a.querySelector('.dvr__ftc').textContent = tc(ch.p);
+      a.querySelector('.dvr__fname').textContent = ch.name;
+      a.addEventListener('pointerenter', function () { highlight(i); ghostAt(ch.p); });
+      a.addEventListener('click', function () { closeDrawer(true); });
+      frameWrap.appendChild(a);
+      frames.push(a);
+    });
+  }
+  function highlight(i) { frames.forEach(function (f, j) { f.classList.toggle('is-hover', j === i); }); markBand(i); }
+  function markBand(i) {
+    var ch = chapters[i];
+    if (!ch || !band) return;
+    band.style.left = (ch.p * 100).toFixed(2) + '%';
+    band.style.width = ((ch.end - ch.p) * 100).toFixed(2) + '%';
+  }
+  function ghostAt(p) { dvrGhost.style.transform = 'translateX(' + (p * dvrTrack.clientWidth).toFixed(1) + 'px)'; dvr.classList.add('is-hover'); }
+  function updateDrawer(p) {
+    if (!drawer || !chapters.length) return;
+    var i = chapterAt(p);
+    frames.forEach(function (f, j) {
+      f.classList.toggle('is-current', j === i);
+      f.classList.toggle('is-past', j < i);
+      var ch = chapters[j];
+      var fp = j < i ? 1 : j > i ? 0 : clamp((p - ch.p) / Math.max(0.0001, ch.end - ch.p), 0, 1);
+      f.style.setProperty('--fp', fp.toFixed(3));
+    });
+    nowLine.style.left = (p * 100).toFixed(2) + '%';
+    dTime.textContent = tc(p);
+    dMode.textContent = mode;
+    if (!frames.some(function (f) { return f.classList.contains('is-hover'); })) markBand(i);
   }
   function chapterAt(p) {
     var i = 0;
@@ -433,9 +490,23 @@
     return '00:' + pad(Math.floor(secs / 60)) + ':' + pad(secs % 60);
   }
 
-  // the preview card: chapter thumbnail, name, timecode, progress through the chapter
+  // open on hover (mouse only); a short grace period so it never flickers
+  var openT = 0, closeT = 0;
+  function openDrawer() {
+    if (!drawer || dvr.classList.contains('is-open')) return;
+    clearTimeout(closeT);
+    openT = setTimeout(function () { updateDrawer(curP); dvr.classList.add('is-open'); }, 140);
+  }
+  function closeDrawer(now) {
+    clearTimeout(openT);
+    clearTimeout(closeT);
+    var go = function () { dvr.classList.remove('is-open'); frames.forEach(function (f) { f.classList.remove('is-hover'); }); };
+    if (now) go(); else closeT = setTimeout(go, 260);
+  }
+
+  // the small preview card: chapter thumbnail, name, timecode, progress through the chapter
   var shownChapter = -1, hoverP = -1, lastY = window.scrollY, lastT = performance.now(), speed = 0;
-  function showScope(p, mode) {
+  function showScope(p, m) {
     if (!scope || !chapters.length) return;
     var w = dvrTrack.clientWidth, sw = scope.offsetWidth;
     var i = chapterAt(p), ch = chapters[i];
@@ -446,10 +517,9 @@
       scopeCh.textContent = 'CH ' + pad(i);
       if (FX && FX.noise) FX.noise(scopeStatic, { duration: 220, from: 0.9 });
     }
-    var end = i + 1 < chapters.length ? chapters[i + 1].p : 1;
-    scopeProg.style.transform = 'scaleX(' + clamp((p - ch.p) / Math.max(0.0001, end - ch.p), 0, 1).toFixed(3) + ')';
+    scopeProg.style.transform = 'scaleX(' + clamp((p - ch.p) / Math.max(0.0001, (ch.end || 1) - ch.p), 0, 1).toFixed(3) + ')';
     dvrTime.textContent = tc(p);
-    scopeMode.textContent = mode;
+    scopeMode.textContent = m;
     var x = p * w;
     var left = clamp(x - sw / 2, -8, w - sw + 8);
     scope.style.setProperty('--sx', left.toFixed(1) + 'px');
@@ -461,6 +531,7 @@
     var vh = window.innerHeight;
     var max = Math.max(1, document.documentElement.scrollHeight - vh);
     var p = clamp(window.scrollY / max, 0, 1);
+    curP = p;
 
     // active section
     var next = -1;
@@ -479,23 +550,25 @@
     // DVR
     if (dvr) {
       dvr.style.setProperty('--p', p.toFixed(4));
-      dvr.querySelector('.dvr__fill').style.setProperty('--p', p.toFixed(4));
+      q('.dvr__fill').style.setProperty('--p', p.toFixed(4));
       var w = dvrTrack.clientWidth;
-      dvr.querySelector('.dvr__head').style.setProperty('--hx', (p * w).toFixed(1) + 'px');
+      q('.dvr__head').style.setProperty('--hx', (p * w).toFixed(1) + 'px');
       for (var k = 0; k < markEls.length; k++) markEls[k].classList.toggle('is-past', p >= markPos[k] - 0.001);
 
       // playback readout from scroll speed: PLAY, fast-forward or rewind
       var now = performance.now(), dy = window.scrollY - lastY, dt = Math.max(16, now - lastT);
       speed += ((dy / dt) * 1000 - speed) * 0.35;
       lastY = window.scrollY; lastT = now;
-      var a = Math.abs(speed), mode = '▶ PLAY';
+      var a = Math.abs(speed);
+      mode = '▶ PLAY';
       if (a > 420) mode = (speed > 0 ? '▶▶ ' : '◀◀ ') + (a > 3200 ? '8×' : a > 1500 ? '4×' : '2×');
       else if (speed < -60) mode = '◀ REW';
       if (hoverP < 0) showScope(p, mode);
+      updateDrawer(p);
 
       dvr.classList.add('is-live');
       clearTimeout(liveT);
-      liveT = setTimeout(function () { dvr.classList.remove('is-live'); speed = 0; }, 1100);
+      liveT = setTimeout(function () { dvr.classList.remove('is-live'); speed = 0; mode = '▶ PLAY'; if (dMode) dMode.textContent = mode; }, 1100);
     }
   }
 
@@ -513,30 +586,29 @@
   // Scrub: drag along the bar to move through the page like footage.
   if (dvr) {
     var scrubbing = false;
-    var scrubTo = function (clientX) {
-      var r = dvrTrack.getBoundingClientRect();
-      var p = clamp((clientX - r.left) / r.width, 0, 1);
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      jumpTo(p * max);
-    };
     var pAt = function (clientX) { var r = dvrTrack.getBoundingClientRect(); return clamp((clientX - r.left) / r.width, 0, 1); };
+    var scrubTo = function (clientX) { jumpTo(pAt(clientX) * (document.documentElement.scrollHeight - window.innerHeight)); };
+    var inDrawer = function (e) { return drawer && e.target.closest && e.target.closest('.dvr__drawer'); };
     dvr.addEventListener('pointerdown', function (e) {
+      if (inDrawer(e)) return;
       scrubbing = true;
       dvr.classList.add('is-scrubbing');
       dvr.setPointerCapture(e.pointerId);
       scrubTo(e.clientX);
       e.preventDefault();
     });
-    // hover previews any point of the footage before you jump to it
+    // hover previews any point of the footage, and opens the playback drawer
     dvr.addEventListener('pointermove', function (e) {
       if (scrubbing) { scrubTo(e.clientX); hoverP = -1; return; }
-      if (e.pointerType === 'touch') return;
+      if (e.pointerType !== 'mouse' || inDrawer(e)) return;
       hoverP = pAt(e.clientX);
-      dvr.classList.add('is-hover');
-      dvrGhost.style.transform = 'translateX(' + (hoverP * dvrTrack.clientWidth).toFixed(1) + 'px)';
+      ghostAt(hoverP);
       showScope(hoverP, 'PREVIEW');
+      highlight(chapterAt(hoverP));
+      openDrawer();
     });
-    dvr.addEventListener('pointerleave', function () { hoverP = -1; dvr.classList.remove('is-hover'); });
+    dvr.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') clearTimeout(closeT); });
+    dvr.addEventListener('pointerleave', function () { hoverP = -1; dvr.classList.remove('is-hover'); closeDrawer(false); });
     var endScrub = function () { scrubbing = false; dvr.classList.remove('is-scrubbing'); };
     dvr.addEventListener('pointerup', endScrub);
     dvr.addEventListener('pointercancel', endScrub);

@@ -241,6 +241,51 @@ fieldset { border: 0; padding: 0; min-width: 0; }
 .dvr__time::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--rec); box-shadow: 0 0 6px var(--rec); animation: blink 1.6s steps(1) infinite; }
 .dvr__chbar { height: 2px; margin: 0 4px 3px; border-radius: 2px; overflow: hidden; background: rgba(236, 232, 225, 0.12); }
 .dvr__chbar span { display: block; height: 100%; background: var(--cyan); transform-origin: 0 50%; transform: scaleX(0); transition: transform 0.2s; }
+/* playback drawer: event lane + chapter filmstrip */
+.dvr__drawer { position: absolute; left: -14px; right: -14px; top: 27px; padding: 14px 14px 12px; border-radius: 20px; background: rgba(6, 8, 10, 0.95); box-shadow: inset 0 0 0 1px rgba(69, 227, 240, 0.2), 0 40px 80px -30px rgba(0, 0, 0, 0.95); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); opacity: 0; transform: translateY(-10px) scale(0.985); transform-origin: 50% 0; pointer-events: none; cursor: default; transition: opacity 0.3s, transform 0.5s var(--ease-out); }
+.dvr__drawer::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+.dvr.is-open .dvr__drawer { opacity: 1; transform: none; pointer-events: auto; }
+.dvr.is-open .dvr__scope { opacity: 0; }
+.dvr__lane { position: relative; height: 12px; margin-bottom: 12px; border-radius: 6px; background: rgba(236, 232, 225, 0.05); box-shadow: inset 0 0 0 1px var(--line); }
+.dvr__band { position: absolute; top: 0; bottom: 0; left: 0; width: 0; border-radius: 6px; background: rgba(69, 227, 240, 0.12); box-shadow: inset 0 0 0 1px rgba(69, 227, 240, 0.35); transition: left 0.35s var(--ease-out), width 0.35s var(--ease-out); }
+.dvr__now { position: absolute; top: -3px; bottom: -3px; left: 0; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--ivory); box-shadow: 0 0 8px rgba(236, 232, 225, 0.8); }
+.dvr__ev { position: absolute; top: 3px; width: 8px; height: 6px; margin-left: -4px; border-radius: 2px; }
+.ev--critical { background: var(--rec); box-shadow: 0 0 8px var(--rec); }
+.ev--high { background: var(--amber); }
+.ev--medium { background: var(--cyan); }
+.ev--info { background: var(--green); }
+.dvr__frames { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+.dvr__frame { position: relative; display: block; border-radius: 11px; overflow: hidden; background: #000; box-shadow: inset 0 0 0 1px var(--line); transform: translateY(6px); opacity: 0; transition: transform 0.5s var(--ease-out), opacity 0.4s, box-shadow 0.3s; }
+.dvr.is-open .dvr__frame { transform: none; opacity: 1; }
+.dvr.is-open .dvr__frame:nth-child(2) { transition-delay: 0.02s; }
+.dvr.is-open .dvr__frame:nth-child(3) { transition-delay: 0.04s; }
+.dvr.is-open .dvr__frame:nth-child(4) { transition-delay: 0.06s; }
+.dvr.is-open .dvr__frame:nth-child(5) { transition-delay: 0.08s; }
+.dvr.is-open .dvr__frame:nth-child(6) { transition-delay: 0.1s; }
+.dvr.is-open .dvr__frame:nth-child(7) { transition-delay: 0.12s; }
+.dvr.is-open .dvr__frame:nth-child(8) { transition-delay: 0.14s; }
+.dvr__fimg { display: block; aspect-ratio: 16 / 10; overflow: hidden; }
+.dvr__fimg img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.6) brightness(0.62); transform: scale(1.04); transition: filter 0.4s, transform 0.9s var(--ease-out); }
+.dvr__frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0 1px, transparent 1px 3px), linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent 55%); }
+.dvr__fch, .dvr__ftc { position: absolute; z-index: 1; top: 6px; font-size: 8px; color: rgba(255, 255, 255, 0.85); text-shadow: 0 1px 2px #000; }
+.dvr__fch { left: 7px; }
+.dvr__ftc { right: 7px; color: var(--cyan); }
+.dvr__fname { position: absolute; z-index: 1; left: 8px; right: 8px; bottom: 9px; font-size: 12px; font-weight: 400; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dvr__fprog { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(236, 232, 225, 0.12); }
+.dvr__fprog span { display: block; height: 100%; background: var(--cyan); transform-origin: 0 50%; transform: scaleX(var(--fp, 0)); transition: transform 0.25s; }
+.dvr__frame.is-past .dvr__fimg img { filter: saturate(0.4) brightness(0.45); }
+.dvr__frame.is-current { box-shadow: inset 0 0 0 1.5px var(--cyan), 0 0 26px -6px rgba(69, 227, 240, 0.65); }
+.dvr__frame.is-current .dvr__fimg img { filter: saturate(0.95) brightness(0.85); }
+.dvr__frame.is-current .dvr__fch::before { content: "● "; color: var(--rec); }
+.dvr__frame.is-hover, .dvr__frame:focus-visible { box-shadow: inset 0 0 0 1.5px var(--ivory), 0 16px 30px -14px rgba(0, 0, 0, 0.9); }
+.dvr__frame.is-hover .dvr__fimg img { filter: none; transform: scale(1.12); }
+.dvr__foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 12px; padding: 0 2px; font-size: 9.5px; color: var(--mute); }
+.dvr__foot > span:first-child { display: inline-flex; align-items: center; gap: 8px; }
+.dvr__foot b { font-weight: 500; color: var(--cyan); }
+.dvr__foot i { font-style: normal; color: var(--dim); }
+.dvr__legend { display: inline-flex; align-items: center; gap: 6px; }
+.dvr__legend i { width: 8px; height: 6px; border-radius: 2px; margin-left: 8px; }
+[data-dvr-dmode] { color: var(--text); }
 .feed { position: absolute; left: 0; top: calc(100% + 10px); width: 280px; pointer-events: none; opacity: 0; transform: translate3d(var(--fx, 0px), -8px, 0) scale(0.97); transform-origin: 50% 0; transition: opacity 0.25s, transform 0.4s var(--ease-out); background: rgba(8, 10, 12, 0.92); border: 1px solid rgba(69, 227, 240, 0.22); border-radius: 14px; padding: 6px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.75); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .feed.is-on { opacity: 1; transform: translate3d(var(--fx, 0px), 0, 0) scale(1); }
 .feed__screen { position: relative; aspect-ratio: 16 / 10; border-radius: 9px; overflow: hidden; background: #000; }
@@ -740,6 +785,7 @@ textarea.field__input { height: auto; min-height: 110px; padding-top: 34px; resi
   .nav[data-state="compact"] .nav__shell { height: 62px; margin: 8px 10px 0; padding: 0 8px 0 16px; }
   .dvr { left: 22px; right: 22px; }
   .dvr__scope { width: 170px; }
+  .dvr__drawer { display: none; }
   .feed { display: none; }
   .section-head { grid-template-columns: 1fr; }
   .section-head__text { justify-self: start; }
