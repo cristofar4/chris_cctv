@@ -124,7 +124,7 @@ fieldset { border: 0; padding: 0; min-width: 0; }
 .cursor.is-label { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--ivory); border-color: var(--ivory); mix-blend-mode: normal; }
 .cursor__label { font: 500 10.5px var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--black); opacity: 0; transition: opacity 0.2s; }
 .cursor.is-label .cursor__label { opacity: 1; }
-@media (hover: none), (pointer: coarse) { .cursor { display: none; } .dvr__scope, .dvr__drawer { display: none; } }
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } .dvr__drawer { display: none; } }
 
 /* ==========================================================================
    PRELOADER + SHUTTER
@@ -224,28 +224,10 @@ fieldset { border: 0; padding: 0; min-width: 0; }
 .dvr__head { position: absolute; top: 50%; left: 0; width: 0; height: 0; transform: translateX(var(--hx, 0px)); }
 .dvr__head::before { content: ""; position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan), 0 0 0 3px rgba(69, 227, 240, 0.18); transition: transform 0.3s var(--ease-snap); }
 .dvr.is-scrubbing .dvr__head::before { transform: scale(1.5); }
-/* preview card: hangs below the nav bar, never over the links */
-.dvr__scope { position: absolute; left: 0; top: 21px; width: 196px; padding: 5px; border-radius: 14px; background: rgba(6, 8, 10, 0.94); box-shadow: inset 0 0 0 1px rgba(69, 227, 240, 0.24), 0 26px 50px -18px rgba(0, 0, 0, 0.9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transform: translate3d(var(--sx, 0px), -8px, 0) scale(0.94); transform-origin: var(--nx, 50%) 0; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.22s var(--ease-out); }
-.dvr.is-live .dvr__scope, .dvr.is-hover .dvr__scope, .dvr.is-scrubbing .dvr__scope { opacity: 1; transform: translate3d(var(--sx, 0px), 0, 0) scale(1); }
-.dvr__scope::before { content: ""; position: absolute; left: var(--nx, 50%); top: -5px; width: 9px; height: 9px; margin-left: -4.5px; background: rgba(6, 8, 10, 0.94); box-shadow: -1px -1px 0 rgba(69, 227, 240, 0.3); transform: rotate(45deg); }
-.dvr__thumb { position: relative; aspect-ratio: 16 / 9; border-radius: 9px; overflow: hidden; background: #000; }
-.dvr__thumb img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85) contrast(1.06) brightness(0.9); }
-.dvr__static { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; mix-blend-mode: screen; image-rendering: pixelated; }
-.dvr__scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px), radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.6)); }
-.dvr__ch, .dvr__mode { position: absolute; top: 6px; font-size: 8.5px; text-shadow: 0 1px 2px #000; }
-.dvr__ch { left: 7px; color: #fff; }
-.dvr__mode { right: 7px; color: var(--cyan); }
-.dvr__meta { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 7px 4px 5px; }
-.dvr__name { font-size: 13.5px; font-weight: 400; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dvr__time { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: var(--cyan); white-space: nowrap; }
-.dvr__time::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--rec); box-shadow: 0 0 6px var(--rec); animation: blink 1.6s steps(1) infinite; }
-.dvr__chbar { height: 2px; margin: 0 4px 3px; border-radius: 2px; overflow: hidden; background: rgba(236, 232, 225, 0.12); }
-.dvr__chbar span { display: block; height: 100%; background: var(--cyan); transform-origin: 0 50%; transform: scaleX(0); transition: transform 0.2s; }
 /* playback drawer: event lane + chapter filmstrip */
 .dvr__drawer { position: absolute; left: -14px; right: -14px; top: 27px; padding: 14px 14px 12px; border-radius: 20px; background: rgba(6, 8, 10, 0.95); box-shadow: inset 0 0 0 1px rgba(69, 227, 240, 0.2), 0 40px 80px -30px rgba(0, 0, 0, 0.95); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); opacity: 0; transform: translateY(-10px) scale(0.985); transform-origin: 50% 0; pointer-events: none; cursor: default; transition: opacity 0.3s, transform 0.5s var(--ease-out); }
 .dvr__drawer::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
 .dvr.is-open .dvr__drawer { opacity: 1; transform: none; pointer-events: auto; }
-.dvr.is-open .dvr__scope { opacity: 0; }
 .dvr__lane { position: relative; height: 12px; margin-bottom: 12px; border-radius: 6px; background: rgba(236, 232, 225, 0.05); box-shadow: inset 0 0 0 1px var(--line); }
 .dvr__band { position: absolute; top: 0; bottom: 0; left: 0; width: 0; border-radius: 6px; background: rgba(69, 227, 240, 0.12); box-shadow: inset 0 0 0 1px rgba(69, 227, 240, 0.35); transition: left 0.35s var(--ease-out), width 0.35s var(--ease-out); }
 .dvr__now { position: absolute; top: -3px; bottom: -3px; left: 0; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--ivory); box-shadow: 0 0 8px rgba(236, 232, 225, 0.8); }
@@ -784,7 +766,7 @@ textarea.field__input { height: auto; min-height: 110px; padding-top: 34px; resi
   .iris { display: inline-flex; align-items: center; justify-content: center; }
   .nav[data-state="compact"] .nav__shell { height: 62px; margin: 8px 10px 0; padding: 0 8px 0 16px; }
   .dvr { left: 22px; right: 22px; }
-  .dvr__scope, .dvr__drawer { display: none; }
+  .dvr__drawer { display: none; }
   .feed { display: none; }
   .section-head { grid-template-columns: 1fr; }
   .section-head__text { justify-self: start; }

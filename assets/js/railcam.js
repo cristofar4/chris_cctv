@@ -382,9 +382,7 @@
      ====================================================================== */
   var dvr = nav.querySelector('[data-dvr]');
   function q(s) { return dvr && dvr.querySelector(s); }
-  var dvrMarks = q('[data-dvr-marks]'), dvrTime = q('[data-dvr-time]'), dvrTrack = q('.dvr__track'), dvrGhost = q('[data-dvr-ghost]');
-  var scope = q('[data-dvr-scope]'), scopeImg = q('[data-dvr-img]'), scopeStatic = q('[data-dvr-static]'), scopeCh = q('[data-dvr-ch]');
-  var scopeName = q('[data-dvr-name]'), scopeMode = q('[data-dvr-mode]'), scopeProg = q('[data-dvr-chprog]');
+  var dvrMarks = q('[data-dvr-marks]'), dvrTrack = q('.dvr__track'), dvrGhost = q('[data-dvr-ghost]');
   var drawer = q('[data-dvr-drawer]'), frameWrap = q('[data-dvr-frames]'), lane = q('[data-dvr-lane]');
   var band = q('[data-dvr-band]'), nowLine = q('[data-dvr-now]'), dTime = q('[data-dvr-dtime]'), dMode = q('[data-dvr-dmode]');
   var markEls = [], markPos = [], frames = [];
@@ -504,27 +502,7 @@
     if (now) go(); else closeT = setTimeout(go, 260);
   }
 
-  // the small preview card: chapter thumbnail, name, timecode, progress through the chapter
-  var shownChapter = -1, hoverP = -1, lastY = window.scrollY, lastT = performance.now(), speed = 0;
-  function showScope(p, m) {
-    if (!scope || !chapters.length || scope.offsetParent === null) return; // hidden on phones and tablets
-    var w = dvrTrack.clientWidth, sw = scope.offsetWidth;
-    var i = chapterAt(p), ch = chapters[i];
-    if (i !== shownChapter) {
-      shownChapter = i;
-      scopeImg.src = ch.img;
-      scopeName.textContent = ch.name;
-      scopeCh.textContent = 'CH ' + pad(i);
-      if (FX && FX.noise) FX.noise(scopeStatic, { duration: 220, from: 0.9 });
-    }
-    scopeProg.style.transform = 'scaleX(' + clamp((p - ch.p) / Math.max(0.0001, (ch.end || 1) - ch.p), 0, 1).toFixed(3) + ')';
-    dvrTime.textContent = tc(p);
-    scopeMode.textContent = m;
-    var x = p * w;
-    var left = clamp(x - sw / 2, -8, w - sw + 8);
-    scope.style.setProperty('--sx', left.toFixed(1) + 'px');
-    scope.style.setProperty('--nx', (x - left).toFixed(1) + 'px');
-  }
+  var hoverP = -1, lastY = window.scrollY, lastT = performance.now(), speed = 0;
 
   function onScroll() {
     setNavState();
@@ -563,12 +541,9 @@
       mode = '▶ PLAY';
       if (a > 420) mode = (speed > 0 ? '▶▶ ' : '◀◀ ') + (a > 3200 ? '8×' : a > 1500 ? '4×' : '2×');
       else if (speed < -60) mode = '◀ REW';
-      if (hoverP < 0) showScope(p, mode);
       updateDrawer(p);
-
-      dvr.classList.add('is-live');
       clearTimeout(liveT);
-      liveT = setTimeout(function () { dvr.classList.remove('is-live'); speed = 0; mode = '▶ PLAY'; if (dMode) dMode.textContent = mode; }, 1100);
+      liveT = setTimeout(function () { speed = 0; mode = '▶ PLAY'; if (dMode) dMode.textContent = mode; }, 1100);
     }
   }
 
@@ -603,7 +578,6 @@
       if (e.pointerType !== 'mouse' || inDrawer(e)) return;
       hoverP = pAt(e.clientX);
       ghostAt(hoverP);
-      showScope(hoverP, 'PREVIEW');
       highlight(chapterAt(hoverP));
       openDrawer();
     });
